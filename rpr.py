@@ -12,6 +12,8 @@ import pandas as pd
 import plotly.express as px
 import numpy as np
 
+CURRENT_THEME = "light"
+
 hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}
