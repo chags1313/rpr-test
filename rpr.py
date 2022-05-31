@@ -124,7 +124,7 @@ if pages == 'Analytics':
         st.plotly_chart(avg_plt)
         
         st.header("Shear Rate by Pressure")      
-        shearfig = px.bar(fir_curve1, y='shear', x='Amplitude - Normalized Pressure Data',color_discrete_sequence=["black"])
+        shearfig = px.scatter(fir_curve1, y='shear', x='Amplitude - Normalized Pressure Data',color_discrete_sequence=["black"])
         st.plotly_chart(shearfig)
 
         st.header("Shear Rate by Relative Resistance to Flow")      
