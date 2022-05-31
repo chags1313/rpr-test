@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 Created on Thu May 19 15:15:40 2022
 
@@ -6,10 +7,10 @@ Created on Thu May 19 15:15:40 2022
 """
 
 import streamlit as st
-#import StringIO
 from io import StringIO
 import pandas as pd
 import plotly.express as px
+import numpy as np
 
 hide_streamlit_style = """
             <style>
@@ -89,26 +90,57 @@ if pages == 'Analytics':
         wad['curves'] = wad['First Curve'] + wad['Second Curve']
         wad['curves'] = wad['curves'].replace(0, "No Identified Curve")
         wad['curves'] = wad['curves'].replace(1, "Curve Used For Analysis")
-        avg_curve = (fir_curve + sec_curve[:len(fir_curve)].abs()) / 2
+        avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
+        cur = pd.DataFrame()
+        cur['First Curve'] = fir_curve.reset_index(drop=True)
+        cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
+        cur["Averaged Curve"] = avg_curve
+        cur['Time'] = cur.index / 1000
+        df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve'])
+        water = [1.11,1.064,1.041,0.991,0.965,0.908,0.875,0.815,0.746,0.705,0.621,0.577,0.465,0.399,0.248,0.133,0.0,0.0,0.0]
+        bld = list()
+        num = list()
+        shr = list()
+        for numbers in reversed(np.arange(0.5, 10.0, 0.5)):
+            bld.append(len(cur[cur['Averaged Curve'] < numbers]) / 1000)
+            num.append(numbers)
+        for numbers in reversed(np.arange(0.5, 10.0, 0.5)):
+            z = fir_curve1[fir_curve1['Amplitude - Normalized Pressure Data'] < numbers]
+            shr.append((z['shear'].max()))
+        rrf = pd.DataFrame({'control': water, 'sample': bld})
+        rrf['Relative Resistance to Flow'] = 'na'
+        rrf['mmHg'] = num
+        rrf['Shear Rate'] = shr
+        for i in range(len(rrf)):
+            rrf['Relative Resistance to Flow'].iloc[i] = rrf['sample'].iloc[i] / rrf['control'].iloc[i]
      
         st.header("Test Results - Curves Selected for Analysis")
         fig =  px.scatter(wad, y='Amplitude - Normalized Pressure Data',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
         st.plotly_chart(fig)
 
-        st.header("Shear Rate by Pressure")      
-        shearfig = px.scatter(fir_curve1, y='shear', x='Amplitude - Normalized Pressure Data',color_discrete_sequence=["black"])
-        st.plotly_chart(shearfig)
+
         st.header('Averaged Curve Data')
+        avg_plt = px.line(df_melt, x= 'Time',y = "value", color = 'variable', color_discrete_sequence=['red', 'red', "black"])
+        st.plotly_chart(avg_plt)
+        
+        st.header("Shear Rate by Pressure")      
+        shearfig = px.bar(fir_curve1, y='shear', x='Amplitude - Normalized Pressure Data',color_discrete_sequence=["black"])
+        st.plotly_chart(shearfig)
+
+        st.header("Shear Rate by Relative Resistance to Flow")      
+        shears = px.scatter(rrf, y='Shear Rate', x='Relative Resistance to Flow',color_discrete_sequence=["black"])
+        st.plotly_chart(shears)
+        
         with st.expander("Data"):
-            st.dataframe(fir_curve1)
+            st.dataframe(rrf)
         @st.cache
         def convert_df(df):
          # IMPORTANT: Cache the conversion to prevent computation on every rerun
              return df.to_csv().encode('utf-8')
 
-        csv = convert_df(fir_curve1)
+        csv = convert_df(rrf)
 
-        st.sidebar.download_button(
+        st.download_button(
              label="Download data as CSV",
              data=csv,
              file_name='Results.csv',
