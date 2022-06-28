@@ -1,6 +1,6 @@
 streamlit
+matplotlib
 pandas
 plotly
 numpy
 statsmodels
-matplotlib
