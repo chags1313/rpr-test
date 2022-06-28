@@ -15,6 +15,7 @@ import numpy as np
 
 
 st.set_page_config(layout="wide")
+pd.set_option('max_colwidth', 400)
 
 hide_streamlit_style = """
             <style>
