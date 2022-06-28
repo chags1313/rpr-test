@@ -188,7 +188,7 @@ if pages == 'Analytics':
             st.plotly_chart(shears1)
         xx1, xx2 = st.columns(2)
         with xx1:
-            st.dataframe(rrf[['Shear Rate','Relative Resistance to Flow', 'mmHg range']].style.background_gradient(cmap='Greens', subset=['Shear Rate','Relative Resistance to Flow']).set_properties(subset=['Shear Rate','Relative Resistance to Flow', 'mmHg range'], **{'width': '550px'}), height=500)
+            st.dataframe(rrf[['Shear Rate','Relative Resistance to Flow', 'mmHg range']].style.background_gradient(cmap='Greens', subset=['Shear Rate','Relative Resistance to Flow']).set_properties(subset=['Shear Rate','Relative Resistance to Flow', 'mmHg range'], **{'width': '800px'}), height=575)
 
         @st.cache
         def convert_df(df):
