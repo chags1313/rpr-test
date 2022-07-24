@@ -1,27 +1,3 @@
-# -*- coding: utf-8 -*-
-# -*- coding: utf-8 -*-
-"""
-Created on Thu May 19 15:15:40 2022
-
-@author: chags
-"""
-
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Jul 23 21:39:13 2022
-
-@author: chags
-"""
-
-# -*- coding: utf-8 -*-
-# -*- coding: utf-8 -*-
-"""
-Created on Thu May 19 15:15:40 2022
-
-@author: chags
-"""
-
 
 import streamlit as st
 from io import StringIO
