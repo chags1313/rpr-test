@@ -21,24 +21,17 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 #st.title("RPR Analysis")
 st.sidebar.title("Rapid Profile Rheometer 🩸")
 
-
-st.write("### Code")
 uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", accept_multiple_files=True)
-filen = 50
 if uploaded_file is not None:
-            filen = + 1
             # To read file as bytes:
             for file in uploaded_file:
-            #st.write(bytes_data)
 
-             # To convert to a string based IO:
-                 data = StringIO.BytesIO(file.getbuffer())
-
-                 dataframe = pd.read_csv(data)
+                 dataframe = pd.read_csv(uploaded_file)
+                 file.seek(0)
             dataframe['Date and Time of Test'] = str(dataframe['Datetime'].iloc[0])
             st.write(dataframe)
-            com = dataframe
-            #com = pd.concat([dataframe, com], axis=0, join='inner')
+
+            com = pd.concat([dataframe, com], axis=0, join='inner')
             rrfdate = px.box(com, x= 'Datetime', y = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
             st.plotly_chart(rrfdate)
             sheardate = px.box(com, x= 'Datetime', y = 'Shear Rate', color_discrete_sequence=['green'])
