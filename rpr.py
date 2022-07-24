@@ -48,7 +48,8 @@ if uploaded_file is not None:
      # Can be used wherever a "file-like" object is accepted:
             dataframe = pd.read_csv(uploaded_file)
             dataframe['Date and Time of Test'] = str(dataframe['Datetime'].iloc[0])
-            if filen > 0:
+            st.write(dataframe)
+            if filen > 1:
                         com = pd.concat([dataframe, com], axis=0, join='inner')
                         rrfdate = px.box(com, x= 'Datetime', y = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
                         st.plotly_chart(rrfdate)
