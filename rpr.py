@@ -20,17 +20,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 #st.title("RPR Analysis")
 st.sidebar.title("Rapid Profile Rheometer 🩸")
-filen = 0
-com = pd.DataFrame()
-multiple_files = st.file_uploader(
-    "Multiple File Uploader",
-    accept_multiple_files=True
-)
-for file in multiple_files:
-    file_container = st.beta_expander(
-        f"File name: {file.name} ({file.size})")
-    data = StringIO.BytesIO(file.getbuffer())
-    file_container.write(pd.read_csv(data))
+
 
 st.write("### Code")
 uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", accept_multiple_files=True)
