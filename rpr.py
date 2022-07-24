@@ -30,7 +30,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 st.sidebar.title("Rapid Profile Rheometer 🩸")
 filen = 0
 com = pd.DataFrame()
-uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File")
+uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", accept_multiple_files=True)
 if uploaded_file is not None:
             filen = + 1
             # To read file as bytes:
