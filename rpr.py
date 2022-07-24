@@ -21,7 +21,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 #st.title("RPR Analysis")
 st.sidebar.title("Rapid Profile Rheometer 🩸")
 
-uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", accept_multiple_files=True)
+uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv", accept_multiple_files=True)
 if uploaded_file is not None:
             # To read file as bytes:
             for file in uploaded_file:
