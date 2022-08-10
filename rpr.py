@@ -274,7 +274,7 @@ with tab3:
                 # To read file as bytes:
                 for file in uploaded_file1:
                      dataframe = pd.read_csv(file)
-                     dataframe['Date and Time of Test'] = str(uploaded_file1.name)
+                     dataframe['Date and Time of Test'] = str(file.name)
                      file.seek(0)
                      com1 = pd.concat([com1, dataframe])
     
