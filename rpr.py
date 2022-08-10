@@ -278,7 +278,7 @@ with tab3:
                      file.seek(0)
                      com1 = pd.concat([com1, dataframe])
     
-                rrfdate = px.box(com1, x= 'Analysis File', y = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
+                rrfdate = px.box(com1, x= 'Analyitics File', y = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
                 #rrfdate.update_layout()
                 rrfdate.update_xaxes(type='category')
                 rrfdate.update_layout(width=1200)
