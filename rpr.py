@@ -208,7 +208,7 @@ with tab2:
             displayModeBar = False))
              
              
-        shears1 = px.scatter(rrf,x = 'mmHg',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'])
+        shears1 = px.scatter(rrf,x = 'mmHg range',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'])
         shears1.update_layout(yaxis_title="Time of Flow in Seconds")
         with e2:
             st.plotly_chart(shears1, config= dict(
