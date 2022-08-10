@@ -181,10 +181,10 @@ with tab2:
         with c3:
             st.text("100 -s Shear Rate RRF")
             st.info(str((len(cur[cur['Shear Rate'] < 100]) / 1000)) + " seconds") 
-        with c2:
+        with c1:
             st.text("10 -s Shear Rate RRF")
             st.info(str((len(cur[cur['Shear Rate'] < 5]) / 1000)) + " seconds")
-        with c1:
+        with c2:
             st.text("Mean RRF")
             meann = rrf['Relative Resistance to Flow'].median()
             st.success(str(round(meann, 2)))
@@ -274,24 +274,24 @@ with tab3:
                 # To read file as bytes:
                 for file in uploaded_file1:
                      dataframe = pd.read_csv(file)
-                     dataframe['Date and Time of Test'] = str(file.name)
+                     dataframe['Analyitics File'] = str(file.name)
                      file.seek(0)
                      com1 = pd.concat([com1, dataframe])
     
-                rrfdate = px.box(com1, x= 'Date and Time of Test', y = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
+                rrfdate = px.box(com1, x= 'Analysis File', y = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
                 #rrfdate.update_layout()
                 rrfdate.update_xaxes(type='category')
                 rrfdate.update_layout(width=1200)
                 st.plotly_chart(rrfdate,config= dict(
                 displayModeBar = False))
-                sheardate = px.box(com1, x= 'Date and Time of Test', y = 'Shear Rate', color_discrete_sequence=['green'])
+                sheardate = px.box(com1, x= 'Analyitics File', y = 'Shear Rate', color_discrete_sequence=['green'])
                 #sheardate.update_layout()
                 sheardate.update_xaxes(type='category')
                 sheardate.update_layout(width=1200)
                 st.plotly_chart(sheardate,config= dict(
                 displayModeBar = False))
                 com1['Flow Time in Seconds'] = com1['Blood Sample']
-                comp = px.scatter(com1, x='mmHg range', y = 'Flow Time in Seconds', color = 'Date and Time of Test', color_continuous_scale=px.colors.sequential)
+                comp = px.scatter(com1, x='mmHg range', y = 'Flow Time in Seconds', color = 'Analyitics File', color_continuous_scale=px.colors.sequential)
                 comp.update_layout(width = 1200)
                 st.plotly_chart(comp,config= dict(
                 displayModeBar = False))
