@@ -182,10 +182,16 @@ with tab2:
         c1, c2, c3 = st.columns(3)
         with c3:
             st.text("100 -s Shear Rate RRF")
-            st.info(str((len(cur[cur['Shear Rate'] < 100]) / 1000)) + " seconds") 
+            x = cur[cur['Shear Rate'] < 100]
+            x1 = x['Relative Resistance to Flow'].max()
+            x1 = round(x1, 2)
+            st.info(str(x1) + " rrf") 
         with c1:
             st.text("10 -s Shear Rate RRF")
-            st.info(str((len(cur[cur['Shear Rate'] < 5]) / 1000)) + " seconds")
+            y = cur[cur['Shear Rate'] < 10]
+            y1 = y['Relative Resistance to Flow'].max()
+            y1 = round(y1, 2)
+            st.info(str(y1) + " rrf")
         with c2:
             st.text("Mean RRF")
             meann = rrf['Relative Resistance to Flow'].median()
