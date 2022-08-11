@@ -22,6 +22,8 @@ com1['Flow Time in Seconds'] = 'na'
 com1['mmHg range'] = 'na'
 com1['Blood Sample'] = 'na'
 com1['Date and Time of Test'] = 'na'
+com1['Analyitics File'] = 'na'
+
 
 dataframe = pd.DataFrame()
 #samplesAvailable = None
