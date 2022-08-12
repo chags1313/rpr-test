@@ -1,6 +1,13 @@
 
 
 
+# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+"""
+Created on Thu May 19 15:15:40 2022
+@author: chags
+"""
+
 import streamlit as st
 from io import StringIO
 import pandas as pd
@@ -8,7 +15,8 @@ import plotly.express as px
 import numpy as np
 import base64
 
-
+def get_r2_numpy_corrcoef(x, y):
+    return np.corrcoef(x, y)[0, 1]**2
 
 
 filen = 0
@@ -26,7 +34,6 @@ com1['Analyitics File'] = 'na'
 
 
 dataframe = pd.DataFrame()
-#samplesAvailable = None
 
 st.set_page_config(layout="wide")
 
@@ -57,7 +64,10 @@ with tab1:
         st.markdown("2. Pull up plunger.. wait for the fluid to settle in tube")
         st.markdown("3. Push down plunger.. wait for the fluid to settle in tube")
         st.markdown("4. Once fluid settles, click stop test")
-        st.markdown("5. Navigate to the analytics tab to view results")
+        st.markdown("5. Navigate to the results tab to view results")
+        st.markdown("6. Click export data button")
+        st.markdown("7. Save exported data as a .csv file")
+        st.markdown("8. Upload data on the analytics tab of the rpr web application")
     with st.expander("How to Intepret Analaytics"):
         st.markdown("- Relative resistance to flow represents the relative difference between the fluid of interest and water controls")
         st.markdown("- Shear rate flow time represents the amount of time the fluid takes to flow from a given shear rate")
@@ -80,7 +90,7 @@ with tab2:
         
         fv = dataframe['Amplitude - Normalized Pressure Data'].iloc[1]
         dataframe = dataframe - fv
-        dataframe['Seconds'] = dataframe.index / 1000
+        dataframe['Seconds'] = dataframe.index / 100
         wad = dataframe
         #wad['Amplitude - Normalized Pressure Data'] = wad[0]
         wadmax = wad['Amplitude - Normalized Pressure Data'].idxmax()
@@ -98,7 +108,7 @@ with tab2:
         last = fir_curve.iloc[-1]
         curve =  first - last
         maximum = fir_curve.max()
-        time = len(fir_curve) / 1000
+        time = len(fir_curve) / 100
         Q = ((((0.6 * curve) / 20 / time)) * (1*10**-6))
 
 
@@ -127,7 +137,7 @@ with tab2:
         cur['First Curve'] = fir_curve.reset_index(drop=True)
         cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
         cur["Averaged Curve"] = avg_curve
-        cur['Time'] = cur.index / 1000
+        cur['Time'] = cur.index / 100
         cur['Shear Rate'] = avg_curve1['shear']
         cur['Flow'] = avg_curve1['flow']
         df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve'])
@@ -162,7 +172,7 @@ with tab2:
             #bld.append(len(cur[cur['Averaged Curve'] < numbers]) / 1000)
             u = cur[cur['Averaged Curve'] < numbers]
             z = cur[cur['Averaged Curve'] < numbers - 0.5]
-            bld.append((len(u) - len(z))/ 1000) 
+            bld.append((len(u) - len(z))/ 100) 
             num.append(numbers)
         for numbers in reversed(np.arange(0.5, 10.5, 0.5)):
             z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
@@ -182,20 +192,22 @@ with tab2:
         c1, c2, c3 = st.columns(3)
         with c3:
             st.text("100 -s Shear Rate RRF")
-            x = cur[cur['Shear Rate'] < 100]
-            x1 = x['Relative Resistance to Flow'].max()
+            x = rrf[rrf['Shear Rate'] < 100]
+            x1 = x['Relative Resistance to Flow'].head(5).mean()
             x1 = round(x1, 2)
-            st.info(str(x1) + " rrf") 
-        with c1:
-            st.text("10 -s Shear Rate RRF")
-            y = cur[cur['Shear Rate'] < 10]
-            y1 = y['Relative Resistance to Flow'].max()
-            y1 = round(y1, 2)
-            st.info(str(y1) + " rrf")
+            st.success(str(x1)) 
         with c2:
-            st.text("Mean RRF")
-            meann = rrf['Relative Resistance to Flow'].median()
-            st.success(str(round(meann, 2)))
+            st.text("10 -s Shear Rate RRF")
+            y = rrf[rrf['Shear Rate'] < 10]
+            y1 = y['Relative Resistance to Flow'].head(5).mean()
+            y1 = round(y1, 2)
+            st.warning(str(y1))
+        with c1:
+            st.text("1 -s Shear Rate RRF")
+            z = rrf[rrf['Shear Rate'] < 1]
+            z1 = z['Relative Resistance to Flow'].head(5).mean()
+            z1 = round(z1, 2)
+            st.error(str(z1))
             
         e1, e2 = st.columns(2)
      
@@ -211,21 +223,18 @@ with tab2:
         avg_plt = px.line(cur, x= 'Time',y = "Average curve mmHg", color_discrete_sequence=['black'])
         
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess")
+        #shears.update_layout(width=500)
         with e1:
             st.plotly_chart(shears, config= dict(
             displayModeBar = False))
              
              
         shears1 = px.scatter(rrf,x = 'mmHg range',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'])
-        shears1.update_layout(yaxis_title="Time of Flow in Seconds")
+        shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False)
         with e2:
             st.plotly_chart(shears1, config= dict(
             displayModeBar = False))
-        #xx1, xx2 = st.columns(2)
-     
-        #with xx1:
-            #st.dataframe(rrf[['Shear Rate','Relative Resistance to Flow', 'mmHg range']].dropna().style.background_gradient(cmap='Greens', subset=['Shear Rate','Relative Resistance to Flow']), height=1000)
-            #aggrid_interactive_table(df=rrf[['Shear Rate','Relative Resistance to Flow', 'mmHg range']])
+
 
         @st.cache
         def convert_df(df):
@@ -253,21 +262,30 @@ with tab2:
             
 
         uu1, uu2 = st.columns(2)
-        with uu2:
-            with st.expander("Original Data"):
-                fig.update_layout(width=580)
-                st.plotly_chart(fig)
+
         with uu1:
             with st.expander("Averaged Curve Sliced Data"):
-                avg_plt.update_layout(width=580)
-                st.plotly_chart(avg_plt)
-        st.text("Save All Data")
+                rsq = get_r2_numpy_corrcoef(x=cur['First Curve'], y=cur['Second Curve'])
+                rsq = round(rsq, 2)
+                st.info('R Squared: ' + str(rsq))
+                avg_plt.update_layout(width=480, showlegend=False)
+                st.plotly_chart(avg_plt, config= dict(
+            displayModeBar = False))
         st.download_button(
-         label="Download data as CSV",
+         label="Download Processed Data",
          data=csv,
          file_name='Results.csv',
          mime='text/csv',
          )
+        with uu2:
+            with st.expander("Original Data"):
+                if rsq > 0.8:
+                    st.success("Valid Test")
+                else:
+                    st.error("Invalid Test - Try Running Test Again")
+                fig.update_layout(width=480,showlegend=False)
+                st.plotly_chart(fig, config= dict(
+            displayModeBar = False))
 
         def create_download_link(val, filename):
             b64 = base64.b64encode(val)  # val looks like b'...'
@@ -303,4 +321,3 @@ with tab3:
                 comp.update_layout(width = 1200)
                 st.plotly_chart(comp,config= dict(
                 displayModeBar = False))
-                        
