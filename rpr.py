@@ -90,7 +90,7 @@ with tab2:
         
         fv = dataframe['Amplitude - Normalized Pressure Data'].iloc[1]
         dataframe = dataframe - fv
-        dataframe['Seconds'] = dataframe.index / 100
+        dataframe['Seconds'] = dataframe.index / 1000
         wad = dataframe
         #wad['Amplitude - Normalized Pressure Data'] = wad[0]
         wadmax = wad['Amplitude - Normalized Pressure Data'].idxmax()
@@ -108,7 +108,7 @@ with tab2:
         last = fir_curve.iloc[-1]
         curve =  first - last
         maximum = fir_curve.max()
-        time = len(fir_curve) / 100
+        time = len(fir_curve) / 1000
         Q = ((((0.6 * curve) / 20 / time)) * (1*10**-6))
 
 
@@ -137,7 +137,7 @@ with tab2:
         cur['First Curve'] = fir_curve.reset_index(drop=True)
         cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
         cur["Averaged Curve"] = avg_curve
-        cur['Time'] = cur.index / 100
+        cur['Time'] = cur.index / 1000
         cur['Shear Rate'] = avg_curve1['shear']
         cur['Flow'] = avg_curve1['flow']
         df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve'])
@@ -172,7 +172,7 @@ with tab2:
             #bld.append(len(cur[cur['Averaged Curve'] < numbers]) / 1000)
             u = cur[cur['Averaged Curve'] < numbers]
             z = cur[cur['Averaged Curve'] < numbers - 0.5]
-            bld.append((len(u) - len(z))/ 100) 
+            bld.append((len(u) - len(z))/ 1000) 
             num.append(numbers)
         for numbers in reversed(np.arange(0.5, 10.5, 0.5)):
             z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
@@ -263,7 +263,7 @@ with tab2:
 
         uu1, uu2 = st.columns(2)
 
-        with uu1:
+        with uu2:
             with st.expander("Averaged Curve Sliced Data"):
                 rsq = get_r2_numpy_corrcoef(x=cur['First Curve'], y=cur['Second Curve'])
                 rsq = round(rsq, 2)
@@ -277,7 +277,7 @@ with tab2:
          file_name='Results.csv',
          mime='text/csv',
          )
-        with uu2:
+        with uu1:
             with st.expander("Original Data"):
                 if rsq > 0.8:
                     st.success("Valid Test")
