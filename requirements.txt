@@ -2,6 +2,6 @@ streamlit
 matplotlib
 pandas
 plotly
+pycaret
 numpy
 statsmodels
-pycaret
