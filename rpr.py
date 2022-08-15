@@ -14,9 +14,44 @@ import pandas as pd
 import plotly.express as px
 import numpy as np
 import base64
+import itertools
+from pycaret.regression import setup
+from pycaret.regression import create_model
+from pycaret.regression import predict_model
 
 def get_r2_numpy_corrcoef(x, y):
     return np.corrcoef(x, y)[0, 1]**2
+def regression_model(data, target):
+    dset = setup(data, target=target, silent=True)
+    reg_model = create_model('et')
+    predictions = predict_model(reg_model, data = data)
+    return predictions, reg_model
+
+HEADER_COLOR_CYCLE = itertools.cycle(
+    [
+        "#00c0f2",  # light-blue-70",
+        "#ffbd45",  # "orange-70",
+        "#00d4b1",  # "blue-green-70",
+        "#1c83e1",  # "blue-70",
+        "#803df5",  # "violet-70",
+        "#ff4b4b",  # "red-70",
+        "#21c354",  # "green-70",
+        "#faca2b",  # "yellow-80",
+    ]
+)
+    
+def colored_header(label, description=None, color=None):
+    """Shows a header with a colored underline and an optional description."""
+    st.write("")
+    if color is None:
+        color = next(HEADER_COLOR_CYCLE)
+    st.subheader(label)
+    st.write(
+        f'<hr style="background-color: {color}; margin-top: 0; margin-bottom: 0; height: 3px; border: none; border-radius: 3px;">',
+        unsafe_allow_html=True,
+    )
+    if description:
+        st.caption(description)
 
 
 filen = 0
@@ -188,7 +223,7 @@ with tab2:
             high = rrf['mmHg'].iloc[i]
             low = rrf['mmHg'].iloc[i] - 0.5
             rrf['mmHg range'].iloc[i] = str(high) + " to " + str(low)
-       
+       colored_header("Processed Test Data")
         c1, c2, c3 = st.columns(3)
         with c3:
             st.text("100 -s Shear Rate RRF")
@@ -290,6 +325,35 @@ with tab2:
         def create_download_link(val, filename):
             b64 = base64.b64encode(val)  # val looks like b'...'
             return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}.pdf">Download file</a>'
+        
+        ##Running regression model predictions on data
+        pred, model = regression_model(data=rrf[['Shear Rate', 'Relative Resistance to Flow']], target = 'Relative Resistance to Flow')
+        r1 = pd.DataFrame()
+        r1['Shear Rate'] = np.arange(1,201)
+        r2 = predict_model(model, data = r1)
+        
+        colored_header("Shear Rate by Relative Resistance to Flow Regression Model")
+        pred_ch = px.line(r2, y='Label', x='Shear Rate', color_discrete_sequence=['purple'])
+        pred_ch.update_layout(width=1000, showlegend=False)
+        st.plotly_chart(pred_ch, config= dict(
+            displayModeBar = False))
+        
+        rrf100s = r2[r2['Shear Rate'] == 100]
+        rrf100s = round(rrf100s['Label'].iloc[0], 2)
+        cc1, cc2, cc3 = st.columns(3)
+        with cc3:
+            st.text("100-s RRF Prediction")
+            rrf_100s = st.success(str(rrf100s)) 
+        rrf10s = r2[r2['Shear Rate'] == 10]
+        rrf10s = round(rrf10s['Label'].iloc[0], 2)
+        with cc2:
+            st.text("10-s RRF Prediction")
+            rrf_10s = st.warning(str(rrf10s))
+        rrf1s = r2[r2['Shear Rate'] == 1]
+        rrf1s = round(rrf1s['Label'].iloc[0], 2)
+        with cc1:
+            st.text("1-s RRF Prediction")
+            rrf_1s = st.error(str(rrf1s))
 
 with tab3:  
 
