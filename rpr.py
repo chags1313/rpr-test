@@ -70,7 +70,7 @@ com1['Analyitics File'] = 'na'
 
 dataframe = pd.DataFrame()
 
-st.set_page_config(layout="wide"
+st.set_page_config(layout="wide",
         page_title="Biofluid RPR",
         page_icon="chart_with_upwards_trend")
 
