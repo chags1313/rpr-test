@@ -303,7 +303,7 @@ with tab2:
         with uu2:
             with st.expander("Averaged Curve Sliced Data"):
                 rsq = get_r2_numpy_corrcoef(x=cur['First Curve'], y=cur['Second Curve'])
-                rsq = round(rsq, 2)
+                rsq = round(rsq, 3)
                 st.info('R Squared: ' + str(rsq))
                 avg_plt.update_layout(width=480, showlegend=False)
                 st.plotly_chart(avg_plt, config= dict(
