@@ -228,7 +228,7 @@ with tab2:
         colored_header("Processed Test Data")
         c1, c2, c3, c4 = st.columns(4)
         with c4:
-            st.text("100 -s Shear Rate RRF")
+            st.text("200 -s Shear Rate RRF")
             o = rrf[rrf['Shear Rate'] > 200]
             o1 = o['Relative Resistance to Flow'].head(5).mean()
             o1 = round(o1, 2)
