@@ -240,8 +240,8 @@ with tab2:
             y1 = round(y1, 2)
             st.warning(str(y1))
         with c1:
-            st.text("1 -s Shear Rate RRF")
-            z = rrf[rrf['Shear Rate'] < 1]
+            st.text("5 -s Shear Rate RRF")
+            z = rrf[rrf['Shear Rate'] < 5]
             z1 = z['Relative Resistance to Flow'].head(5).mean()
             z1 = round(z1, 2)
             st.error(str(z1))
