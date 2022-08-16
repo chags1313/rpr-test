@@ -316,7 +316,7 @@ with tab2:
          )
         with uu1:
             with st.expander("Original Data"):
-                if rsq > 0.8:
+                if rsq > 0.9:
                     st.success("Valid Test")
                 else:
                     st.error("Invalid Test - Try Running Test Again")
