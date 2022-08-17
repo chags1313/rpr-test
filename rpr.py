@@ -261,6 +261,8 @@ with tab2:
         cur['flow'] = cur['Flow'].rolling(window= 1000).mean().diff()
         cur['shear rate'] = cur['Shear Rate'].rolling(window=1000).mean()
         cur['Average curve mmHg'] = cur['Averaged Curve'].rolling(window=100).mean()
+        lastcur = cur['Average curve mmHg'].tail(1)
+        cur['Average curve mmHg'] =cur['Average curve mmHg'] - lastcur
         #cur[(np.abs(stats.zscore(cur["Shear Rate"])) < 2)]
         
         avg_plt = px.line(cur, x= 'Time',y = "Average curve mmHg", color_discrete_sequence=['black'])
