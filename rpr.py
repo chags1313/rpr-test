@@ -132,7 +132,7 @@ with tab2:
         #wad['Amplitude - Normalized Pressure Data'] = wad[0]
         wadmax = wad['Amplitude - Normalized Pressure Data'].idxmax()
         wadmin = wad['Amplitude - Normalized Pressure Data'].idxmin()
-        fir_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmax:wadmin-200]
+        fir_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmax:wadmin-300]
         sec_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmin:]
         avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
         avg_curve1 = pd.DataFrame()
