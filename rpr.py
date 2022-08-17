@@ -147,8 +147,8 @@ with tab2:
         maximum = fir_curve.max()
         time = len(fir_curve) / 1000
         Q = ((((0.6 * curve) / 20 / time)) * (1*10**-6))
-
-
+        lastpav = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
+        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - lastpav
         shear = 4*(Q/(pi*(R**3)))
         fir_curve1 = pd.DataFrame(fir_curve)
         avg_curve1['shear'] = 'na'
