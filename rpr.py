@@ -268,7 +268,7 @@ with tab2:
         avg_plt = px.line(cur, x= 'Time',y = "Average curve mmHg", color_discrete_sequence=['black'])
         
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess")
-        shears1.update_yaxes(range=(0,100))
+        shears.update_yaxes(range=(0,100))
         #shears.update_layout(width=500)
         with e1:
             st.plotly_chart(shears, config= dict(
