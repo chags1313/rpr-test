@@ -300,7 +300,7 @@ with tab2:
 
 
 with tab3:
-        if rrf is not None:
+    if uploaded_file is not None:
             ##Running regression model predictions on data
             pred, model = regression_model(data=rrf[['Shear Rate', 'Relative Resistance to Flow']], target = 'Relative Resistance to Flow')
             r1 = pd.DataFrame()
