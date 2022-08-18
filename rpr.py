@@ -348,7 +348,7 @@ with tab3:
             dfcol1, dfcol2 = st.columns(2)
             with dfcol1:
                 st.download_button(
-                    label="Download Processed Data",
+                    label="Download Processed Shear Rate and RRF",
                     data=csv,
                     file_name='Results.csv',
                     mime='text/csv',
@@ -356,7 +356,7 @@ with tab3:
                 st.dataframe(rrf)
             with dfcol2:
                 st.download_button(
-                    label="Download Processed Data",
+                    label="Download Processed Curves",
                     data=csv2,
                     file_name='Results.csv',
                     mime='text/csv',
