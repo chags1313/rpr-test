@@ -15,17 +15,15 @@ import plotly.express as px
 import numpy as np
 import base64
 import itertools
-#from pycaret.regression import setup
-#from pycaret.regression import create_model
-#from pycaret.regression import predict_model
+from pycaret.regression import setup, create_model, predict_model
 
 def get_r2_numpy_corrcoef(x, y):
     return np.corrcoef(x, y)[0, 1]**2
-#def regression_model(data, target):
- #   dset = setup(data, target=target, silent=True)
-  #  reg_model = create_model('et')
-   # predictions = predict_model(reg_model, data = data)
-    #return predictions, reg_model
+def regression_model(data, target):
+    dset = setup(data, target=target, silent=True)
+    reg_model = create_model('et')
+    predictions = predict_model(reg_model, data = data)
+    return predictions, reg_model
 
 HEADER_COLOR_CYCLE = itertools.cycle(
     [
@@ -340,33 +338,42 @@ with tab2:
             return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}.pdf">Download file</a>'
         
         ##Running regression model predictions on data
-       # pred, model = regression_model(data=rrf[['Shear Rate', 'Relative Resistance to Flow']], target = 'Relative Resistance to Flow')
-        #r1 = pd.DataFrame()
-        #r1['Shear Rate'] = np.arange(1,201)
-        #r2 = predict_model(model, data = r1)
+        pred, model = regression_model(data=rrf[['Shear Rate', 'Relative Resistance to Flow']], target = 'Relative Resistance to Flow')
+        r1 = pd.DataFrame()
+        r1['Shear Rate'] = np.arange(1,201)
+        r2 = predict_model(model, data = r1)
         
-       # colored_header("Shear Rate by Relative Resistance to Flow Regression Model")
-       # pred_ch = px.line(r2, y='Label', x='Shear Rate', color_discrete_sequence=['purple'])
-       # pred_ch.update_layout(width=1000, showlegend=False)
-       # st.plotly_chart(pred_ch, config= dict(
-        #    displayModeBar = False))
+        colored_header("Shear Rate by Relative Resistance to Flow Regression Model")
+        pred_ch = px.line(r2, y='Label', x='Shear Rate', color_discrete_sequence=['purple'])
+        pred_ch.update_layout(width=1000, showlegend=False)
+        st.plotly_chart(pred_ch, config= dict(
+            displayModeBar = False))
         
-        #rrf100s = r2[r2['Shear Rate'] == 100]
-        #rrf100s = round(rrf100s['Label'].iloc[0], 2)
-        #cc1, cc2, cc3 = st.columns(3)
-        #with cc3:
-         #   st.text("100-s RRF Prediction")
-          #  rrf_100s = st.success(str(rrf100s)) 
-        #rrf10s = r2[r2['Shear Rate'] == 10]
-        #rrf10s = round(rrf10s['Label'].iloc[0], 2)
-        #with cc2:
-         #   st.text("10-s RRF Prediction")
-          #  rrf_10s = st.warning(str(rrf10s))
-        #rrf1s = r2[r2['Shear Rate'] == 1]
-        #rrf1s = round(rrf1s['Label'].iloc[0], 2)
-        #with cc1:
-         #   st.text("1-s RRF Prediction")
-          #  rrf_1s = st.error(str(rrf1s))
+        rrf200s = r2[r2['Shear Rate'] == 100]
+        rrf200s = round(rrf200s['Label'].iloc[0], 2)      
+        rrf100s = r2[r2['Shear Rate'] == 100]
+        rrf100s = round(rrf100s['Label'].iloc[0], 2)
+        rrf10s = r2[r2['Shear Rate'] == 10]
+        rrf10s = round(rrf10s['Label'].iloc[0], 2)
+        rrf1s = r2[r2['Shear Rate'] == 1]
+        rrf1s = round(rrf1s['Label'].iloc[0], 2)
+        cc1, cc2, cc3, cc4 = st.columns(4)
+        with cc4:
+            st.text("200-s RRF Prediction")
+            rrf_200s = st.info(str(rrf200s)) 
+        with cc3:
+            st.text("100-s RRF Prediction")
+            rrf_100s = st.success(str(rrf100s)) 
+        rrf10s = r2[r2['Shear Rate'] == 10]
+        rrf10s = round(rrf10s['Label'].iloc[0], 2)
+        with cc2:
+            st.text("10-s RRF Prediction")
+            rrf_10s = st.warning(str(rrf10s))
+        rrf1s = r2[r2['Shear Rate'] == 1]
+        rrf1s = round(rrf1s['Label'].iloc[0], 2)
+        with cc1:
+            st.text("1-s RRF Prediction")
+            rrf_1s = st.error(str(rrf1s))
 
 with tab3:  
 
