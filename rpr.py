@@ -371,5 +371,5 @@ with tab3:
                     #comp.update_layout(width = 1200)
                     #st.plotly_chart(comp,config= dict(
                     #displayModeBar = False))
-        else:
+    else:
             st.info("Upload data in analytics tab")
