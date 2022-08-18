@@ -262,14 +262,14 @@ with tab2:
         
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess")
         shears.update_yaxes(range=(0,100))
-        #shears.update_layout(width=500)
+        shears.update_layout(width=450)
         with e1:
             st.plotly_chart(shears, config= dict(
             displayModeBar = False))
              
              
         shears1 = px.scatter(rrf,x = 'mmHg range',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'])
-        shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False)
+        shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False, width=450)
         shears1.update_yaxes(range=(0,10))
         with e2:
             st.plotly_chart(shears1, config= dict(
@@ -340,18 +340,12 @@ with tab3:
                 st.text("1-s RRF Prediction")
                 rrf_1s = st.error(str(rrf1s))
             csv = convert_df(rrf)
-            but1, but2, but3 = st.columns(3)
-            with but1:
-                colored_header(" ", color = "#faca2b")
-            with but2:
-                st.download_button(
+            st.download_button(
                 label="Download Processed Data",
                 data=csv,
                 file_name='Results.csv',
                 mime='text/csv',
                 )
-            with but3:
-                colored_header(" ", color="#faca2b")
 
        # uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
         #if uploaded_file1 is not None:
