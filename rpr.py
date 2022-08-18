@@ -278,7 +278,7 @@ with tab2:
              
         shears1 = px.scatter(rrf,x = 'mmHg range',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'])
         shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False)
-        shears1.update_yaxes(range=(0,5))
+        shears1.update_yaxes(range=(0,10))
         with e2:
             st.plotly_chart(shears1, config= dict(
             displayModeBar = False))
