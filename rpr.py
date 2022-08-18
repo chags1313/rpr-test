@@ -287,7 +287,7 @@ with tab2:
                 st.info('R Squared: ' + str(rsq))
                 avg_plt.update_layout(width=480, showlegend=False)
                 st.plotly_chart(avg_plt, config= dict(
-            displayModeBar = False))
+            displayModeBar = False, staticPlot= True))
 
         with uu1:
             with st.expander("Original Data"):
