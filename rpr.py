@@ -138,6 +138,7 @@ with tab2:
         Q = ((((0.6 * curve) / 20 / time)) * (1*10**-6))
         lastpav = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - lastpav
+        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
         shear = 4*(Q/(pi*(R**3)))
         fir_curve1 = pd.DataFrame(fir_curve)
         avg_curve1['shear'] = 'na'
@@ -164,7 +165,7 @@ with tab2:
         cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
         cur["Averaged Curve"] = avg_curve
         cur['Time'] = cur.index / 1000
-        cur['Shear Rate'] = avg_curve1['shear']
+        cur['Shear Rate'] = avg_curve1['shear'].abs()
         cur['Flow'] = avg_curve1['flow']
         df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve'])
         water = [
@@ -210,6 +211,7 @@ with tab2:
         rrf['mmHg range'] = 'na'
         rrf['mmHg'] = num
         rrf['Shear Rate'] = shr
+        rrf['Shear Rate'] = rrf['Shear Rate'].abs()
         for i in range(len(rrf)):
             rrf['Relative Resistance to Flow'].iloc[i] = rrf['Blood Sample'].iloc[i] / rrf['Water Control'].iloc[i]
             high = rrf['mmHg'].iloc[i]
