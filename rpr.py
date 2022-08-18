@@ -17,13 +17,23 @@ import base64
 import itertools
 from pycaret.regression import setup, create_model, predict_model
 
+#st.cache
 def get_r2_numpy_corrcoef(x, y):
     return np.corrcoef(x, y)[0, 1]**2
+@st.cache
 def regression_model(data, target):
     dset = setup(data, target=target, silent=True)
     reg_model = create_model('et')
     predictions = predict_model(reg_model, data = data)
     return predictions, reg_model
+#st.cache
+def create_download_link(val, filename):
+    b64 = base64.b64encode(val)  # val looks like b'...'
+    return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}.pdf">Download file</a>'
+
+@st.cache
+def convert_df(df):
+    return df.to_csv().encode('utf-8')
 
 HEADER_COLOR_CYCLE = itertools.cycle(
     [
@@ -52,27 +62,12 @@ def colored_header(label, description=None, color=None):
         st.caption(description)
 
 
-filen = 0
-
-com = pd.DataFrame()
-com1 = pd.DataFrame()
-com1['Datetime'] = 'na'
-com1['Relative Resistance to Flow'] = 'na'
-com1['Shear Rate'] = 'na'
-com1['Flow Time in Seconds'] = 'na'
-com1['mmHg range'] = 'na'
-com1['Blood Sample'] = 'na'
-com1['Date and Time of Test'] = 'na'
-com1['Analyitics File'] = 'na'
-
-
-dataframe = pd.DataFrame()
-
+#set page config
 st.set_page_config(layout="wide",
         page_title="Biofluid RPR",
         page_icon="chart_with_upwards_trend")
 
-
+#hide streamlit menu bar
 hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -84,11 +79,9 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 
 
-#st.title("RPR Analysis")
+st.title("Biofluid Technology")
 
 tab1, tab2, tab3 = st.tabs(["🏠 Home","📈 Analytics", "🗃 Compare"])
-
-
 
 with tab1:  
     st.title("Rapid Profile Rheometer 🩸")
@@ -112,8 +105,6 @@ with tab1:
             st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
     
             
-
-
 with tab2:
     uploaded_file = st.file_uploader("Upload Your RPR Test File", type="csv")
 
@@ -176,7 +167,8 @@ with tab2:
         cur['Shear Rate'] = avg_curve1['shear']
         cur['Flow'] = avg_curve1['flow']
         df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve'])
-        water = [0.038333333,
+        water = [
+0.038333333,
 0.0335,
 0.033,
 0.034666667,
@@ -224,6 +216,9 @@ with tab2:
             low = rrf['mmHg'].iloc[i] - 0.5
             rrf['mmHg range'].iloc[i] = str(high) + " to " + str(low)
         colored_header("Processed Test Data")
+        
+        
+        
         c1, c2, c3, c4 = st.columns(4)
         with c4:
             st.text("200 -s Shear Rate RRF")
@@ -262,7 +257,6 @@ with tab2:
         cur['Average curve mmHg'] = cur['Averaged Curve'].rolling(window=100).mean()
         lastcur = cur['Average curve mmHg'].iloc[-1]
         cur['Average curve mmHg'] =cur['Average curve mmHg'] - lastcur
-        #cur[(np.abs(stats.zscore(cur["Shear Rate"])) < 2)]
         
         avg_plt = px.line(cur, x= 'Time',y = "Average curve mmHg", color_discrete_sequence=['black'])
         
@@ -281,32 +275,8 @@ with tab2:
             st.plotly_chart(shears1, config= dict(
             displayModeBar = False))
 
-
-        @st.cache
-        def convert_df(df):
-         # IMPORTANT: Cache the conversion to prevent computation on every rerun
-             return df.to_csv().encode('utf-8')
-
-        csv = convert_df(rrf)
-        #with xx2:
-         #   st.text("High Shear Rate")
-          #  hsr = max(rrf['Shear Rate'])
-           # st.warning(str(round(hsr, 2)) + " -s")
-            #st.text("Low Relative Resistance to Flow")
-            #hi = min(rrf['Relative Resistance to Flow'])
-            #st.warning(str(round(hi, 2)))
-            #st.text("Low Shear Rate")
-            #lsr = min(rrf['Shear Rate'])
-            #st.error(str(round(lsr, 2)) + " -s")
-            #st.text("High Relative Resistance to Flow")
-            #lo = max(rrf['Relative Resistance to Flow'])
-            #st.error(str(round(lo, 2)))
-            
-
-
-            
-            
-
+        
+        colored_header("Raw Test Data and Sliced Curves")
         uu1, uu2 = st.columns(2)
 
         with uu2:
@@ -317,12 +287,7 @@ with tab2:
                 avg_plt.update_layout(width=480, showlegend=False)
                 st.plotly_chart(avg_plt, config= dict(
             displayModeBar = False))
-        st.download_button(
-         label="Download Processed Data",
-         data=csv,
-         file_name='Results.csv',
-         mime='text/csv',
-         )
+
         with uu1:
             with st.expander("Original Data"):
                 if rsq > 0.9:
@@ -333,10 +298,8 @@ with tab2:
                 st.plotly_chart(fig, config= dict(
             displayModeBar = False))
 
-        def create_download_link(val, filename):
-            b64 = base64.b64encode(val)  # val looks like b'...'
-            return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}.pdf">Download file</a>'
-        
+
+with tab3:  
         ##Running regression model predictions on data
         pred, model = regression_model(data=rrf[['Shear Rate', 'Relative Resistance to Flow']], target = 'Relative Resistance to Flow')
         r1 = pd.DataFrame()
@@ -364,44 +327,44 @@ with tab2:
         with cc3:
             st.text("100-s RRF Prediction")
             rrf_100s = st.success(str(rrf100s)) 
-        rrf10s = r2[r2['Shear Rate'] == 10]
-        rrf10s = round(rrf10s['Label'].iloc[0], 2)
         with cc2:
             st.text("10-s RRF Prediction")
             rrf_10s = st.warning(str(rrf10s))
-        rrf1s = r2[r2['Shear Rate'] == 1]
-        rrf1s = round(rrf1s['Label'].iloc[0], 2)
         with cc1:
             st.text("1-s RRF Prediction")
             rrf_1s = st.error(str(rrf1s))
+        csv = convert_df(rrf)
+        st.download_button(
+         label="Download Processed Data",
+         data=csv,
+         file_name='Results.csv',
+         mime='text/csv',
+         )
 
-with tab3:  
-
-
-    uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
-    if uploaded_file1 is not None:
+   # uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
+    #if uploaded_file1 is not None:
         
                 # To read file as bytes:
-                for file in uploaded_file1:
-                     dataframe = pd.read_csv(file)
-                     dataframe['Analyitics File'] = str(file.name)
-                     file.seek(0)
-                     com1 = pd.concat([com1, dataframe])
+     #           for file in uploaded_file1:
+      #               dataframe = pd.read_csv(file)
+       #              dataframe['Analyitics File'] = str(file.name)
+        #             file.seek(0)
+         #            com1 = pd.concat([com1, dataframe])
     
-                rrfdate = px.box(com1, x= 'Analyitics File', y = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
+          #      rrfdate = px.box(com1, x= 'Analyitics File', y = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
                 #rrfdate.update_layout()
-                rrfdate.update_xaxes(type='category')
-                rrfdate.update_layout(width=1200)
-                st.plotly_chart(rrfdate,config= dict(
-                displayModeBar = False))
-                sheardate = px.box(com1, x= 'Analyitics File', y = 'Shear Rate', color_discrete_sequence=['green'])
+           #     rrfdate.update_xaxes(type='category')
+            #    rrfdate.update_layout(width=1200)
+             #   st.plotly_chart(rrfdate,config= dict(
+              #  displayModeBar = False))
+               # sheardate = px.box(com1, x= 'Analyitics File', y = 'Shear Rate', color_discrete_sequence=['green'])
                 #sheardate.update_layout()
-                sheardate.update_xaxes(type='category')
-                sheardate.update_layout(width=1200)
-                st.plotly_chart(sheardate,config= dict(
-                displayModeBar = False))
-                com1['Flow Time in Seconds'] = com1['Blood Sample']
-                comp = px.scatter(com1, x='mmHg range', y = 'Flow Time in Seconds', color = 'Analyitics File', color_continuous_scale=px.colors.sequential)
-                comp.update_layout(width = 1200)
-                st.plotly_chart(comp,config= dict(
-                displayModeBar = False))
+                #sheardate.update_xaxes(type='category')
+                #sheardate.update_layout(width=1200)
+                #st.plotly_chart(sheardate,config= dict(
+                #displayModeBar = False))
+                #com1['Flow Time in Seconds'] = com1['Blood Sample']
+                #comp = px.scatter(com1, x='mmHg range', y = 'Flow Time in Seconds', color = 'Analyitics File', color_continuous_scale=px.colors.sequential)
+                #comp.update_layout(width = 1200)
+                #st.plotly_chart(comp,config= dict(
+                #displayModeBar = False))
