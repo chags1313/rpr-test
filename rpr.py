@@ -308,6 +308,7 @@ with tab3:
             r2 = predict_model(model, data = r1)
 
             colored_header("Shear Rate by Relative Resistance to Flow Regression Model")
+            cc1, cc2, cc3, cc4 = st.columns(4)
             r2['Shear Rate Prediction'] = r2['Label']
             pred_ch = px.line(r2, y='Shear Rate Prediction', x='Shear Rate', color_discrete_sequence=['purple'])
             pred_ch.update_yaxes(range=(0,100))
@@ -323,7 +324,7 @@ with tab3:
             rrf10s = round(rrf10s['Label'].iloc[0], 2)
             rrf1s = r2[r2['Shear Rate'] == 1]
             rrf1s = round(rrf1s['Label'].iloc[0], 2)
-            cc1, cc2, cc3, cc4 = st.columns(4)
+            
             with cc4:
                 st.text("200-s RRF Prediction")
                 rrf_200s = st.info(str(rrf200s)) 
@@ -337,7 +338,7 @@ with tab3:
                 st.text("1-s RRF Prediction")
                 rrf_1s = st.error(str(rrf1s))
             csv = convert_df(rrf)
-            st.download_button(
+            st.sidebar.download_button(
              label="Download Processed Data",
              data=csv,
              file_name='Results.csv',
