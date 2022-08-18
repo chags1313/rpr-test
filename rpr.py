@@ -269,7 +269,7 @@ with tab2:
             displayModeBar = False))
              
              
-        shears1 = px.scatter(rrf,x = 'mmHg range',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'], trendline='lowess')
+        shears1 = px.scatter(rrf,x = 'mmHg',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'], trendline='lowess')
         shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False, width=525)
         shears1.update_yaxes(range=(0,10))
         with e2:
