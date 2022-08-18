@@ -361,7 +361,7 @@ with tab3:
                     file_name='Results.csv',
                     mime='text/csv',
                     )
-                st.dataframe(cur.drop(['shear rate', 'flow']))
+                st.dataframe(cur)
 
        # uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
         #if uploaded_file1 is not None:
