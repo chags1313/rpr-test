@@ -1,6 +1,7 @@
+pycaret
 streamlit
-matplotlib
+fastparquet
 pandas
-plotly
 numpy
+matplotlib
 statsmodels
