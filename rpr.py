@@ -350,7 +350,7 @@ with tab3:
                 file_name='Results.csv',
                 mime='text/csv',
                 )
-            with but2:
+            with but3:
                 colored_header(" ", color="#faca2b")
 
        # uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
