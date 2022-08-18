@@ -230,6 +230,7 @@ with tab2:
         with c3:
             st.text("100 -s Shear Rate RRF")
             x = rrf[rrf['Shear Rate'] < 100]
+            x = x[x['Shear Rate'] > 95]
             x1 = x['Relative Resistance to Flow'].head(5).mean()
             x1 = round(x1, 2)
             st.success(str(x1)) 
