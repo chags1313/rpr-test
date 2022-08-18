@@ -342,17 +342,26 @@ with tab3:
              #   st.text("1-s RRF Prediction")
               #  rrf_1s = st.error(str(rrf1s))
             csv = convert_df(rrf)
-            st.download_button(
-                label="Download Processed Data",
-                data=csv,
-                file_name='Results.csv',
-                mime='text/csv',
-                )
+            csv2 = convert_df(cur)
+
+
             dfcol1, dfcol2 = st.columns(2)
             with dfcol1:
+                st.download_button(
+                    label="Download Processed Data",
+                    data=csv,
+                    file_name='Results.csv',
+                    mime='text/csv',
+                    )
                 st.dataframe(rrf)
             with dfcol2:
-                st.dataframe(cur)
+                st.download_button(
+                    label="Download Processed Data",
+                    data=csv2,
+                    file_name='Results.csv',
+                    mime='text/csv',
+                    )
+                st.dataframe(cur.drop(['shear rate', 'flow']))
 
        # uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
         #if uploaded_file1 is not None:
