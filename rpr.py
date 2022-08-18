@@ -262,14 +262,14 @@ with tab2:
         
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess")
         shears.update_yaxes(range=(0,100))
-        shears.update_layout(width=450)
+        shears.update_layout(width=525)
         with e1:
             st.plotly_chart(shears, config= dict(
             displayModeBar = False))
              
              
         shears1 = px.scatter(rrf,x = 'mmHg range',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'])
-        shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False, width=450)
+        shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False, width=525)
         shears1.update_yaxes(range=(0,10))
         with e2:
             st.plotly_chart(shears1, config= dict(
