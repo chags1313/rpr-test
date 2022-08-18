@@ -17,21 +17,21 @@ import base64
 import itertools
 from pycaret.regression import setup, create_model, predict_model
 
-#st.cache
+@st.cache(allow_output_mutation=True)
 def get_r2_numpy_corrcoef(x, y):
     return np.corrcoef(x, y)[0, 1]**2
-@st.cache
+@st.cache(allow_output_mutation=True)
 def regression_model(data, target):
     dset = setup(data, target=target, silent=True)
     reg_model = create_model('et')
     predictions = predict_model(reg_model, data = data)
     return predictions, reg_model
-#st.cache
+@st.cache(allow_output_mutation=True)
 def create_download_link(val, filename):
     b64 = base64.b64encode(val)  # val looks like b'...'
     return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}.pdf">Download file</a>'
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def convert_df(df):
     return df.to_csv().encode('utf-8')
 
@@ -297,6 +297,8 @@ with tab2:
                 fig.update_layout(width=480,showlegend=False)
                 st.plotly_chart(fig, config= dict(
             displayModeBar = False))
+        colored_header(" ")
+         
 
 
 with tab3:
@@ -338,12 +340,18 @@ with tab3:
                 st.text("1-s RRF Prediction")
                 rrf_1s = st.error(str(rrf1s))
             csv = convert_df(rrf)
-            st.sidebar.download_button(
-             label="Download Processed Data",
-             data=csv,
-             file_name='Results.csv',
-             mime='text/csv',
-             )
+            but1, but2, but3 = st.columns(3)
+            with but1:
+                colored_header(" ", color = "#faca2b")
+            with but2:
+                st.download_button(
+                label="Download Processed Data",
+                data=csv,
+                file_name='Results.csv',
+                mime='text/csv',
+                )
+            with but2:
+                colored_header(" ", color="#faca2b")
 
        # uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
         #if uploaded_file1 is not None:
