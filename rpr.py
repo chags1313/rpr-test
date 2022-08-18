@@ -262,7 +262,7 @@ with tab2:
         
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess")
         shears.update_yaxes(range=(0,100))
-        shears.update_xaxes(range=(0,200))
+        shears.update_xaxes(range=(0,100))
         shears.update_layout(width=525)
         with e1:
             st.plotly_chart(shears, config= dict(
