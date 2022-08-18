@@ -81,7 +81,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.title("Biofluid Technology")
 
-tab1, tab2, tab3 = st.tabs(["🏠 Home","📈 Analytics", "🗃 Predictions"])
+tab1, tab2, tab3 = st.tabs(["🏠 Home","📈 Analytics", "🗃 Data"])
 
 with tab1:  
     st.title("Rapid Profile Rheometer 🩸")
@@ -348,6 +348,11 @@ with tab3:
                 file_name='Results.csv',
                 mime='text/csv',
                 )
+            dfcol1, dfcol2 = st.columns(2)
+            with dfcol1:
+                st.dataframe(rrf)
+            with dfcol2:
+                st.dataframe(cur)
 
        # uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
         #if uploaded_file1 is not None:
