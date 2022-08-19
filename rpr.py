@@ -150,7 +150,12 @@ with tab2:
                  first = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[i] 
                  last = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1] 
                  curve =  first - last
-                 Q = ((((0.6 * curve) / needlesize) / time)) * (1*10**-6)
+                if needlesize == 15:
+                    Q = ((((0.6 * curve) / needlesize) / time)) * (1*10**-6)
+                if needlesize == 16:
+                    Q = ((((0.6 * curve) / needlesize) / time)) * (1*10**-10)
+                if needlesize == 20:
+                    Q = ((((0.6 * curve) / needlesize) / time)) * (1*10**-11)
                  shear = 4*(Q/(pi*(R**3)))
                  print(shear)
                  avg_curve1['shear'].iloc[i] = shear
