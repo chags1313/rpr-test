@@ -102,7 +102,9 @@ with tab1:
         st.markdown("- The graph with the orange line displays the relationship between shear rate and relative resistance to flow")
         st.markdown("- The graph with the red and blue lines displays the relationship between a given fluid and water plus the relationship with time and pressure")
     with st.expander("Device Usage Tutorial"):
-            st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
+           st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
+    with st.expander("Device Parameters"):
+        needlesize = st.number_input('Insert the needle size', value = 16)
     
             
 with tab2:
@@ -148,7 +150,7 @@ with tab2:
                  first = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[i] 
                  last = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1] 
                  curve =  first - last
-                 Q = ((((0.6 * curve) / 15) / time)) * (1*10**-6)
+                 Q = ((((0.6 * curve) / needlesize) / time)) * (1*10**-6)
                  shear = 4*(Q/(pi*(R**3)))
                  print(shear)
                  avg_curve1['shear'].iloc[i] = shear
