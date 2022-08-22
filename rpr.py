@@ -269,7 +269,7 @@ with tab2:
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess")
         shears.update_yaxes(range=(0,100))
         shears.update_xaxes(range=(0,100))
-        shears.update_layout(width=525, hovermode='x')
+        shears.update_layout(width=525, hovermode='x unified')
         with e1:
             st.plotly_chart(shears, config= dict(
             displayModeBar = False))
@@ -291,7 +291,7 @@ with tab2:
                 rsq = get_r2_numpy_corrcoef(x=cur['First Curve'], y=cur['Second Curve'])
                 rsq = round(rsq, 3)
                 st.info('R Squared: ' + str(rsq))
-                avg_plt.update_layout(width=480, showlegend=False, hovermode='x')
+                avg_plt.update_layout(width=480, showlegend=False, hovermode='x unified')
                 st.plotly_chart(avg_plt, config= dict(
             displayModeBar = False))
 
