@@ -358,7 +358,7 @@ with tab3:
                     file_name='Results.csv',
                     mime='text/csv',
                     )
-                st.dataframe(rrf)
+                st.dataframe(rrf.style.highlight_max(axis=0))
             with dfcol2:
                 st.download_button(
                     label="Download Processed Curves",
@@ -366,7 +366,7 @@ with tab3:
                     file_name='Results.csv',
                     mime='text/csv',
                     )
-                st.dataframe(cur)
+                st.dataframe(cur.style.highlight_max(axis=0))
 
        # uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
         #if uploaded_file1 is not None:
