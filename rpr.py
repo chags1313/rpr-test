@@ -145,7 +145,7 @@ with tab2:
         fir_curve1 = pd.DataFrame(fir_curve)
         avg_curve1['shear'] = 'na'
         avg_curve1['flow'] = 'na'
-        with st.spinner("Proccessing Analytics"):
+        with st.spinner("Processing Analytics"):
              for i in range(len(avg_curve1)):
                  first = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[i] 
                  last = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1] 
