@@ -269,14 +269,14 @@ with tab2:
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess")
         shears.update_yaxes(range=(0,100))
         shears.update_xaxes(range=(0,100))
-        shears.update_layout(width=525)
+        shears.update_layout(width=525, hovermode='x')
         with e1:
             st.plotly_chart(shears, config= dict(
             displayModeBar = False))
              
              
         shears1 = px.line(rrf,x = 'mmHg range',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'], markers=True)
-        shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False, width=525)
+        shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False, width=525, hovermode='x unified')
         shears1.update_yaxes(range=(0,10))
         with e2:
             st.plotly_chart(shears1, config= dict(
@@ -291,7 +291,7 @@ with tab2:
                 rsq = get_r2_numpy_corrcoef(x=cur['First Curve'], y=cur['Second Curve'])
                 rsq = round(rsq, 3)
                 st.info('R Squared: ' + str(rsq))
-                avg_plt.update_layout(width=480, showlegend=False)
+                avg_plt.update_layout(width=480, showlegend=False, hovermode='x')
                 st.plotly_chart(avg_plt, config= dict(
             displayModeBar = False))
 
