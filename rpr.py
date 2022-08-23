@@ -176,27 +176,6 @@ with tab2:
 0.0335,
 0.033,
 0.034666667,
-0.033,
-0.034666667,
-0.05,
-0.0395,
-0.042333333,
-0.040666667,
-0.045333333,
-0.047333333,
-0.056666667,
-0.0545,
-0.0395,
-0.042333333,
-0.040666667,
-0.045333333,
-0.047333333,
-0.056666667,
-0.0545,
-0.038333333,
-0.0335,
-0.033,
-0.034666667,
 0.05,
 0.0395,
 0.042333333,
@@ -220,13 +199,13 @@ with tab2:
         shr = list()
         last_point = cur['Averaged Curve'].iloc[-1]
         cur['Averaged Curve'] = cur['Averaged Curve'] -  1.1
-        for numbers in reversed(np.arange(0.5, 20.5, 0.5)):
+        for numbers in reversed(np.arange(0.5, 10.5, 0.5)):
             #bld.append(len(cur[cur['Averaged Curve'] < numbers]) / 1000)
             u = cur[cur['Averaged Curve'] < numbers]
             z = cur[cur['Averaged Curve'] < numbers - 0.5]
             bld.append((len(u) - len(z))/ 1000) 
             num.append(numbers)
-        for numbers in reversed(np.arange(0.5, 20.5, 0.5)):
+        for numbers in reversed(np.arange(0.5, 10.5, 0.5)):
             z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
             shr.append((z['shear'].mean()))
         rrf = pd.DataFrame({'Water Control': water})
