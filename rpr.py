@@ -151,7 +151,7 @@ with tab2:
                  last = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1] 
                  curve =  first - last
                  if needlsize == 12:
-                        Q = ((((0.6 * curve)/ needlesize) / time)) * (1.26 * 10**-9)
+                    Q = ((((0.6 * curve)/ needlesize) / time)) * (1.26 * 10**-9)
                  if needlsize == 13:
                         Q = ((((0.6 * curve)/needlesize) / time)) * (7.33 * 10**-10)
                  if needlsize == 14:
