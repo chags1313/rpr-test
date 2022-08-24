@@ -444,7 +444,7 @@ with tab3:
                     file_name='Results.csv',
                     mime='text/csv',
                     )
-                cur1 = cur.drop(['Shear Rate', 'flow','Flow'])
+                cur1 = cur.drop(['Shear Rate', 'flow','Flow'], axis=1)
                 cur1 = cur1.abs()
                 st.dataframe(cur1)
 
