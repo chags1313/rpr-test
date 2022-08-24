@@ -444,7 +444,9 @@ with tab3:
                     file_name='Results.csv',
                     mime='text/csv',
                     )
-                st.dataframe(cur)
+                cur1 = cur.drop(['Shear Rate', 'flow','Flow'])
+                cur1 = cur1.abs()
+                st.dataframe(cur1)
 
        # uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
         #if uploaded_file1 is not None:
