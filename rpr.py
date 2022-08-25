@@ -201,7 +201,7 @@ with tab2:
             z = cur[cur['Averaged Curve'] < numbers - 0.1]
             bld.append((len(u) - len(z))/ 1000) 
             num.append(numbers)
-        for numbers in reversed(np.arange(0.1, 40.5, 0.1)):
+        for numbers in reversed(np.arange(0.1, 40.1, 0.1)):
             z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
             z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.1)]
             shr.append((z['shear'].mean()))
