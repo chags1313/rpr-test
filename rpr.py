@@ -212,8 +212,8 @@ with tab2:
         rrf['Shear Rate'] = rrf['Shear Rate'].abs()
         for i in range(len(rrf)):
             rrf['Relative Resistance to Flow'].iloc[i] = rrf['Blood Sample'].iloc[i] / rrf['Water Control'].iloc[i]
-            high = rrf['mmHg'].iloc[i]
-            low = rrf['mmHg'].iloc[i] - 0.5
+            high = round(rrf['mmHg'].iloc[i],1)
+            low = round(rrf['mmHg'].iloc[i] - 0.5,1)
             rrf['mmHg range'].iloc[i] = str(high) + " to " + str(low)
         colored_header("Processed Test Data")
         
