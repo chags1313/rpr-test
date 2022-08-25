@@ -366,9 +366,9 @@ with tab4:
                     file_name='Results.csv',
                     mime='text/csv',
                     )
-                cur1 = cur.drop(['Flow', 'Average curve mmHg'], axis=1).background_gradient()
+                cur1 = cur.drop(['Flow', 'Average curve mmHg'], axis=1)
                 cur1 = cur1.abs()
-                st.dataframe(cur1)
+                st.dataframe(cur1.background_gradient())
 
        # uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
         #if uploaded_file1 is not None:
