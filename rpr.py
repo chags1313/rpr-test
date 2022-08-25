@@ -365,7 +365,7 @@ with tab4:
                     file_name='Results.csv',
                     mime='text/csv',
                     )
-                cur1 = cur.drop(['Flow', 'Average Curve mmHg'], axis=1)
+                cur1 = cur.drop(['Flow', 'Average curve mmHg'], axis=1)
                 cur1 = cur1.abs()
                 st.dataframe(cur1)
 
