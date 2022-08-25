@@ -261,7 +261,7 @@ with tab2:
         
         avg_plt = px.line(cur, x= 'Time',y = "Average curve mmHg", color_discrete_sequence=['black'])
         
-        shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess")
+        shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess",hover_data=["mmHg range", "Blood Sample", "Water Control"])
         shears.update_yaxes(range=(0,100))
         shears.update_xaxes(range=(0,200))
         shears.update_layout(width=525, hovermode='x unified')
