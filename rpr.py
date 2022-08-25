@@ -188,25 +188,23 @@ with tab2:
         cur['Shear Rate'] = avg_curve1['shear'].abs()
         cur['Flow'] = avg_curve1['flow']
         df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve'])
-        water = np.full(shape=401,fill_value=0.05,dtype=np.float) 
+        
 
         bld = list()
         num = list()
         shr = list()
         last_point = cur['Averaged Curve'].iloc[-1]
-        cur['Averaged Curve'] = cur['Averaged Curve'] -  1.1
+        cur['Averaged Curve'] = cur['Averaged Curve'] -  last_point
         for numbers in reversed(np.arange(0.1, 40.1, 0.1)):
-            #bld.append(len(cur[cur['Averaged Curve'] < numbers]) / 1000)
-            u = cur[cur['Averaged Curve'] < numbers]
-            z = cur[cur['Averaged Curve'] < numbers - 0.1]
-            bld.append((len(u) - len(z))/ 1000) 
+            u1 = cur[cur['Averaged Curve'] < numbers]
+            z1 = cur[cur['Averaged Curve'] < numbers - 0.1]
+            bld.append((len(u1) - len(z1))/ 1000) 
             num.append(numbers)
-        for numbers in reversed(np.arange(0.1, 40.1, 0.1)):
             z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
             z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.1)]
             shr.append((z['shear'].mean()))
-        rrf = pd.DataFrame({'Water Control': water})
-        rrf['Blood Sample'] = bld
+        rrf = pd.DataFrame({'Blood Sample': bld})
+        rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.05,dtype=np.float) 
         rrf['Relative Resistance to Flow'] = 'na'
         rrf['mmHg range'] = 'na'
         rrf['mmHg'] = num
