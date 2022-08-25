@@ -171,24 +171,24 @@ with tab2:
         avg_plt = px.line(cur, x= 'Time',y = "Average curve mmHg", color_discrete_sequence=['black'])
 
         with uu2:
-            with st.expander("Averaged Curve Sliced Data"):
-                rsq = get_r2_numpy_corrcoef(x=cur['First Curve'], y=cur['Second Curve'])
-                rsq = round(rsq, 3)
-                st.info('R Squared: ' + str(rsq))
-                avg_plt.update_layout(width=480, showlegend=False, hovermode='x unified')
-                st.plotly_chart(avg_plt, config= dict(
-            displayModeBar = False))
+            #with st.expander("Averaged Curve Sliced Data"):
+            rsq = get_r2_numpy_corrcoef(x=cur['First Curve'], y=cur['Second Curve'])
+            rsq = round(rsq, 3)
+            st.info('R Squared: ' + str(rsq))
+            avg_plt.update_layout(width=480, showlegend=False, hovermode='x unified')
+            st.plotly_chart(avg_plt, config= dict(
+        displayModeBar = False))
 
         with uu1:
-            with st.expander("Original Data"):
-                if rsq > 0.9:
-                    st.success("Valid Test")
-                else:
-                    st.error("Invalid Test - Try Running Test Again")
-                fig.update_layout(width=480,showlegend=False)
-                st.plotly_chart(fig, config= dict(
-            displayModeBar = False, staticPlot= True))
-        colored_header(" ")
+            #with st.expander("Original Data"):
+            if rsq > 0.9:
+                st.success("Valid Test")
+            else:
+                st.error("Invalid Test - Try Running Test Again")
+            fig.update_layout(width=480,showlegend=False)
+            st.plotly_chart(fig, config= dict(
+        displayModeBar = False, staticPlot= True))
+        
          
 
 with tab3:
@@ -365,7 +365,7 @@ with tab4:
                     file_name='Results.csv',
                     mime='text/csv',
                     )
-                cur1 = cur.drop(['shear rate', 'flow','Flow'], axis=1)
+                cur1 = cur.drop(['Flow'], axis=1)
                 cur1 = cur1.abs()
                 st.dataframe(cur1)
 
