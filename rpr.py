@@ -144,6 +144,45 @@ with tab2:
         fir_curve1 = pd.DataFrame(fir_curve)
         avg_curve1['shear'] = 'na'
         avg_curve1['flow'] = 'na'
+        wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
+        wad['Second Curve'] = (wad.index.isin(sec_curve.index)).astype(int)
+        wad['curves'] = wad['First Curve'] + wad['Second Curve']
+        wad['curves'] = wad['curves'].replace(0, "No Identified Curve")
+        wad['curves'] = wad['curves'].replace(1, "Curve Used For Analysis")
+        avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
+        cur = pd.DataFrame()
+        cur['First Curve'] = fir_curve.reset_index(drop=True)
+        cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
+        cur["Averaged Curve"] = avg_curve
+        cur['Time'] = cur.index / 1000
+        cur['Shear Rate'] = avg_curve1['shear'].abs()
+        cur['Flow'] = avg_curve1['flow']
+        df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve'])      
+        colored_header("Raw Test Data and Sliced Curves")
+        uu1, uu2 = st.columns(2)
+
+        with uu2:
+            with st.expander("Averaged Curve Sliced Data"):
+                rsq = get_r2_numpy_corrcoef(x=cur['First Curve'], y=cur['Second Curve'])
+                rsq = round(rsq, 3)
+                st.info('R Squared: ' + str(rsq))
+                avg_plt.update_layout(width=480, showlegend=False, hovermode='x unified')
+                st.plotly_chart(avg_plt, config= dict(
+            displayModeBar = False))
+
+        with uu1:
+            with st.expander("Original Data"):
+                if rsq > 0.9:
+                    st.success("Valid Test")
+                else:
+                    st.error("Invalid Test - Try Running Test Again")
+                fig.update_layout(width=480,showlegend=False)
+                st.plotly_chart(fig, config= dict(
+            displayModeBar = False, staticPlot= True))
+        colored_header(" ")
+         
+
+        
         with st.spinner("Processing Analytics"):
              for i in range(len(avg_curve1)):
                  first = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[i] 
@@ -174,20 +213,7 @@ with tab2:
                  avg_curve1['shear'].iloc[i] = shear
                  avg_curve1['flow'].iloc[i] = Q
 
-        wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
-        wad['Second Curve'] = (wad.index.isin(sec_curve.index)).astype(int)
-        wad['curves'] = wad['First Curve'] + wad['Second Curve']
-        wad['curves'] = wad['curves'].replace(0, "No Identified Curve")
-        wad['curves'] = wad['curves'].replace(1, "Curve Used For Analysis")
-        avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
-        cur = pd.DataFrame()
-        cur['First Curve'] = fir_curve.reset_index(drop=True)
-        cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
-        cur["Averaged Curve"] = avg_curve
-        cur['Time'] = cur.index / 1000
-        cur['Shear Rate'] = avg_curve1['shear'].abs()
-        cur['Flow'] = avg_curve1['flow']
-        df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve'])
+
         
 
         bld = list()
@@ -278,30 +304,6 @@ with tab2:
             displayModeBar = False))
 
         
-        colored_header("Raw Test Data and Sliced Curves")
-        uu1, uu2 = st.columns(2)
-
-        with uu2:
-            with st.expander("Averaged Curve Sliced Data"):
-                rsq = get_r2_numpy_corrcoef(x=cur['First Curve'], y=cur['Second Curve'])
-                rsq = round(rsq, 3)
-                st.info('R Squared: ' + str(rsq))
-                avg_plt.update_layout(width=480, showlegend=False, hovermode='x unified')
-                st.plotly_chart(avg_plt, config= dict(
-            displayModeBar = False))
-
-        with uu1:
-            with st.expander("Original Data"):
-                if rsq > 0.9:
-                    st.success("Valid Test")
-                else:
-                    st.error("Invalid Test - Try Running Test Again")
-                fig.update_layout(width=480,showlegend=False)
-                st.plotly_chart(fig, config= dict(
-            displayModeBar = False, staticPlot= True))
-        colored_header(" ")
-         
-
 
 with tab3:
     if uploaded_file is not None:
