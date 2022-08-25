@@ -213,7 +213,7 @@ with tab2:
         for i in range(len(rrf)):
             rrf['Relative Resistance to Flow'].iloc[i] = rrf['Blood Sample'].iloc[i] / rrf['Water Control'].iloc[i]
             high = round(rrf['mmHg'].iloc[i],1)
-            low = round(rrf['mmHg'].iloc[i] - 0.5,1)
+            low = round(rrf['mmHg'].iloc[i] - 0.1,1)
             rrf['mmHg range'].iloc[i] = str(high) + " to " + str(low)
         colored_header("Processed Test Data")
         
@@ -270,7 +270,7 @@ with tab2:
             displayModeBar = False))
              
              
-        shears1 = px.line(rrf,x = 'mmHg',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'], markers=True, hover_data=['mmHg range', 'Shear Rate', 'Relative Resistance to Flow'])
+        shears1 = px.line(rrf,x = 'mmHg range',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'], markers=True, hover_data=['Shear Rate', 'Relative Resistance to Flow'])
         shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False, width=525, hovermode='x unified')
         shears1.update_yaxes(range=(0,10))
         with e2:
