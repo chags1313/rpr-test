@@ -159,6 +159,16 @@ with tab2:
         df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve']) 
         colored_header("Raw Test Data and Sliced Curves")
         uu1, uu2 = st.columns(2)
+        fig =  px.scatter(wad, y='Amplitude - Normalized Pressure Data',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
+        
+        
+        #cur['flow'] = cur['Flow'].rolling(window= 1000).mean().diff()
+        #cur['shear rate'] = cur['Shear Rate'].rolling(window=1000).mean()
+        cur['Average curve mmHg'] = cur['Averaged Curve'].rolling(window=100).mean()
+        lastcur = cur['Average curve mmHg'].iloc[-1]
+        cur['Average curve mmHg'] =cur['Average curve mmHg'] - lastcur
+        
+        avg_plt = px.line(cur, x= 'Time',y = "Average curve mmHg", color_discrete_sequence=['black'])
 
         with uu2:
             with st.expander("Averaged Curve Sliced Data"):
@@ -277,16 +287,7 @@ with tab3:
         e1, e2 = st.columns(2)
      
         
-        fig =  px.scatter(wad, y='Amplitude - Normalized Pressure Data',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
-        
-        
-        cur['flow'] = cur['Flow'].rolling(window= 1000).mean().diff()
-        cur['shear rate'] = cur['Shear Rate'].rolling(window=1000).mean()
-        cur['Average curve mmHg'] = cur['Averaged Curve'].rolling(window=100).mean()
-        lastcur = cur['Average curve mmHg'].iloc[-1]
-        cur['Average curve mmHg'] =cur['Average curve mmHg'] - lastcur
-        
-        avg_plt = px.line(cur, x= 'Time',y = "Average curve mmHg", color_discrete_sequence=['black'])
+
         
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess",hover_data=["mmHg range", "Blood Sample", "Water Control"])
         shears.update_yaxes(range=(0,100))
