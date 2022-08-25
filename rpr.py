@@ -285,6 +285,7 @@ with tab2:
             num.append(numbers)
         for numbers in reversed(np.arange(0.5, 40.5, 0.5)):
             z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
+            z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.5)]
             shr.append((z['shear'].mean()))
         rrf = pd.DataFrame({'Water Control': water})
         rrf['Blood Sample'] = bld
