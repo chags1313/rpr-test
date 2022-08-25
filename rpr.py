@@ -86,7 +86,6 @@ tab1, tab2, tab3 = st.tabs(["🏠 Home","📈 Analytics", "🗃 Data"])
 with tab1:  
     st.title("Rapid Profile Rheometer 🩸")
     st.write("Biofluid Technology LLC")
-    st.markdown("A device for differential diagnosis of inflammatory and hematologic disorders.")
     with st.expander("How to Run a Test"):
         st.markdown("1. On the test tab, click run test")
         st.markdown("2. Pull up plunger.. wait for the fluid to settle in tube")
