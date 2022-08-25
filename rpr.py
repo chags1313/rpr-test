@@ -188,7 +188,7 @@ with tab2:
         cur['Shear Rate'] = avg_curve1['shear'].abs()
         cur['Flow'] = avg_curve1['flow']
         df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve'])
-        water = np.full(shape=400,fill_value=0.05,dtype=np.float) 
+        water = np.full(shape=401,fill_value=0.05,dtype=np.float) 
 
         bld = list()
         num = list()
