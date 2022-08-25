@@ -357,7 +357,7 @@ with tab4:
                     file_name='Results.csv',
                     mime='text/csv',
                     )
-                st.dataframe(rrf.style.highlight_min(axis=0))
+                st.dataframe(rrf.drop(['Water Control'])style.highlight_min(axis=0))
             with dfcol2:
                 st.download_button(
                     label="Download Processed Curves",
