@@ -81,7 +81,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.title("Biofluid Technology")
 
-tab1, tab2, tab3 = st.tabs(["🏠 Home","📈 Analytics", "🗃 Data"])
+tab1, tab2, tab3, tab4 = st.tabs(["🏠 Home","📈 Test Analytics", "🩸 Shear Rate and RRF Analytics", "🗃 Data"])
 
 with tab1:  
     st.title("Rapid Profile Rheometer 🩸")
@@ -155,9 +155,8 @@ with tab2:
         cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
         cur["Averaged Curve"] = avg_curve
         cur['Time'] = cur.index / 1000
-        cur['Shear Rate'] = avg_curve1['shear'].abs()
-        cur['Flow'] = avg_curve1['flow']
-        df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve'])      
+
+        df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve']) 
         colored_header("Raw Test Data and Sliced Curves")
         uu1, uu2 = st.columns(2)
 
@@ -182,7 +181,8 @@ with tab2:
         colored_header(" ")
          
 
-        
+with tab3:
+    if uploaded_file is not None:
         with st.spinner("Processing Analytics"):
              for i in range(len(avg_curve1)):
                  first = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[i] 
@@ -213,7 +213,8 @@ with tab2:
                  avg_curve1['shear'].iloc[i] = shear
                  avg_curve1['flow'].iloc[i] = Q
 
-
+        cur['Shear Rate'] = avg_curve1['shear'].abs()
+        cur['Flow'] = avg_curve1['flow']
         
 
         bld = list()
@@ -305,7 +306,7 @@ with tab2:
 
         
 
-with tab3:
+with tab4:
     if uploaded_file is not None:
             ##Running regression model predictions on data
            # pred, model = regression_model(data=rrf[['Shear Rate', 'Relative Resistance to Flow']], target = 'Relative Resistance to Flow')
