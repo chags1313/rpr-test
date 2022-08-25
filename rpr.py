@@ -358,7 +358,7 @@ with tab4:
                     file_name='Results.csv',
                     mime='text/csv',
                     )
-                st.dataframe(rrf.drop(['Water Control'], axis=1).dropna().style.highlight_min(axis=0)).background_gradient()
+                st.dataframe(rrf.drop(['Water Control'], axis=1).dropna().style.highlight_min(axis=0))
             with dfcol2:
                 st.download_button(
                     label="Download Processed Curves",
