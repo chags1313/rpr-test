@@ -289,7 +289,7 @@ with tab3:
         
 
         
-        shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess", trendline_options=dict(frac=0.1),hover_data=["mmHg range", "Blood Sample", "Water Control"])
+        shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'], trendline="lowess", trendline_options=dict(frac=0.05),hover_data=["mmHg range", "Blood Sample", "Water Control"])
         shears.update_yaxes(range=(0,100))
         shears.update_xaxes(range=(0,200))
         shears.update_layout(width=525, hovermode='x unified')
