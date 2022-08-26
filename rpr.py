@@ -256,7 +256,14 @@ with tab3:
         
         
         
-        c1, c2, c3, c4 = st.columns(4)
+        c1, c2, c3, c4, c5 = st.columns(5)
+        with c5:
+            st.text("500 -s Shear Rate RRF")
+            p = rrf[rrf['Shear Rate'] > 490]
+            p = p[p['Shear Rate'] < 510]
+            p1 = p['Relative Resistance to Flow'].mean()
+            p1 = round(p1, 2)
+            st.info(str(p1)) 
         with c4:
             st.text("200 -s Shear Rate RRF")
             o = rrf[rrf['Shear Rate'] > 190]
