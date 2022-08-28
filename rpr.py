@@ -15,6 +15,7 @@ import plotly.express as px
 import numpy as np
 import base64
 import itertools
+import streamlit.components.v1 as components
 #from pycaret.regression import setup, create_model, predict_model
 
 @st.cache(allow_output_mutation=True)
@@ -105,7 +106,7 @@ with tab1:
     with st.expander("Device Parameters"):
         needlesize = st.number_input('Insert the needle size', value = 16)
 with tab2:
-    st.markdown("![Alt Text](http://desktop-kvcjuh6.localdomain:8000/rpr2.html)")
+    components.iframe("http://desktop-kvcjuh6.localdomain:8000/rpr2.html")
             
 with tab3:
     uploaded_file = st.file_uploader("Upload Your RPR Test File", type="csv")
