@@ -104,10 +104,10 @@ with tab1:
            st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
     with st.expander("Device Parameters"):
         needlesize = st.number_input('Insert the needle size', value = 16)
-with tab5:
-    st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
-            
 with tab2:
+    st.markdown("![Alt Text](http://desktop-kvcjuh6.localdomain:8000/rpr2.htmle)")
+            
+with tab3:
     uploaded_file = st.file_uploader("Upload Your RPR Test File", type="csv")
 
     if uploaded_file is not None:
@@ -192,7 +192,7 @@ with tab2:
         
          
 
-with tab3:
+with tab4:
     if uploaded_file is not None:
         with st.spinner("Processing Analytics"):
              for i in range(len(avg_curve1)):
@@ -317,7 +317,7 @@ with tab3:
             st.info("Upload data in analytics tab")
         
 
-with tab4:
+with tab5:
     if uploaded_file is not None:
             ##Running regression model predictions on data
            # pred, model = regression_model(data=rrf[['Shear Rate', 'Relative Resistance to Flow']], target = 'Relative Resistance to Flow')
