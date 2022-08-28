@@ -81,7 +81,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.title("Biofluid Technology")
 
-tab1, tab2, tab3, tab4 = st.tabs(["🏠 Home","📈 Test Analytics", "🩸 Shear Rate and RRF Analytics", "🗃 Data"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Home","💉 Run Test", "📈 Test Analytics", "🩸 Shear Rate and RRF Analytics", "🗃 Data"])
 
 with tab1:  
     st.title("Rapid Profile Rheometer 🩸")
@@ -104,7 +104,8 @@ with tab1:
            st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
     with st.expander("Device Parameters"):
         needlesize = st.number_input('Insert the needle size', value = 16)
-    
+with tab5:
+    st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
             
 with tab2:
     uploaded_file = st.file_uploader("Upload Your RPR Test File", type="csv")
