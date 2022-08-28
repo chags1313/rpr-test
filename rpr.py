@@ -105,7 +105,7 @@ with tab1:
     with st.expander("Device Parameters"):
         needlesize = st.number_input('Insert the needle size', value = 16)
 with tab2:
-    st.markdown("![Alt Text](http://desktop-kvcjuh6.localdomain:8000/rpr2.htmle)")
+    st.markdown("![Alt Text](http://desktop-kvcjuh6.localdomain:8000/rpr2.html)")
             
 with tab3:
     uploaded_file = st.file_uploader("Upload Your RPR Test File", type="csv")
