@@ -243,7 +243,7 @@ with tab4:
             z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.1)]
             shr.append((z['shear'].mean()))
         rrf = pd.DataFrame({'Blood Sample': bld})
-        rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.05,dtype=np.float) 
+        rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.01,dtype=np.float) 
         rrf['Relative Resistance to Flow'] = 'na'
         rrf['mmHg range'] = 'na'
         rrf['mmHg'] = num
