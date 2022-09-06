@@ -245,7 +245,7 @@ with tab4:
         rrf = pd.DataFrame({'Blood Sample': bld})
         wcdf = pd.read_csv('watercontrol.csv')
         #wcdf = wcdf.sort_values(by='', ascending=True)
-        rrf['Water Control'] = wcdf['Blood Sample'].sort_values(by='Blood Sample', ascending=False)
+        rrf['Water Control'] = np.sort(wcdf['Blood Sample'])
         #rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.001,dtype=np.float) 
         rrf['Relative Resistance to Flow'] = 'na'
         rrf['mmHg range'] = 'na'
