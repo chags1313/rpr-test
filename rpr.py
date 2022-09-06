@@ -244,7 +244,7 @@ with tab4:
             shr.append((z['shear'].mean()))
         rrf = pd.DataFrame({'Blood Sample': bld})
         wcdf = pd.read_csv('watercontrol.csv')
-        wcdf = wcdf.sort_values(by='mmHg', ascending=False)
+        wcdf = wcdf.sort_values(by='mmHg', ascending=True)
         rrf['Water Control'] = wcdf['Blood Sample']
         #rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.001,dtype=np.float) 
         rrf['Relative Resistance to Flow'] = 'na'
