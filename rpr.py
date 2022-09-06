@@ -255,9 +255,29 @@ with tab4:
             low = round(rrf['mmHg'].iloc[i] - 0.1,1)
             rrf['mmHg range'].iloc[i] = str(high) + " to " + str(low)
         colored_header("Processed Test Data")
+        rrf['Water Control'].iloc[-1] = 3.835600
+        rrf['Water Control'].iloc[-2] = 1.526900
+        rrf['Water Control'].iloc[-3] = 0.234400
+        rrf['Water Control'].iloc[-4] = 0.043900
+        rrf['Water Control'].iloc[-5] = 0.020200
+        rrf['Water Control'].iloc[-6] = 0.020200
+        rrf['Water Control'].iloc[-7] = 0.020000
+        rrf['Water Control'].iloc[-8] = 0.020000
+        rrf['Water Control'].iloc[-9] = 0.020000
+        rrf['Water Control'].iloc[-10] = 0.020000
+        rrf['Water Control'].iloc[-11] = 0.020000
+        rrf['Water Control'].iloc[-12] = 0.020000
+        rrf['Water Control'].iloc[-13] = 0.020000
+        rrf['Water Control'].iloc[-14] = 0.020000
+        rrf['Water Control'].iloc[-15] = 0.020000
+        rrf['Water Control'].iloc[-16] = 0.020000
+        rrf['Water Control'].iloc[-17] = 0.020000
+        rrf['Water Control'].iloc[-18] = 0.020000
+        rrf['Water Control'].iloc[-19] = 0.020000
+        rrf['Water Control'].iloc[-20] = 0.020000
         
-        
-        
+
+    
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
             st.text("500 -s Shear Rate RRF")
