@@ -317,7 +317,7 @@ with tab4:
      
         
 
-        rrf = rrf[rrf['Blood Sample'] != 0]
+        #rrf = rrf[rrf['Blood Sample'] != 0]
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'],hover_data=["mmHg range", "Blood Sample", "Water Control"])
         #shear.data = [t for t in shears.data if t.mode == "lines"] trendline="lowess", trendline_options=dict(frac=0.09)
         shears.update_yaxes(range=(0,100))
