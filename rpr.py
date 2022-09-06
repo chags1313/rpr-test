@@ -243,7 +243,9 @@ with tab4:
             z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.1)]
             shr.append((z['shear'].mean()))
         rrf = pd.DataFrame({'Blood Sample': bld})
-        rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.001,dtype=np.float) 
+        wcdf = pd.read_csv('watercontrol.csv')
+        rrf['Water Control'] = wcdf['Blood Sample']
+        #rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.001,dtype=np.float) 
         rrf['Relative Resistance to Flow'] = 'na'
         rrf['mmHg range'] = 'na'
         rrf['mmHg'] = num
@@ -255,26 +257,7 @@ with tab4:
             low = round(rrf['mmHg'].iloc[i] - 0.1,1)
             rrf['mmHg range'].iloc[i] = str(high) + " to " + str(low)
         colored_header("Processed Test Data")
-        rrf['Water Control'].iloc[-1] = 3.835600
-        rrf['Water Control'].iloc[-2] = 1.526900
-        rrf['Water Control'].iloc[-3] = 0.234400
-        rrf['Water Control'].iloc[-4] = 0.043900
-        rrf['Water Control'].iloc[-5] = 0.020200
-        rrf['Water Control'].iloc[-6] = 0.020200
-        rrf['Water Control'].iloc[-7] = 0.020000
-        rrf['Water Control'].iloc[-8] = 0.020000
-        rrf['Water Control'].iloc[-9] = 0.020000
-        rrf['Water Control'].iloc[-10] = 0.020000
-        rrf['Water Control'].iloc[-11] = 0.020000
-        rrf['Water Control'].iloc[-12] = 0.020000
-        rrf['Water Control'].iloc[-13] = 0.020000
-        rrf['Water Control'].iloc[-14] = 0.020000
-        rrf['Water Control'].iloc[-15] = 0.020000
-        rrf['Water Control'].iloc[-16] = 0.020000
-        rrf['Water Control'].iloc[-17] = 0.020000
-        rrf['Water Control'].iloc[-18] = 0.020000
-        rrf['Water Control'].iloc[-19] = 0.020000
-        rrf['Water Control'].iloc[-20] = 0.020000
+
         
 
     
@@ -317,7 +300,7 @@ with tab4:
      
         
 
-        #rrf = rrf[rrf['Blood Sample'] != 0]
+        rrf = rrf[rrf['Blood Sample'] != 0]
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'],hover_data=["mmHg range", "Blood Sample", "Water Control"])
         #shear.data = [t for t in shears.data if t.mode == "lines"] trendline="lowess", trendline_options=dict(frac=0.09)
         shears.update_yaxes(range=(0,100))
