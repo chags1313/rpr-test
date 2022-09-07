@@ -210,7 +210,7 @@ with tab4:
                  if needlesize == 15:
                         Q = ((((0.6 * curve)/md) / time)) * (3.23 * 10**-10)
                  if needlesize == 16:
-                        Q = ((((0.6 * curve)/md) / time) * (2.13 * 10**-10)
+                        Q = ((((0.6 * curve)/md) / time)) * (2.13 * 10**-10)
                  if needlesize == 17:
                         Q = ((((0.6 * curve)/md) / time)) * (1.52 * 10**-10)  
                  if needlesize == 18:
