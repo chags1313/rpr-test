@@ -230,6 +230,7 @@ with tab4:
         cur['Flow'] = avg_curve1['flow']
         
 
+        
         bld = list()
         num = list()
         shr = list()
