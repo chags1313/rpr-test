@@ -243,11 +243,7 @@ with tab4:
             z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.1)]
             shr.append((z['shear'].mean()))
         rrf = pd.DataFrame({'Blood Sample': bld})
-        wcdf = pd.read_csv('watercontrol.csv')
-        #wcdf = wcdf.sort_values(by='', ascending=True)
-        rrf['Water Control'] = np.sort(wcdf['Blood Sample'])
-        rrf['Water Control'] = rrf['Water Control'].where(rrf['Water Control'] < 0.003, 0.003)
-        #rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.001,dtype=np.float) 
+        rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.0015,dtype=np.float) 
         rrf['Relative Resistance to Flow'] = 'na'
         rrf['mmHg range'] = 'na'
         rrf['mmHg'] = num
