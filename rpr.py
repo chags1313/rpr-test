@@ -206,21 +206,21 @@ with tab4:
                  if needlesize == 13:
                         Q = ((((0.6 * curve)/md) / time)) * (7.33 * 10**-10)
                  if needlesize == 14:
-                        Q = ((((0.6 * curve)/md) * (5.12 * 10**-10)
+                        Q = ((((0.6 * curve)/md)) * (5.12 * 10**-10)
                  if needlesize == 15:
-                        Q = ((((0.6 * curve)/md) * (3.23 * 10**-10)
+                        Q = ((((0.6 * curve)/md)) * (3.23 * 10**-10)
                  if needlesize == 16:
-                        Q = ((((0.6 * curve)/md) * (2.13 * 10**-10)
+                        Q = ((((0.6 * curve)/md)) * (2.13 * 10**-10)
                  if needlesize == 17:
-                        Q = ((((0.6 * curve)/md) / time)) * (1.52 * 10**-10)  
+                        Q = ((((0.6 * curve)/md)) / time)) * (1.52 * 10**-10)  
                  if needlesize == 18:
-                        Q = ((((0.6 * curve)/md) / time)) * (7.36 * 10**-11)
+                        Q = ((((0.6 * curve)/md)) / time)) * (7.36 * 10**-11)
                  if needlesize == 19:
-                        Q = ((((0.6 * curve)/md) / time)) * (4.04 * 10**-11)
+                        Q = ((((0.6 * curve)/md)) / time)) * (4.04 * 10**-11)
                  if needlesize == 20:
-                        Q = ((((0.6 * curve)/md) / time)) * (2.74 * 10**-11)
+                        Q = ((((0.6 * curve)/md)) / time)) * (2.74 * 10**-11)
                  else:
-                    Q = ((((0.6 * curve) / md) / time)) * (1*10**-6)
+                    Q = ((((0.6 * curve) / md)) / time)) * (1*10**-6)
                  shear = 4*(Q/(pi*(R**3)))
                  print(shear)
                  avg_curve1['shear'].iloc[i] = shear
