@@ -299,7 +299,7 @@ with tab4:
         e1, e2 = st.columns(2)
      
         
-        rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window=10).mean()
+        #rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window=10).mean()
         rrf = rrf[rrf['Blood Sample'] != 0]
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'],hover_data=["mmHg range", "Blood Sample", "Water Control"])
         #shear.data = [t for t in shears.data if t.mode == "lines"] trendline="lowess", trendline_options=dict(frac=0.09)
