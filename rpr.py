@@ -236,13 +236,13 @@ with tab4:
         shr = list()
         last_point = cur['Averaged Curve'].iloc[-1]
         cur['Averaged Curve'] = cur['Averaged Curve'] -  last_point
-        for numbers in reversed(np.arange(0.2, 50.1, 0.01)):
+        for numbers in reversed(np.arange(0.2, 50.1, 0.1)):
             u1 = cur[cur['Averaged Curve'] < numbers]
-            z1 = cur[cur['Averaged Curve'] < numbers - 0.01]
+            z1 = cur[cur['Averaged Curve'] < numbers - 0.1]
             bld.append((len(u1) - len(z1))/ 1000) 
             num.append(numbers)
             z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
-            z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.01)]
+            z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.1)]
             shr.append((z['shear'].mean()))
         rrf = pd.DataFrame({'Blood Sample': bld})
         rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.009,dtype=np.float) 
@@ -299,7 +299,7 @@ with tab4:
         e1, e2 = st.columns(2)
      
         
-
+        rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window=10).mean()
         rrf = rrf[rrf['Blood Sample'] != 0]
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'],hover_data=["mmHg range", "Blood Sample", "Water Control"])
         #shear.data = [t for t in shears.data if t.mode == "lines"] trendline="lowess", trendline_options=dict(frac=0.09)
