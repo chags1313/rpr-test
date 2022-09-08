@@ -236,7 +236,7 @@ with tab4:
         shr = list()
         last_point = cur['Averaged Curve'].iloc[-1]
         cur['Averaged Curve'] = cur['Averaged Curve'] -  last_point
-        for numbers in reversed(np.arange(0.1, 40.1, 0.1)):
+        for numbers in reversed(np.arange(0.2, 40.1, 0.1)):
             u1 = cur[cur['Averaged Curve'] < numbers]
             z1 = cur[cur['Averaged Curve'] < numbers - 0.1]
             bld.append((len(u1) - len(z1))/ 1000) 
@@ -245,7 +245,7 @@ with tab4:
             z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.1)]
             shr.append((z['shear'].mean()))
         rrf = pd.DataFrame({'Blood Sample': bld})
-        rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.0015,dtype=np.float) 
+        rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.009,dtype=np.float) 
         rrf['Relative Resistance to Flow'] = 'na'
         rrf['mmHg range'] = 'na'
         rrf['mmHg'] = num
