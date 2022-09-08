@@ -237,8 +237,8 @@ with tab4:
         last_point = cur['Averaged Curve'].iloc[-1]
         cur['Averaged Curve'] = cur['Averaged Curve'] -  last_point
         for numbers in reversed(np.arange(0.2, 50.1, 0.1)):
-            u1 = cur[cur['Averaged Curve'] < numbers]
-            z1 = cur[cur['Averaged Curve'] < numbers - 0.1]
+            u1 = cur[cur['Second Curve'] < numbers]
+            z1 = cur[cur['Second Curve'] < numbers - 0.1]
             bld.append((len(u1) - len(z1))/ 1000) 
             num.append(numbers)
             z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
