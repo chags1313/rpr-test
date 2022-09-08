@@ -270,28 +270,28 @@ with tab4:
             p1 = round(p1, 2)
             st.info(str(p1)) 
         with c4:
-            st.text("200 -s Shear Rate RRF")
+            st.text("195 to 205 -s Shear Rate RRF")
             o = rrf[rrf['Shear Rate'] > 195]
             o = o[o['Shear Rate'] < 205]
             o1 = o['Relative Resistance to Flow'].mean()
             o1 = round(o1, 2)
             st.info(str(o1)) 
         with c3:
-            st.text("100 -s Shear Rate RRF")
+            st.text("95 to 105 -s Shear Rate RRF")
             x = rrf[rrf['Shear Rate'] > 95]
             x = x[x['Shear Rate'] < 105]
             x1 = x['Relative Resistance to Flow'].mean()
             x1 = round(x1, 2)
             st.success(str(x1)) 
         with c2:
-            st.text("10 -s Shear Rate RRF")
+            st.text("5 to 15 -s Shear Rate RRF")
             y = rrf[rrf['Shear Rate'] > 5]
             y = rrf[rrf['Shear Rate'] < 15]
             y1 = y['Relative Resistance to Flow'].mean()
             y1 = round(y1, 2)
             st.warning(str(y1))
         with c1:
-            st.text("5 -s Shear Rate RRF")
+            st.text("0 to 5 -s Shear Rate RRF")
             z = rrf[rrf['Shear Rate'] > 0]
             z = rrf[rrf['Shear Rate'] < 5]
             z1 = z['Relative Resistance to Flow'].mean()
