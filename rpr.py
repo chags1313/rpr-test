@@ -304,7 +304,7 @@ with tab4:
         shears = px.scatter(rrf, x='Shear Rate', y='Relative Resistance to Flow', color_discrete_sequence=['orange'],hover_data=["mmHg range", "Blood Sample", "Water Control"])
         #shear.data = [t for t in shears.data if t.mode == "lines"] trendline="lowess", trendline_options=dict(frac=0.09)
         shears.update_yaxes(range=(0,100))
-        shears.update_xaxes(range=(0,200))
+        shears.update_xaxes(range=(0,500))
         shears.update_layout(width=525, hovermode='x unified')
         with e1:
             st.plotly_chart(shears, config= dict(
@@ -313,7 +313,7 @@ with tab4:
 
         shears1 = px.line(rrf,x = 'mmHg range',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'], markers=True, hover_data=['Shear Rate', 'Relative Resistance to Flow'])
         shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False, width=525, hovermode='x unified')
-        shears1.update_yaxes(range=(0,10))
+        shears1.update_yaxes(range=(0,5))
         with e2:
             st.plotly_chart(shears1, config= dict(
             displayModeBar = False))
