@@ -236,7 +236,7 @@ with tab4:
         shr = list()
         last_point = cur['Averaged Curve'].iloc[-1]
         cur['Averaged Curve'] = cur['Averaged Curve'] -  last_point
-        for numbers in reversed(np.arange(0.2, 50.0, 0.01)):
+        for numbers in reversed(np.arange(0.19, 50.01, 0.01)):
             u1 = cur[cur['Second Curve'] < numbers]
             z1 = cur[cur['Second Curve'] < numbers - 0.01]
             bld.append((len(u1) - len(z1))/ 1000) 
