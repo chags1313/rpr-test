@@ -228,7 +228,7 @@ with tab4:
 
         cur['Shear Rate'] = avg_curve1['shear']
         cur['Flow'] = avg_curve1['flow']
-        st.line_chart(avg_curve1, y='shear', x = 'flow')
+
         
 
         
@@ -320,6 +320,10 @@ with tab4:
         with e2:
             st.plotly_chart(shears1, config= dict(
             displayModeBar = False))
+        colored_header("Shear Rate by Pressure")
+        st.line_chart(avg_curve1, y='shear', x = 'Amplitude - Normalized Pressure Data')
+        colored_header("Flow by Pressure")
+        st.line_chart(avg_curve1, y='flow', x = 'Amplitude - Normalized Pressure Data')
     else:
             st.info("Upload data in analytics tab")
 with tab5:
