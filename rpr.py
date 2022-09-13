@@ -329,12 +329,12 @@ with tab4:
             #st.plotly_chart(shears1, config= dict(
             #displayModeBar = False))
         #colored_header("Shear Rates")
-            shearbox = px.histogram(avg_curve1, x = 'shear', color_discrete_sequence=['pink'])
+            shearbox = px.strip(avg_curve1, x = 'shear', color_discrete_sequence=['pink'])
             shearbox.update_layout(xaxis_title = 'Shear Rate',hovermode='x unified', height = 215, width = 525)
             st.plotly_chart(shearbox, config= dict(
             displayModeBar = False))
         #colored_header("Flows")
-            flowbox = px.histogram(rrf, x = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
+            flowbox = px.strip(rrf, x = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
             flowbox.update_layout(xaxis_title = 'Relative Resistance to Flow',hovermode='x unified', height = 215, width=525)
             st.plotly_chart(flowbox, config= dict(
             displayModeBar = False))
