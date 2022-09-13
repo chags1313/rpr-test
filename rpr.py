@@ -243,7 +243,7 @@ with tab4:
             num.append(numbers)
             z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
             z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.01)]
-            shr.append((z['shear'].mean()))
+            shr.append((z['shear'].median()))
         rrf = pd.DataFrame({'Blood Sample': bld})
         rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.01,dtype=np.float) 
         rrf['Relative Resistance to Flow'] = 'na'
