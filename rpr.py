@@ -263,37 +263,37 @@ with tab4:
     
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
-            st.text("500 to 1000 -s Shear Rate RRF")
-            p = rrf[rrf['Shear Rate'] > 500]
-            p = p[p['Shear Rate'] < 1000]
+            st.text("300 to 500 -s Shear Rate RRF")
+            p = rrf[rrf['Shear Rate'] > 300]
+            p = p[p['Shear Rate'] < 500]
             p1 = p['Relative Resistance to Flow'].mean()
             p1 = round(p1, 2)
-            st.info(str(p1)) 
+            st.success(str(p1)) 
         with c4:
-            st.text("300 to 500 -s Shear Rate RRF")
-            o = rrf[rrf['Shear Rate'] > 300]
-            o = o[o['Shear Rate'] < 500]
+            st.text("200 to 300 -s Shear Rate RRF")
+            o = rrf[rrf['Shear Rate'] > 200]
+            o = o[o['Shear Rate'] < 300]
             o1 = o['Relative Resistance to Flow'].mean()
             o1 = round(o1, 2)
-            st.info(str(o1)) 
+            st.success(str(o1)) 
         with c3:
-            st.text("100 to 300 -s Shear Rate RRF")
+            st.text("100 to 200 -s Shear Rate RRF")
             x = rrf[rrf['Shear Rate'] > 100]
-            x = x[x['Shear Rate'] < 300]
+            x = x[x['Shear Rate'] < 200]
             x1 = x['Relative Resistance to Flow'].mean()
             x1 = round(x1, 2)
-            st.success(str(x1)) 
+            st.info(str(x1)) 
         with c2:
-            st.text("10 to 20 -s Shear Rate RRF")
-            y = rrf[rrf['Shear Rate'] > 10]
-            y = rrf[rrf['Shear Rate'] < 20]
+            st.text("50 to 100 -s Shear Rate RRF")
+            y = rrf[rrf['Shear Rate'] > 50]
+            y = rrf[rrf['Shear Rate'] < 100]
             y1 = y['Relative Resistance to Flow'].mean()
             y1 = round(y1, 2)
             st.warning(str(y1))
         with c1:
-            st.text("0 to 10-s Shear Rate RRF")
+            st.text("0 to 50-s Shear Rate RRF")
             z = rrf[rrf['Shear Rate'] > 0]
-            z = rrf[rrf['Shear Rate'] < 10]
+            z = rrf[rrf['Shear Rate'] < 50]
             z1 = z['Relative Resistance to Flow'].mean()
             z1 = round(z1, 2)
             st.error(str(z1))
