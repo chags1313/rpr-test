@@ -321,9 +321,9 @@ with tab4:
             st.plotly_chart(shears1, config= dict(
             displayModeBar = False))
         colored_header("Shear Rate by Pressure")
-        st.line_chart(avg_curve1, y='shear', x = 'Amplitude - Normalized Pressure Data')
+        st.line_chart(avg_curve1, y='shear')
         colored_header("Flow by Pressure")
-        st.line_chart(avg_curve1, y='flow', x = 'Amplitude - Normalized Pressure Data')
+        st.line_chart(avg_curve1, y='flow')
     else:
             st.info("Upload data in analytics tab")
 with tab5:
