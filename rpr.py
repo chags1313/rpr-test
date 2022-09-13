@@ -236,7 +236,7 @@ with tab4:
         shr = list()
         last_point = cur['Averaged Curve'].iloc[-1]
         cur['Averaged Curve'] = cur['Averaged Curve'] -  last_point
-        for numbers in reversed(np.arange(0.19, 50.01, 0.01)):
+        for numbers in reversed(np.arange(0.10, 50.01, 0.01)):
             u1 = cur[cur['Second Curve'] < numbers]
             z1 = cur[cur['Second Curve'] < numbers - 0.01]
             bld.append((len(u1) - len(z1))/ 1000) 
@@ -253,8 +253,8 @@ with tab4:
         rrf['Shear Rate'] = rrf['Shear Rate'].abs()
         for i in range(len(rrf)):
             rrf['Relative Resistance to Flow'].iloc[i] = rrf['Blood Sample'].iloc[i] / rrf['Water Control'].iloc[i]
-            high = round(rrf['mmHg'].iloc[i],1)
-            low = round(rrf['mmHg'].iloc[i] - 0.01,1)
+            high = round(rrf['mmHg'].iloc[i],2)
+            low = round(rrf['mmHg'].iloc[i] - 0.01,2)
             rrf['mmHg range'].iloc[i] = str(high) + " to " + str(low)
         colored_header("Processed Test Data")
 
