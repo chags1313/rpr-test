@@ -105,6 +105,7 @@ with tab1:
            st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
     with st.expander("Device Parameters"):
         needlesize = st.number_input('Insert the needle size', value = 16)
+        st.write(needlesize)
 with tab2:
     components.iframe("http://desktop-kvcjuh6.localdomain:8000/rpr2.html")
             
