@@ -329,9 +329,13 @@ with tab4:
             st.plotly_chart(shears1, config= dict(
             displayModeBar = False))
         colored_header("Shear Rates")
-        st.line_chart(avg_curve1, y='shear')
+        shearbox = px.box(avg_curve1, x = 'shear')
+        st.plotly_chart(shearbox, config= dict(
+            displayModeBar = False))
         colored_header("Flows")
-        st.line_chart(avg_curve1, y='flow')
+        flowbox = px.box(avg_curve1, x = 'flow')
+        st.plotly_chart(flowbox, config= dict(
+            displayModeBar = False))
     else:
             st.info("Upload data in analytics tab")
 with tab5:
