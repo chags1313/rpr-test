@@ -226,7 +226,7 @@ with tab4:
                  avg_curve1['shear'].iloc[i] = shear
                  avg_curve1['flow'].iloc[i] = Q
 
-        cur['Shear Rate'] = avg_curve1['shear'].abs()
+        cur['Shear Rate'] = avg_curve1['shear']
         cur['Flow'] = avg_curve1['flow']
         
 
@@ -321,50 +321,10 @@ with tab4:
             displayModeBar = False))
     else:
             st.info("Upload data in analytics tab")
-        
-
 with tab5:
     if uploaded_file is not None:
-            ##Running regression model predictions on data
-           # pred, model = regression_model(data=rrf[['Shear Rate', 'Relative Resistance to Flow']], target = 'Relative Resistance to Flow')
-            #r1 = pd.DataFrame()
-            #r1['Shear Rate'] = np.arange(1,201)
-            #r2 = predict_model(model, data = r1)
-
-#            colored_header("Shear Rate by Relative Resistance to Flow Regression Model")
- #           cc1, cc2, cc3, cc4 = st.columns(4)
-  #          r2['Shear Rate Prediction'] = r2['Label']
-   #         pred_ch = px.line(r2, y='Shear Rate Prediction', x='Shear Rate', color_discrete_sequence=['purple'])
-    #        pred_ch.update_yaxes(range=(0,100))
-     #       pred_ch.update_layout(width=1000, showlegend=False)
-      #      st.plotly_chart(pred_ch, config= dict(
-       #         displayModeBar = False))
-
-        #    rrf200s = r2[r2['Shear Rate'] == 100]
-         #   rrf200s = round(rrf200s['Label'].iloc[0], 2)      
-          #  rrf100s = r2[r2['Shear Rate'] == 100]
-           # rrf100s = round(rrf100s['Label'].iloc[0], 2)
-           # rrf10s = r2[r2['Shear Rate'] == 10]
-           # rrf10s = round(rrf10s['Label'].iloc[0], 2)
-           # rrf1s = r2[r2['Shear Rate'] == 1]
-           # rrf1s = round(rrf1s['Label'].iloc[0], 2)
-            
-            #with cc4:
-            #    st.text("200-s RRF Prediction")
-            #    rrf_200s = st.info(str(rrf200s)) 
-            #with cc3:
-            #    st.text("100-s RRF Prediction")
-            #    rrf_100s = st.success(str(rrf100s)) 
-            #with cc2:
-            #    st.text("10-s RRF Prediction")
-            #    rrf_10s = st.warning(str(rrf10s))
-            #with cc1:
-             #   st.text("1-s RRF Prediction")
-              #  rrf_1s = st.error(str(rrf1s))
             csv = convert_df(rrf)
             csv2 = convert_df(cur)
-
-
             dfcol1, dfcol2 = st.columns(2)
             with dfcol1:
                 st.download_button(
@@ -382,35 +342,8 @@ with tab5:
                     mime='text/csv',
                     )
                 cur1 = cur.drop(['Flow', 'Average curve mmHg'], axis=1)
-                cur1 = cur1.abs()
+             ##   cur1 = cur1.abs()
                 st.dataframe(cur1)
 
-       # uploaded_file1 = st.file_uploader("Upload RPR Analytics Files", type="csv", accept_multiple_files=True)
-        #if uploaded_file1 is not None:
-
-                    # To read file as bytes:
-         #           for file in uploaded_file1:
-          #               dataframe = pd.read_csv(file)
-           #              dataframe['Analyitics File'] = str(file.name)
-            #             file.seek(0)
-             #            com1 = pd.concat([com1, dataframe])
-
-              #      rrfdate = px.box(com1, x= 'Analyitics File', y = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
-                    #rrfdate.update_layout()
-               #     rrfdate.update_xaxes(type='category')
-                #    rrfdate.update_layout(width=1200)
-                 #   st.plotly_chart(rrfdate,config= dict(
-                  #  displayModeBar = False))
-                   # sheardate = px.box(com1, x= 'Analyitics File', y = 'Shear Rate', color_discrete_sequence=['green'])
-                    #sheardate.update_layout()
-                    #sheardate.update_xaxes(type='category')
-                    #sheardate.update_layout(width=1200)
-                    #st.plotly_chart(sheardate,config= dict(
-                    #displayModeBar = False))
-                    #com1['Flow Time in Seconds'] = com1['Blood Sample']
-                    #comp = px.scatter(com1, x='mmHg range', y = 'Flow Time in Seconds', color = 'Analyitics File', color_continuous_scale=px.colors.sequential)
-                    #comp.update_layout(width = 1200)
-                    #st.plotly_chart(comp,config= dict(
-                    #displayModeBar = False))
     else:
             st.info("Upload data in analytics tab")
