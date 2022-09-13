@@ -329,11 +329,11 @@ with tab4:
             st.plotly_chart(shears1, config= dict(
             displayModeBar = False))
         colored_header("Shear Rates")
-        shearbox = px.box(avg_curve1, x = 'shear', color = 'purple')
+        shearbox = px.box(avg_curve1, x = 'shear', color_discrete_sequence=['pink'])
         st.plotly_chart(shearbox, config= dict(
             displayModeBar = False))
         colored_header("Flows")
-        flowbox = px.box(avg_curve1, x = 'flow', color = 'pink')
+        flowbox = px.box(avg_curve1, x = 'flow', color_discrete_sequence=['pink'])
         st.plotly_chart(flowbox, config= dict(
             displayModeBar = False))
     else:
