@@ -326,15 +326,17 @@ with tab4:
         shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False, width=525, hovermode='x unified')
         shears1.update_yaxes(range=(0,5))
         with e2:
-            st.plotly_chart(shears1, config= dict(
+            #st.plotly_chart(shears1, config= dict(
+            #displayModeBar = False))
+        #colored_header("Shear Rates")
+            shearbox = px.box(avg_curve1, x = 'shear', color_discrete_sequence=['pink'])
+            shearbox.update_layout(xaxis_title = 'Shear Rate',hovermode='x unified')
+            st.plotly_chart(shearbox, config= dict(
             displayModeBar = False))
-        colored_header("Shear Rates")
-        shearbox = px.box(avg_curve1, x = 'shear', color_discrete_sequence=['pink'])
-        st.plotly_chart(shearbox, config= dict(
-            displayModeBar = False))
-        colored_header("Flows")
-        flowbox = px.box(avg_curve1, x = 'flow', color_discrete_sequence=['pink'])
-        st.plotly_chart(flowbox, config= dict(
+        #colored_header("Flows")
+            flowbox = px.box(rrf, x = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
+            flowbox.update_layout(xaxis_title = 'Relative Resistance to Flow',hovermode='x unified')
+            st.plotly_chart(flowbox, config= dict(
             displayModeBar = False))
     else:
             st.info("Upload data in analytics tab")
