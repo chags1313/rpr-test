@@ -236,7 +236,7 @@ with tab4:
         shr = list()
         last_point = cur['Averaged Curve'].iloc[-1]
         cur['Averaged Curve'] = cur['Averaged Curve'] -  last_point
-        for numbers in reversed(np.arange(0.01, 50.01, 0.01)):
+        for numbers in reversed(np.arange(0.02, 50.01, 0.01)):
             u1 = cur[cur['Second Curve'] < numbers]
             z1 = cur[cur['Second Curve'] < numbers - 0.01]
             bld.append((len(u1) - len(z1))/ 1000) 
@@ -263,23 +263,23 @@ with tab4:
     
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
-            st.text("495 to 505 -s Shear Rate RRF")
-            p = rrf[rrf['Shear Rate'] > 495]
-            p = p[p['Shear Rate'] < 505]
+            st.text("500 to 1000 -s Shear Rate RRF")
+            p = rrf[rrf['Shear Rate'] > 1000]
+            p = p[p['Shear Rate'] < 500]
             p1 = p['Relative Resistance to Flow'].mean()
             p1 = round(p1, 2)
             st.info(str(p1)) 
         with c4:
-            st.text("195 to 205 -s Shear Rate RRF")
-            o = rrf[rrf['Shear Rate'] > 195]
-            o = o[o['Shear Rate'] < 205]
+            st.text("300 to 500 -s Shear Rate RRF")
+            o = rrf[rrf['Shear Rate'] > 300]
+            o = o[o['Shear Rate'] < 500]
             o1 = o['Relative Resistance to Flow'].mean()
             o1 = round(o1, 2)
             st.info(str(o1)) 
         with c3:
-            st.text("95 to 105 -s Shear Rate RRF")
-            x = rrf[rrf['Shear Rate'] > 95]
-            x = x[x['Shear Rate'] < 105]
+            st.text("100 to 300 -s Shear Rate RRF")
+            x = rrf[rrf['Shear Rate'] > 100]
+            x = x[x['Shear Rate'] < 300]
             x1 = x['Relative Resistance to Flow'].mean()
             x1 = round(x1, 2)
             st.success(str(x1)) 
