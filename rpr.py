@@ -228,7 +228,7 @@ with tab4:
 
         cur['Shear Rate'] = avg_curve1['shear']
         cur['Flow'] = avg_curve1['flow']
-        st.line_chart(avg_curve1, y='shear')
+        st.line_chart(avg_curve1, y='shear', x = 'flow')
         
 
         
