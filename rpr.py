@@ -330,12 +330,12 @@ with tab4:
             #displayModeBar = False))
         #colored_header("Shear Rates")
             shearbox = px.box(avg_curve1, x = 'shear', color_discrete_sequence=['pink'])
-            shearbox.update_layout(xaxis_title = 'Shear Rate',hovermode='x unified', height = 200, width = 525)
+            shearbox.update_layout(xaxis_title = 'Shear Rate',hovermode='x unified', height = 210, width = 525)
             st.plotly_chart(shearbox, config= dict(
             displayModeBar = False))
         #colored_header("Flows")
             flowbox = px.box(rrf, x = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
-            flowbox.update_layout(xaxis_title = 'Relative Resistance to Flow',hovermode='x unified', height = 200, width=525)
+            flowbox.update_layout(xaxis_title = 'Relative Resistance to Flow',hovermode='x unified', height = 210, width=525)
             st.plotly_chart(flowbox, config= dict(
             displayModeBar = False))
     else:
