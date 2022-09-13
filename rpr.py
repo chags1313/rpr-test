@@ -203,31 +203,31 @@ with tab4:
                  last = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1] 
                  curve =  first - last
                  if needlesize == 12:
-                    Q = ((((0.6 * curve)/ md) / time)) 
+                    Q = ((((0.6 * curve / 1000)/ md))) 
                     R = (1.26 * 10**-9)
                  if needlesize == 13:
-                        Q = ((((0.6 * curve)/md) / time)) 
+                        Q = ((((0.6 * curve / 1000)/md))) 
                         R = (7.33 * 10**-10)
                  if needlesize == 14:
-                        Q = ((((0.6 * curve)/md) / time)) 
+                        Q = ((((0.6 * curve / 1000)/md))) 
                         R = (5.12 * 10**-10)
                  if needlesize == 15:
-                        Q = ((((0.6 * curve)/md) / time)) 
+                        Q = ((((0.6 * curve / 1000)/md))) 
                         R = (3.23 * 10**-10)
                  if needlesize == 16:
-                        Q = ((((0.6 * curve)/md) / time)) 
+                        Q = ((((0.6 * curve / 1000)/md))) 
                         R = (2.13 * 10**-10)
                  if needlesize == 17:
-                        Q = ((((0.6 * curve)/md) / time)) 
+                        Q = ((((0.6 * curve / 1000)/md))) 
                         R = (1.52 * 10**-10)  
                  if needlesize == 18:
-                        Q = ((((0.6 * curve)/md) / time)) 
+                        Q = ((((0.6 * curve / 1000)/md))) 
                         R = (7.36 * 10**-11)
                  if needlesize == 19:
-                        Q = ((((0.6 * curve)/md) / time)) 
+                        Q = ((((0.6 * curve / 1000)/md))) 
                         R = (4.04 * 10**-11)
                  if needlesize == 20:
-                        Q = ((((0.6 * curve)/md) / time))
+                        Q = ((((0.6 * curve / 1000)/md)))
                         R = (2.74 * 10**-11)
                  shear = 4*(Q/(pi*(R)))
                  print(shear)
