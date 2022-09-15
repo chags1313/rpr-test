@@ -244,7 +244,7 @@ with tab4:
         #cur['Flow'] = avg_curve1['flow']
         avg_curve1['Shear Rate'] = avg_curve1['shear']
         avg_curve1['Flow'] = avg_curve1['flow']
-        avg_curve1['Relative Resistance to Flow'] = 0.000001 / avg_curve1['Flow']
+        avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
 
         rrf = avg_curve1
 
