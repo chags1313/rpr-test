@@ -346,26 +346,12 @@ with tab4:
 with tab5:
     if uploaded_file is not None:
             csv = convert_df(rrf)
-            csv2 = convert_df(cur)
-            dfcol1, dfcol2 = st.columns(2)
-            with dfcol1:
-                st.download_button(
-                    label="Download Processed Shear Rate and RRF",
-                    data=csv,
-                    file_name='Results.csv',
-                    mime='text/csv',
-                    )
-                st.dataframe(rrf.drop(['Water Control'], axis=1).dropna().style.highlight_min(axis=0))
-            with dfcol2:
-                st.download_button(
-                    label="Download Processed Curves",
-                    data=csv2,
-                    file_name='Results.csv',
-                    mime='text/csv',
-                    )
-                cur1 = cur.drop(['Flow', 'Average curve mmHg'], axis=1)
-             ##   cur1 = cur1.abs()
-                st.dataframe(cur1)
 
-    else:
-            st.info("Upload data in analytics tab")
+
+            st.download_button(
+                label="Download Processed Shear Rate and RRF",
+                data=csv,
+                file_name='Results.csv',
+                mime='text/csv',
+                )
+            st.dataframe(rrf.style.highlight_min(axis=0))
