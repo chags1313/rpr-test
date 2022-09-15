@@ -317,7 +317,7 @@ with tab4:
             z1 = round(z1, 2)
             st.error(str(z1))
             
-        e1, e2 = st.columns(2)
+        #e1, e2 = st.columns(2)
      
         
         #rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window=10).mean()
@@ -327,25 +327,12 @@ with tab4:
         shears.update_yaxes(range=(0,500))
         shears.update_xaxes(range=(0,1000))
         shears.update_layout(width=1200, hovermode='x unified')
-        with e1:
-            st.plotly_chart(shears, config= dict(
-            displayModeBar = False))
+        #with e1:
+        st.plotly_chart(shears, config= dict(
+        displayModeBar = False))
              
 
-   
-        with e2:
-            #st.plotly_chart(shears1, config= dict(
-            #displayModeBar = False))
-        #colored_header("Shear Rates")
-            shearbox = px.violin(avg_curve1, x = 'shear', color_discrete_sequence=['pink'])
-            shearbox.update_layout(xaxis_title = 'Shear Rate',hovermode='x unified', height = 215, width = 525)
-            st.plotly_chart(shearbox, config= dict(
-            displayModeBar = False), staticPlot= True)
-        #colored_header("Flows")
-            flowbox = px.violin(rrf, x = 'Relative Resistance to Flow', color_discrete_sequence=['purple'])
-            flowbox.update_layout(xaxis_title = 'Relative Resistance to Flow',hovermode='x unified', height = 215, width=525)
-            st.plotly_chart(flowbox, config= dict(
-            displayModeBar = False), staticPlot= True)
+
     else:
             st.info("Upload data in analytics tab")
 with tab5:
