@@ -380,7 +380,7 @@ with tab5:
             fig3.add_trace(go.Scatter(x = dfr['Max Shear Rate'], 
                                     y = dfr["Test"],
                                     mode = 'markers',
-                                    marker_color = 'lightorange', 
+                                    marker_color = 'darkblue', 
                                     marker_size = 10,
                                     name = 'Max'))
             fig3.add_trace(go.Scatter(x = dfr['Median Shear Rate'], 
@@ -402,7 +402,7 @@ with tab5:
             fig4.add_trace(go.Scatter(x = dfr['Min RRF'], 
                                     y = dfr['Test'],
                                     mode = 'markers',
-                                    marker_color = 'lightorange',
+                                    marker_color = 'darkblue',
                                     marker_size = 10,
                                     name = 'Min'))
 
