@@ -361,26 +361,26 @@ with tab5:
                 )
             st.dataframe(rrf.style.highlight_min(axis=0))
             rrf['Test'] = 'Test'
-
+            dfr = pd.DataFrame({"Test": ["Blood Sample"], "Max Shear Rate":[rrf['Shear Rate'].max()], "Min Shear Rate": [rrf['Shear Rate'].max()]})
             fig3= go.Figure()
-            fig3.add_trace(go.Scatter(x = rrf["Shear Rate"].min(), 
-                                    y = rrf["Test"].iloc[0],
+            fig3.add_trace(go.Scatter(x = dfr['Min Shear Rate'], 
+                                    y = dfr['Test'],
                                     mode = 'markers',
                                     marker_color = 'darkblue',
                                     marker_size = 10,
                                     name = 'Median'))
 
-            fig3.add_trace(go.Scatter(x = rrf["Shear Rate"].max(), 
-                                    y = rrf["Test"].iloc[0],
+            fig3.add_trace(go.Scatter(x = dfr['Min Shear Rate'], 
+                                    y = dfr["Test"],
                                     mode = 'markers',
                                     marker_color = 'darkorange', 
                                     marker_size = 10,
                                     name = 'Mean'))
             fig3.add_shape(type='line',
-                            x0 = rrf["Shear Rate"].min(),
-                            y0 = rrf["Test"].iloc[0],
-                            x1 = rrf["Shear Rate"].max(),
-                            y1 = rrf["Test"].iloc[0],
+                            x0 = dfr['Min Shear Rate'],
+                            y0 = dfr["Test"],
+                            x1 = dfr['Max Shear Rate'],
+                            y1 = dfr["Test"],
                             line=dict(color='crimson', width = 3))
 
             st.plotly_chart(fig3)
