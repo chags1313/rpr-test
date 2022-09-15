@@ -331,7 +331,7 @@ with tab4:
             st.plotly_chart(shears, config= dict(
             displayModeBar = False))
         with e2:
-            flwinf = "Total Flow: " + str(totalflow)
+            flwinf = "Total Flow: " + str(totalarea)
             st.info(flwinf, icon='📈')
 
 
