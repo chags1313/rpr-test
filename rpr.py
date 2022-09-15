@@ -277,6 +277,7 @@ with tab4:
         #    low = round(rrf['mmHg'].iloc[i] - 0.01,2)
         #    rrf['mmHg range'].iloc[i] = str(high) + " to " + str(low)
         colored_header("Processed Test Data")
+        rrf = rrf[rrf['Flow'] != 0]
 
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
