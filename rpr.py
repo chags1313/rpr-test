@@ -231,7 +231,7 @@ with tab4:
                  if needlesize == 20:
                         Q = ((((0.6 * curve)/md / time)))* (1*10**-6)
                         R = (2.74 * 10**-11)
-                 Q = ((0.6 * (first * 0.001)) / totalarea) / 0.001
+                 Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
                  shear = 4*(Q/(pi*(R)))
                  print(shear)
                  avg_curve1['shear'].iloc[i] = shear
