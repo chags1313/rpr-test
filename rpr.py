@@ -237,42 +237,44 @@ with tab4:
                  avg_curve1['shear'].iloc[i] = shear
                  avg_curve1['flow'].iloc[i] = Q
 
-        cur['Shear Rate'] = avg_curve1['shear']
-        cur['Flow'] = avg_curve1['flow']
+        #cur['Shear Rate'] = avg_curve1['shear']
+        #cur['Flow'] = avg_curve1['flow']
+        avg_curve1['Shear Rate'] = avg_curve1['shear']
+        avg_curve1['Flow'] = avg_curve1['flow']
+        avg_curve1['Relative Restistance to Flow'] = 0.001 / avg_curve1['Flow']
+
+        rrf = avg_curve1
 
         
 
         
-        bld = list()
-        num = list()
-        shr = list()
-        last_point = cur['Averaged Curve'].iloc[-1]
-        cur['Averaged Curve'] = cur['Averaged Curve']
-        for numbers in reversed(np.arange(0.11, 60.01, 0.01)):
-            u1 = cur[cur['Second Curve'] < numbers]
-            z1 = cur[cur['Second Curve'] < numbers - 0.01]
-            bld.append((len(u1) - len(z1))/ 1000) 
-            num.append(numbers)
-            z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
-            z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.01)]
-            shr.append((z['shear'].median()))
-        rrf = pd.DataFrame({'Blood Sample': bld})
-        rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.01,dtype=np.float) 
-        rrf['Relative Resistance to Flow'] = 'na'
-        rrf['mmHg range'] = 'na'
-        rrf['mmHg'] = num
-        rrf['Shear Rate'] = shr
-        rrf['Shear Rate'] = rrf['Shear Rate'].abs()
-        for i in range(len(rrf)):
-            rrf['Relative Resistance to Flow'].iloc[i] = rrf['Blood Sample'].iloc[i] / rrf['Water Control'].iloc[i]
-            high = round(rrf['mmHg'].iloc[i],2)
-            low = round(rrf['mmHg'].iloc[i] - 0.01,2)
-            rrf['mmHg range'].iloc[i] = str(high) + " to " + str(low)
+        #bld = list()
+        #num = list()
+        #shr = list()
+        #last_point = cur['Averaged Curve'].iloc[-1]
+        #cur['Averaged Curve'] = cur['Averaged Curve']
+        #for numbers in reversed(np.arange(0.11, 60.01, 0.01)):
+        #    u1 = cur[cur['Second Curve'] < numbers]
+        #    z1 = cur[cur['Second Curve'] < numbers - 0.01]
+        #    bld.append((len(u1) - len(z1))/ 1000) 
+        #    num.append(numbers)
+        #    z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
+        #    z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.01)]
+        #    shr.append((z['shear'].median()))
+        #rrf = pd.DataFrame({'Blood Sample': bld})
+        #rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.01,dtype=np.float) 
+        #rrf['Relative Resistance to Flow'] = 'na'
+        #rrf['mmHg range'] = 'na'
+        #rrf['mmHg'] = num
+        #rrf['Shear Rate'] = shr
+        #rrf['Shear Rate'] = rrf['Shear Rate'].abs()
+        #for i in range(len(rrf)):
+        #    rrf['Relative Resistance to Flow'].iloc[i] = rrf['Blood Sample'].iloc[i] / rrf['Water Control'].iloc[i]
+        #    high = round(rrf['mmHg'].iloc[i],2)
+        #    low = round(rrf['mmHg'].iloc[i] - 0.01,2)
+        #    rrf['mmHg range'].iloc[i] = str(high) + " to " + str(low)
         colored_header("Processed Test Data")
 
-        
-
-    
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
             st.text("500-s Shear Rate RRF")
