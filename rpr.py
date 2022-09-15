@@ -120,7 +120,7 @@ with tab3:
         try:
             dataframe['Amplitude - Normalized Pressure Data']
         except:
-            dataframe['Amplitude - Normalized Pressure Data'] = dataframe
+            dataframe['Amplitude - Normalized Pressure Data'] = dataframe[0]
         fv = dataframe['Amplitude - Normalized Pressure Data'].iloc[1]
         dataframe = dataframe - fv
         dataframe['Seconds'] = dataframe.index / 1000
