@@ -326,7 +326,7 @@ with tab4:
         #shear.data = [t for t in shears.data if t.mode == "lines"] trendline="lowess", trendline_options=dict(frac=0.09)
         shears.update_yaxes(range=(0,100))
         shears.update_xaxes(range=(0,500))
-        shears.update_layout(width=1200, hovermode='x unified')
+        shears.update_layout(width=1000, hovermode='x unified')
         #with e1:
         st.plotly_chart(shears, config= dict(
         displayModeBar = False))
