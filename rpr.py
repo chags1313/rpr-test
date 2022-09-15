@@ -363,17 +363,24 @@ with tab5:
             rrf['Test'] = 'Test'
 
             fig3= go.Figure()
-            fig3.add_trace(go.Scatter(x = rrf["Shear Rate"], 
-                                    y = rrf["Test"],
+            fig3.add_trace(go.Scatter(x = rrf["Shear Rate"].min(), 
+                                    y = rrf["Test"].iloc[0],
                                     mode = 'markers',
                                     marker_color = 'darkblue',
                                     marker_size = 10,
                                     name = 'Median'))
 
-            for i in range(0, len(rrf)):
-                        fig3.add_shape(type='line',
-                                        x0 = rrf["Shear Rate"],
-                                        y0 = i,
-                                        line=dict(color='crimson', width = 3))
+            fig3.add_trace(go.Scatter(x = rrf["Shear Rate"].max(), 
+                                    y = rrf["Test"].iloc[0],
+                                    mode = 'markers',
+                                    marker_color = 'darkorange', 
+                                    marker_size = 10,
+                                    name = 'Mean'))
+            fig3.add_shape(type='line',
+                            x0 = rrf["Shear Rate"].min(),
+                            y0 = rrf["Test"].iloc[0],
+                            x1 = rrf["Shear Rate"].max(),
+                            y1 = rrf["Test"].iloc[0],
+                            line=dict(color='crimson', width = 3))
 
             st.plotly_chart(fig3)
