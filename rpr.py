@@ -372,7 +372,7 @@ with tab5:
 
             for i in range(0, len(rrf)):
                         fig3.add_shape(type='line',
-                                        x0 = df_WwT["Shear Rate"][i],
+                                        x0 = rrf["Shear Rate"][i],
                                         y0 = i,
                                         line=dict(color='crimson', width = 3))
 
