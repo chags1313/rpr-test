@@ -12,6 +12,7 @@ import streamlit as st
 from io import StringIO
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import numpy as np
 import base64
 import itertools
@@ -359,3 +360,20 @@ with tab5:
                 mime='text/csv',
                 )
             st.dataframe(rrf.style.highlight_min(axis=0))
+            rrf['Test'] = 'Test'
+
+            fig3= go.Figure()
+            fig3.add_trace(go.Scatter(x = rrf["Shear Rate"], 
+                                    y = rrf["Test"],
+                                    mode = 'markers',
+                                    marker_color = 'darkblue',
+                                    marker_size = 10,
+                                    name = 'Median'))
+
+            for i in range(0, len(rrf)):
+                        fig3.add_shape(type='line',
+                                        x0 = df_WwT["Shear Rate"][i],
+                                        y0 = i,
+                                        line=dict(color='crimson', width = 3))
+
+            st.plotly_chart(fig3)
