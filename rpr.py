@@ -317,7 +317,7 @@ with tab4:
             z1 = round(z1, 2)
             st.error(str(z1))
             
-        #e1, e2 = st.columns(2)
+        e1, e2 = st.columns(2)
      
         
         #rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window=10).mean()
@@ -326,10 +326,15 @@ with tab4:
         #shear.data = [t for t in shears.data if t.mode == "lines"] trendline="lowess", trendline_options=dict(frac=0.09)
         shears.update_yaxes(range=(0,100))
         shears.update_xaxes(range=(0,500))
-        shears.update_layout(width=1000, hovermode='x unified')
-        #with e1:
-        st.plotly_chart(shears, config= dict(
-        displayModeBar = False))
+        shears.update_layout(width=525, hovermode='x unified')
+        with e1:
+            st.plotly_chart(shears, config= dict(
+            displayModeBar = False))
+        with e2:
+            flwinf = "Total Flow: " + str(totalflow)
+            st.info(flwinf, icon='📈')
+
+
              
 
 
