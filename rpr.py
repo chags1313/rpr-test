@@ -368,14 +368,14 @@ with tab5:
                                     mode = 'markers',
                                     marker_color = 'darkblue',
                                     marker_size = 10,
-                                    name = 'Median'))
+                                    name = 'Min'))
 
-            fig3.add_trace(go.Scatter(x = dfr['Min Shear Rate'], 
+            fig3.add_trace(go.Scatter(x = dfr['Max Shear Rate'], 
                                     y = dfr["Test"],
                                     mode = 'markers',
                                     marker_color = 'darkorange', 
                                     marker_size = 10,
-                                    name = 'Mean'))
+                                    name = 'Max'))
             fig3.add_shape(type='line',
                             x0 = dfr['Min Shear Rate'],
                             y0 = dfr["Test"],
