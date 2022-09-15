@@ -361,21 +361,34 @@ with tab5:
                 )
             st.dataframe(rrf.style.highlight_min(axis=0))
             rrf['Test'] = 'Test'
-            dfr = pd.DataFrame({"Test": ["Blood Sample"], "Max Shear Rate":[rrf['Shear Rate'].max()], "Min Shear Rate": [rrf['Shear Rate'].max()]})
+            dfr = pd.DataFrame({"Test": ["Blood Sample"], 
+            "Max Shear Rate":[rrf['Shear Rate'].max()], 
+            "Min Shear Rate": [rrf['Shear Rate'].min()],
+            "Median Shear Rate": [rrf['Shear Rate'].median()],
+            "Median RRF": [rrf['Relative Resistance to Flow'].median()],
+            "Min RRF": [rrf['Relative Resistance to Flow'].min()],
+            "Max RRF": [rrf['Relative Resistance to Flow'].max()]})
+
             fig3= go.Figure()
             fig3.add_trace(go.Scatter(x = dfr['Min Shear Rate'], 
                                     y = dfr['Test'],
                                     mode = 'markers',
-                                    marker_color = 'darkblue',
+                                    marker_color = 'darkorange',
                                     marker_size = 10,
                                     name = 'Min'))
 
             fig3.add_trace(go.Scatter(x = dfr['Max Shear Rate'], 
                                     y = dfr["Test"],
                                     mode = 'markers',
-                                    marker_color = 'darkorange', 
+                                    marker_color = 'lightorange', 
                                     marker_size = 10,
                                     name = 'Max'))
+            fig3.add_trace(go.Scatter(x = dfr['Median Shear Rate'], 
+                                    y = dfr["Test"],
+                                    mode = 'markers',
+                                    marker_color = 'black', 
+                                    marker_size = 10,
+                                    name = 'Median'))
             fig3.add_shape(type='line',
                             x0 = dfr['Min Shear Rate'],
                             y0 = dfr["Test"],
@@ -384,3 +397,32 @@ with tab5:
                             line=dict(color='crimson', width = 3))
 
             st.plotly_chart(fig3)
+            
+            fig4= go.Figure()
+            fig4.add_trace(go.Scatter(x = dfr['Min RRF'], 
+                                    y = dfr['Test'],
+                                    mode = 'markers',
+                                    marker_color = 'lightorange',
+                                    marker_size = 10,
+                                    name = 'Min'))
+
+            fig4.add_trace(go.Scatter(x = dfr['Max RRF'], 
+                                    y = dfr["Test"],
+                                    mode = 'markers',
+                                    marker_color = 'darkorange', 
+                                    marker_size = 10,
+                                    name = 'Max'))
+            fig4.add_trace(go.Scatter(x = dfr['Median RRF'], 
+                                    y = dfr["Test"],
+                                    mode = 'markers',
+                                    marker_color = 'black', 
+                                    marker_size = 10,
+                                    name = 'Median'))
+            fig4.add_shape(type='line',
+                            x0 = dfr['Min RRF'],
+                            y0 = dfr["Test"],
+                            x1 = dfr['Max RRF'],
+                            y1 = dfr["Test"],
+                            line=dict(color='crimson', width = 3))
+
+            st.plotly_chart(fig4)
