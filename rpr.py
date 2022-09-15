@@ -247,7 +247,7 @@ with tab4:
         num = list()
         shr = list()
         last_point = cur['Averaged Curve'].iloc[-1]
-        cur['Averaged Curve'] = cur['Averaged Curve'] -  last_point
+        cur['Averaged Curve'] = cur['Averaged Curve']
         for numbers in reversed(np.arange(0.11, 60.01, 0.01)):
             u1 = cur[cur['Second Curve'] < numbers]
             z1 = cur[cur['Second Curve'] < numbers - 0.01]
