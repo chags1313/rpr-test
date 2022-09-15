@@ -201,6 +201,8 @@ with tab4:
              for i in range(len(avg_curve1)):
                  first = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[i] 
                  last = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1] 
+                 are = avg_curve1['Amplitude - Normalized Pressure Data'] * 0.001
+                 totalarea = are.sum()
                  curve =  first - last
                  if needlesize == 12:
                     Q = ((((0.6 * curve)/ md / time))) * (1*10**-6)
@@ -229,6 +231,7 @@ with tab4:
                  if needlesize == 20:
                         Q = ((((0.6 * curve)/md / time)))* (1*10**-6)
                         R = (2.74 * 10**-11)
+                 Q = ((0.6 * (first * 0.001)) / totalarea) / 0.001
                  shear = 4*(Q/(pi*(R)))
                  print(shear)
                  avg_curve1['shear'].iloc[i] = shear
@@ -245,7 +248,7 @@ with tab4:
         shr = list()
         last_point = cur['Averaged Curve'].iloc[-1]
         cur['Averaged Curve'] = cur['Averaged Curve'] -  last_point
-        for numbers in reversed(np.arange(0.11, 50.01, 0.01)):
+        for numbers in reversed(np.arange(0.11, 60.01, 0.01)):
             u1 = cur[cur['Second Curve'] < numbers]
             z1 = cur[cur['Second Curve'] < numbers - 0.01]
             bld.append((len(u1) - len(z1))/ 1000) 
@@ -272,37 +275,37 @@ with tab4:
     
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
-            st.text("300 to 500 -s Shear Rate RRF")
-            p = rrf[rrf['Shear Rate'] > 300]
-            p = p[p['Shear Rate'] < 500]
+            st.text("500-s Shear Rate RRF")
+            p = rrf[rrf['Shear Rate'] > 495]
+            p = p[p['Shear Rate'] < 505]
             p1 = p['Relative Resistance to Flow'].mean()
             p1 = round(p1, 2)
             st.success(str(p1)) 
         with c4:
-            st.text("200 to 300 -s Shear Rate RRF")
-            o = rrf[rrf['Shear Rate'] > 200]
-            o = o[o['Shear Rate'] < 300]
+            st.text("200-s Shear Rate RRF")
+            o = rrf[rrf['Shear Rate'] > 195]
+            o = o[o['Shear Rate'] < 205]
             o1 = o['Relative Resistance to Flow'].mean()
             o1 = round(o1, 2)
             st.success(str(o1)) 
         with c3:
-            st.text("100 to 200 -s Shear Rate RRF")
-            x = rrf[rrf['Shear Rate'] > 100]
-            x = x[x['Shear Rate'] < 200]
+            st.text("100-s Shear Rate RRF")
+            x = rrf[rrf['Shear Rate'] > 98]
+            x = x[x['Shear Rate'] < 102]
             x1 = x['Relative Resistance to Flow'].mean()
             x1 = round(x1, 2)
             st.info(str(x1)) 
         with c2:
-            st.text("50 to 100 -s Shear Rate RRF")
-            y = rrf[rrf['Shear Rate'] > 50]
-            y = rrf[rrf['Shear Rate'] < 100]
+            st.text("10-s Shear Rate RRF")
+            y = rrf[rrf['Shear Rate'] > 8]
+            y = rrf[rrf['Shear Rate'] < 12]
             y1 = y['Relative Resistance to Flow'].mean()
             y1 = round(y1, 2)
             st.warning(str(y1))
         with c1:
-            st.text("0 to 50-s Shear Rate RRF")
+            st.text("5-s Shear Rate RRF")
             z = rrf[rrf['Shear Rate'] > 0]
-            z = rrf[rrf['Shear Rate'] < 50]
+            z = rrf[rrf['Shear Rate'] < 7]
             z1 = z['Relative Resistance to Flow'].mean()
             z1 = round(z1, 2)
             st.error(str(z1))
