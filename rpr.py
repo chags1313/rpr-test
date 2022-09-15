@@ -327,9 +327,7 @@ with tab4:
             displayModeBar = False))
              
 
-        shears1 = px.line(rrf,x = 'mmHg range',  y=['Blood Sample', 'Water Control'], color_discrete_sequence=['red', 'blue'], markers=True, hover_data=['Shear Rate', 'Relative Resistance to Flow'])
-        shears1.update_layout(yaxis_title="Time of Flow in Seconds",showlegend=False, width=525, hovermode='x unified')
-        shears1.update_yaxes(range=(0,5))
+   
         with e2:
             #st.plotly_chart(shears1, config= dict(
             #displayModeBar = False))
