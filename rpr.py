@@ -118,7 +118,7 @@ with tab3:
         string_data = stringio.read()
         dataframe = pd.read_csv(uploaded_file)
         try:
-            dataframe['Amplitude - Normalized Pressure Data']
+            dataframe['Amplitude - Normalized Pressure Data'] = dataframe['Amplitude - Normalized Pressure Data']
         except:
             dataframe['Amplitude - Normalized Pressure Data'] = dataframe[0]
         fv = dataframe['Amplitude - Normalized Pressure Data'].iloc[1]
