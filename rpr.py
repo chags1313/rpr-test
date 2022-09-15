@@ -117,7 +117,10 @@ with tab3:
         stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
         string_data = stringio.read()
         dataframe = pd.read_csv(uploaded_file)
-        
+        try:
+            dataframe = dataframe['Amplitude - Normalized Pressure Data']
+        except:
+            dataframe['Amplitude - Normalized Pressure Data'] = dataframe
         fv = dataframe['Amplitude - Normalized Pressure Data'].iloc[1]
         dataframe = dataframe - fv
         dataframe['Seconds'] = dataframe.index / 1000
