@@ -331,7 +331,8 @@ with tab4:
             st.plotly_chart(shears, config= dict(
             displayModeBar = False))
         with e2:
-            flowc = px.histogram(rrf, x = 'Flow')
+            rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
+            flowc = px.histogram(rrf, x = 'Pressure - mmHg', y='Flow')
             flowc.update_layout(width=525, hovermode='x unified')
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
