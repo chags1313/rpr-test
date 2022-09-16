@@ -197,7 +197,6 @@ with st.sidebar:
         avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
 
         rrf = avg_curve1
-        del cur
         del avg_curve
         del dataframe
     
