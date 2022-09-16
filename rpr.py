@@ -289,15 +289,15 @@ if menu == "Shear Rate and RRF":
             st.info(str(x1)) 
         with c2:
             st.text("10-s Shear Rate RRF")
-            y = rrf[rrf['Shear Rate'] > 8]
-            y = rrf[rrf['Shear Rate'] < 12]
+            y = rrf[rrf['Shear Rate'] > 9]
+            y = rrf[rrf['Shear Rate'] < 11]
             y1 = y['Relative Resistance to Flow'].mean()
             y1 = round(y1, 2)
             st.warning(str(y1))
         with c1:
             st.text("5-s Shear Rate RRF")
-            z = rrf[rrf['Shear Rate'] > 1]
-            z = rrf[rrf['Shear Rate'] < 7]
+            z = rrf[rrf['Shear Rate'] > 4]
+            z = rrf[rrf['Shear Rate'] < 6]
             z1 = z['Relative Resistance to Flow'].mean()
             z1 = round(z1, 2)
             st.error(str(z1))
