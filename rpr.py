@@ -90,114 +90,114 @@ with st.sidebar:
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
     needlesize = st.number_input('Insert the needle size', value=16)
     st.write(needlesize)
-        if uploaded_file is not None:
-            bytes_data = uploaded_file.getvalue()
-            stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
-            string_data = stringio.read()
-            dataframe = pd.read_csv(uploaded_file)
-            try:
-                dataframe['Amplitude - Normalized Pressure Data'] = dataframe['Amplitude - Normalized Pressure Data']
-            except:
-                dataframe['Amplitude - Normalized Pressure Data'] = dataframe
-            fv = dataframe['Amplitude - Normalized Pressure Data'].iloc[1]
-            dataframe = dataframe - fv
-            dataframe['Seconds'] = dataframe.index / 1000
-            wad = dataframe
-            #wad['Amplitude - Normalized Pressure Data'] = wad[0]
-            wadmax = wad['Amplitude - Normalized Pressure Data'].idxmax()
-            wadmin = wad['Amplitude - Normalized Pressure Data'].idxmin()
-            fir_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmax:wadmin-800]
-            sec_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmin:]
-            avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
-            avg_curve1 = pd.DataFrame()
-            avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
-            last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
-            #avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] -  1.1
-            R = ((0.0165 * 2.54) / 100)
-            pi = 3.14256
-            first = fir_curve.iloc[20]
-            last = fir_curve.iloc[-1]
-            curve =  first - last
-            maximum = fir_curve.max()
-            time = len(fir_curve) / 1000
-            Q = ((((0.6 * curve) / 20 / time)) * (1*10**-6))
-            lastpav = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
-            avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - lastpav
-            avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
-            shear = 4*(Q/(pi*(R**3)))
-            fir_curve1 = pd.DataFrame(fir_curve)
-            avg_curve1['shear'] = 'na'
-            avg_curve1['flow'] = 'na'
-            wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
-            wad['Second Curve'] = (wad.index.isin(sec_curve.index)).astype(int)
-            wad['curves'] = wad['First Curve'] + wad['Second Curve']
-            wad['curves'] = wad['curves'].replace(0, "No Identified Curve")
-            wad['curves'] = wad['curves'].replace(1, "Curve Used For Analysis")
-            avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
-            cur = pd.DataFrame()
-            cur['First Curve'] = fir_curve.reset_index(drop=True)
-            cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
-            cur["Averaged Curve"] = avg_curve
-            cur['Time'] = cur.index / 1000
+    if uploaded_file is not None:
+        bytes_data = uploaded_file.getvalue()
+        stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+        string_data = stringio.read()
+        dataframe = pd.read_csv(uploaded_file)
+        try:
+            dataframe['Amplitude - Normalized Pressure Data'] = dataframe['Amplitude - Normalized Pressure Data']
+        except:
+            dataframe['Amplitude - Normalized Pressure Data'] = dataframe
+        fv = dataframe['Amplitude - Normalized Pressure Data'].iloc[1]
+        dataframe = dataframe - fv
+        dataframe['Seconds'] = dataframe.index / 1000
+        wad = dataframe
+        #wad['Amplitude - Normalized Pressure Data'] = wad[0]
+        wadmax = wad['Amplitude - Normalized Pressure Data'].idxmax()
+        wadmin = wad['Amplitude - Normalized Pressure Data'].idxmin()
+        fir_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmax:wadmin-800]
+        sec_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmin:]
+        avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
+        avg_curve1 = pd.DataFrame()
+        avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
+        last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
+        #avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] -  1.1
+        R = ((0.0165 * 2.54) / 100)
+        pi = 3.14256
+        first = fir_curve.iloc[20]
+        last = fir_curve.iloc[-1]
+        curve =  first - last
+        maximum = fir_curve.max()
+        time = len(fir_curve) / 1000
+        Q = ((((0.6 * curve) / 20 / time)) * (1*10**-6))
+        lastpav = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
+        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - lastpav
+        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
+        shear = 4*(Q/(pi*(R**3)))
+        fir_curve1 = pd.DataFrame(fir_curve)
+        avg_curve1['shear'] = 'na'
+        avg_curve1['flow'] = 'na'
+        wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
+        wad['Second Curve'] = (wad.index.isin(sec_curve.index)).astype(int)
+        wad['curves'] = wad['First Curve'] + wad['Second Curve']
+        wad['curves'] = wad['curves'].replace(0, "No Identified Curve")
+        wad['curves'] = wad['curves'].replace(1, "Curve Used For Analysis")
+        avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
+        cur = pd.DataFrame()
+        cur['First Curve'] = fir_curve.reset_index(drop=True)
+        cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
+        cur["Averaged Curve"] = avg_curve
+        cur['Time'] = cur.index / 1000
 
-            df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve']) 
+        df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve']) 
 
-            
-            
-            #cur['flow'] = cur['Flow'].rolling(window= 1000).mean().diff()
-            #cur['shear rate'] = cur['Shear Rate'].rolling(window=1000).mean()
-            cur['Average curve mmHg'] = cur['Averaged Curve'].rolling(window=100).mean()
-            lastcur = cur['Average curve mmHg'].iloc[-1]
-            cur['Average curve mmHg'] =cur['Average curve mmHg'] - lastcur
-            md = max(avg_curve1['Amplitude - Normalized Pressure Data'])
-            with st.spinner("Processing Analytics"):
-                for i in range(len(avg_curve1)):
-                    first = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[i] 
-                    last = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1] 
-                    are = avg_curve1['Amplitude - Normalized Pressure Data'] * 0.001
-                    totalarea = are.sum()
-                    curve =  first - last
-                    if needlesize == 12:
-                        Q = ((((0.6 * curve)/ md / time))) * (1*10**-6)
-                        R = (1.26 * 10**-9)
-                    if needlesize == 13:
-                            Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                            R = (7.33 * 10**-10)
-                    if needlesize == 14:
-                            Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                            R = (5.12 * 10**-10)
-                    if needlesize == 15:
-                            Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                            R = (3.23 * 10**-10)
-                    if needlesize == 16:
-                            Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                            R = (2.13 * 10**-10)
-                    if needlesize == 17:
-                            Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                            R = (1.52 * 10**-10)  
-                    if needlesize == 18:
-                            Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                            R = (7.36 * 10**-11)
-                    if needlesize == 19:
-                            Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                            R = (4.04 * 10**-11)
-                    if needlesize == 20:
-                            Q = ((((0.6 * curve)/md / time)))* (1*10**-6)
-                            R = (2.74 * 10**-11)
-                    Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
-                    shear = 4*(Q/(pi*(R)))
-                    print(shear)
-                    avg_curve1['shear'].iloc[i] = shear
-                    avg_curve1['flow'].iloc[i] = Q
-
-            #cur['Shear Rate'] = avg_curve1['shear']
-            #cur['Flow'] = avg_curve1['flow']
-            avg_curve1['Shear Rate'] = avg_curve1['shear']
-            avg_curve1['Flow'] = avg_curve1['flow']
-            avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
-
-            rrf = avg_curve1
         
+        
+        #cur['flow'] = cur['Flow'].rolling(window= 1000).mean().diff()
+        #cur['shear rate'] = cur['Shear Rate'].rolling(window=1000).mean()
+        cur['Average curve mmHg'] = cur['Averaged Curve'].rolling(window=100).mean()
+        lastcur = cur['Average curve mmHg'].iloc[-1]
+        cur['Average curve mmHg'] =cur['Average curve mmHg'] - lastcur
+        md = max(avg_curve1['Amplitude - Normalized Pressure Data'])
+        with st.spinner("Processing Analytics"):
+            for i in range(len(avg_curve1)):
+                first = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[i] 
+                last = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1] 
+                are = avg_curve1['Amplitude - Normalized Pressure Data'] * 0.001
+                totalarea = are.sum()
+                curve =  first - last
+                if needlesize == 12:
+                    Q = ((((0.6 * curve)/ md / time))) * (1*10**-6)
+                    R = (1.26 * 10**-9)
+                if needlesize == 13:
+                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                        R = (7.33 * 10**-10)
+                if needlesize == 14:
+                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                        R = (5.12 * 10**-10)
+                if needlesize == 15:
+                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                        R = (3.23 * 10**-10)
+                if needlesize == 16:
+                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                        R = (2.13 * 10**-10)
+                if needlesize == 17:
+                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                        R = (1.52 * 10**-10)  
+                if needlesize == 18:
+                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                        R = (7.36 * 10**-11)
+                if needlesize == 19:
+                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                        R = (4.04 * 10**-11)
+                if needlesize == 20:
+                        Q = ((((0.6 * curve)/md / time)))* (1*10**-6)
+                        R = (2.74 * 10**-11)
+                Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
+                shear = 4*(Q/(pi*(R)))
+                print(shear)
+                avg_curve1['shear'].iloc[i] = shear
+                avg_curve1['flow'].iloc[i] = Q
+
+        #cur['Shear Rate'] = avg_curve1['shear']
+        #cur['Flow'] = avg_curve1['flow']
+        avg_curve1['Shear Rate'] = avg_curve1['shear']
+        avg_curve1['Flow'] = avg_curve1['flow']
+        avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
+
+        rrf = avg_curve1
+    
 
 #tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Home","💉 Run Test", "📈 Test Analytics", "🩸 Shear Rate and RRF Analytics", "🗃 Data"])
 
