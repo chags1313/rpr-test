@@ -197,6 +197,10 @@ with st.sidebar:
         avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
 
         rrf = avg_curve1
+        del wad
+        del cur
+        del avg_curve
+        del dataframe
     
 
 #tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Home","💉 Run Test", "📈 Test Analytics", "🩸 Shear Rate and RRF Analytics", "🗃 Data"])
