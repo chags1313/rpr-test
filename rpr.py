@@ -224,7 +224,7 @@ if menu == 'Home':
            st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
 
 if menu == "Records":
-    components.iframe("http://desktop-kvcjuh6.localdomain:8000/rpr2.html")
+    st.warning("Under construction", icon = '🚧')
             
 if menu == "Test Analytics":
 
