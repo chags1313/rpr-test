@@ -332,7 +332,7 @@ with tab4:
             displayModeBar = False))
         with e2:
             rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
-            flowc = px.histogram(rrf, x = 'Pressure - mmHg', y='Flow')
+            flowc = px.scatter(rrf, x = 'Pressure - mmHg', y='Flow')
             flowc.update_layout(width=525, hovermode='x unified')
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
