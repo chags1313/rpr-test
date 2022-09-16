@@ -81,11 +81,82 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 
 
-st.title("Biofluid Technology")
+#st.title("Biofluid Technology")
+with st.sidebar:
+    st.title("Rapid Profile Rheometer 🩸")
+    menu = option_menu(None, ["Home", "Records", "Test Analytics", 'Shear Rate and RRF', 'Data'], 
+    icons=['house',  "list-task", 'graph-up', 'moisture', 'table'], 
+    menu_icon="cast", default_index=0, orientation="vertical")
+    uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
+    with st.sidebar.expander("Device Parameters"):
+        needlesize = st.number_input('Insert the needle size', value=16)
+        st.write(needlesize)
+        if uploaded_file is not None:
+            bytes_data = uploaded_file.getvalue()
+            stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+            string_data = stringio.read()
+            dataframe = pd.read_csv(uploaded_file)
+            try:
+                dataframe['Amplitude - Normalized Pressure Data'] = dataframe['Amplitude - Normalized Pressure Data']
+            except:
+                dataframe['Amplitude - Normalized Pressure Data'] = dataframe
+            fv = dataframe['Amplitude - Normalized Pressure Data'].iloc[1]
+            dataframe = dataframe - fv
+            dataframe['Seconds'] = dataframe.index / 1000
+            wad = dataframe
+            #wad['Amplitude - Normalized Pressure Data'] = wad[0]
+            wadmax = wad['Amplitude - Normalized Pressure Data'].idxmax()
+            wadmin = wad['Amplitude - Normalized Pressure Data'].idxmin()
+            fir_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmax:wadmin-800]
+            sec_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmin:]
+            avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
+            avg_curve1 = pd.DataFrame()
+            avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
+            last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
+            #avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] -  1.1
+            R = ((0.0165 * 2.54) / 100)
+            pi = 3.14256
+            first = fir_curve.iloc[20]
+            last = fir_curve.iloc[-1]
+            curve =  first - last
+            maximum = fir_curve.max()
+            time = len(fir_curve) / 1000
+            Q = ((((0.6 * curve) / 20 / time)) * (1*10**-6))
+            lastpav = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
+            avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - lastpav
+            avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
+            shear = 4*(Q/(pi*(R**3)))
+            fir_curve1 = pd.DataFrame(fir_curve)
+            avg_curve1['shear'] = 'na'
+            avg_curve1['flow'] = 'na'
+            wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
+            wad['Second Curve'] = (wad.index.isin(sec_curve.index)).astype(int)
+            wad['curves'] = wad['First Curve'] + wad['Second Curve']
+            wad['curves'] = wad['curves'].replace(0, "No Identified Curve")
+            wad['curves'] = wad['curves'].replace(1, "Curve Used For Analysis")
+            avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
+            cur = pd.DataFrame()
+            cur['First Curve'] = fir_curve.reset_index(drop=True)
+            cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
+            cur["Averaged Curve"] = avg_curve
+            cur['Time'] = cur.index / 1000
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Home","💉 Run Test", "📈 Test Analytics", "🩸 Shear Rate and RRF Analytics", "🗃 Data"])
+            df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve']) 
+            colored_header("Raw Test Data and Sliced Curves")
+            uu1, uu2 = st.columns(2)
+            fig =  px.scatter(wad, y='Amplitude - Normalized Pressure Data',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
+            
+            
+            #cur['flow'] = cur['Flow'].rolling(window= 1000).mean().diff()
+            #cur['shear rate'] = cur['Shear Rate'].rolling(window=1000).mean()
+            cur['Average curve mmHg'] = cur['Averaged Curve'].rolling(window=100).mean()
+            lastcur = cur['Average curve mmHg'].iloc[-1]
+            cur['Average curve mmHg'] =cur['Average curve mmHg'] - lastcur
+    
 
-with tab1:  
+#tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Home","💉 Run Test", "📈 Test Analytics", "🩸 Shear Rate and RRF Analytics", "🗃 Data"])
+
+if menu == 'Home':  
     st.title("Rapid Profile Rheometer 🩸")
     st.write("Biofluid Technology LLC")
     with st.expander("How to Run a Test"):
@@ -104,76 +175,14 @@ with tab1:
         st.markdown("- The graph with the red and blue lines displays the relationship between a given fluid and water plus the relationship with time and pressure")
     with st.expander("Device Usage Tutorial"):
            st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
-    with st.expander("Device Parameters"):
-        needlesize = st.number_input('Insert the needle size', value=16)
-        st.write(needlesize)
-with tab2:
+
+if menu == "Records":
     components.iframe("http://desktop-kvcjuh6.localdomain:8000/rpr2.html")
             
-with tab3:
+if menu == "Test Analytics":
     uploaded_file = st.file_uploader("Upload Your RPR Test File", type="csv")
 
     if uploaded_file is not None:
-        bytes_data = uploaded_file.getvalue()
-        stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
-        string_data = stringio.read()
-        dataframe = pd.read_csv(uploaded_file)
-        try:
-            dataframe['Amplitude - Normalized Pressure Data'] = dataframe['Amplitude - Normalized Pressure Data']
-        except:
-            dataframe['Amplitude - Normalized Pressure Data'] = dataframe
-        fv = dataframe['Amplitude - Normalized Pressure Data'].iloc[1]
-        dataframe = dataframe - fv
-        dataframe['Seconds'] = dataframe.index / 1000
-        wad = dataframe
-        #wad['Amplitude - Normalized Pressure Data'] = wad[0]
-        wadmax = wad['Amplitude - Normalized Pressure Data'].idxmax()
-        wadmin = wad['Amplitude - Normalized Pressure Data'].idxmin()
-        fir_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmax:wadmin-800]
-        sec_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmin:]
-        avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
-        avg_curve1 = pd.DataFrame()
-        avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
-        last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
-        #avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] -  1.1
-        R = ((0.0165 * 2.54) / 100)
-        pi = 3.14256
-        first = fir_curve.iloc[20]
-        last = fir_curve.iloc[-1]
-        curve =  first - last
-        maximum = fir_curve.max()
-        time = len(fir_curve) / 1000
-        Q = ((((0.6 * curve) / 20 / time)) * (1*10**-6))
-        lastpav = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
-        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - lastpav
-        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
-        shear = 4*(Q/(pi*(R**3)))
-        fir_curve1 = pd.DataFrame(fir_curve)
-        avg_curve1['shear'] = 'na'
-        avg_curve1['flow'] = 'na'
-        wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
-        wad['Second Curve'] = (wad.index.isin(sec_curve.index)).astype(int)
-        wad['curves'] = wad['First Curve'] + wad['Second Curve']
-        wad['curves'] = wad['curves'].replace(0, "No Identified Curve")
-        wad['curves'] = wad['curves'].replace(1, "Curve Used For Analysis")
-        avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
-        cur = pd.DataFrame()
-        cur['First Curve'] = fir_curve.reset_index(drop=True)
-        cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
-        cur["Averaged Curve"] = avg_curve
-        cur['Time'] = cur.index / 1000
-
-        df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve']) 
-        colored_header("Raw Test Data and Sliced Curves")
-        uu1, uu2 = st.columns(2)
-        fig =  px.scatter(wad, y='Amplitude - Normalized Pressure Data',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
-        
-        
-        #cur['flow'] = cur['Flow'].rolling(window= 1000).mean().diff()
-        #cur['shear rate'] = cur['Shear Rate'].rolling(window=1000).mean()
-        cur['Average curve mmHg'] = cur['Averaged Curve'].rolling(window=100).mean()
-        lastcur = cur['Average curve mmHg'].iloc[-1]
-        cur['Average curve mmHg'] =cur['Average curve mmHg'] - lastcur
         
         avg_plt = px.line(cur, x= 'Time',y = "Average curve mmHg", color_discrete_sequence=['black'])
 
@@ -195,10 +204,12 @@ with tab3:
             fig.update_layout(width=480,showlegend=False)
             st.plotly_chart(fig, config= dict(
         displayModeBar = False, staticPlot= True))
+    else:
+        st.warning("Upload Data")
         
          
 
-with tab4:
+if menu == "Shear Rate and RRF":
     if uploaded_file is not None:
         md = max(avg_curve1['Amplitude - Normalized Pressure Data'])
         with st.spinner("Processing Analytics"):
@@ -250,33 +261,6 @@ with tab4:
         rrf = avg_curve1
 
         
-
-        
-        #bld = list()
-        #num = list()
-        #shr = list()
-        #last_point = cur['Averaged Curve'].iloc[-1]
-        #cur['Averaged Curve'] = cur['Averaged Curve']
-        #for numbers in reversed(np.arange(0.11, 60.01, 0.01)):
-        #    u1 = cur[cur['Second Curve'] < numbers]
-        #    z1 = cur[cur['Second Curve'] < numbers - 0.01]
-        #    bld.append((len(u1) - len(z1))/ 1000) 
-        #    num.append(numbers)
-        #    z = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] < numbers]
-        #    z = z[z['Amplitude - Normalized Pressure Data'] > (numbers - 0.01)]
-        #    shr.append((z['shear'].median()))
-        #rrf = pd.DataFrame({'Blood Sample': bld})
-        #rrf['Water Control'] = np.full(shape=len(bld),fill_value=0.01,dtype=np.float) 
-        #rrf['Relative Resistance to Flow'] = 'na'
-        #rrf['mmHg range'] = 'na'
-        #rrf['mmHg'] = num
-        #rrf['Shear Rate'] = shr
-        #rrf['Shear Rate'] = rrf['Shear Rate'].abs()
-        #for i in range(len(rrf)):
-        #    rrf['Relative Resistance to Flow'].iloc[i] = rrf['Blood Sample'].iloc[i] / rrf['Water Control'].iloc[i]
-        #    high = round(rrf['mmHg'].iloc[i],2)
-        #    low = round(rrf['mmHg'].iloc[i] - 0.01,2)
-        #    rrf['mmHg range'].iloc[i] = str(high) + " to " + str(low)
         colored_header("Processed Test Data")
         rrf = rrf[rrf['Flow'] != 0]
 
@@ -332,7 +316,7 @@ with tab4:
             displayModeBar = False))
         with e2:
             rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
-            flowc = px.scatter(rrf, x = 'Pressure - mmHg', y='Flow')
+            flowc = px.histogram(rrf, x ='Flow')
             flowc.update_layout(width=525, hovermode='x unified')
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
@@ -343,8 +327,8 @@ with tab4:
 
 
     else:
-            st.info("Upload data in analytics tab")
-with tab5:
+            st.info("Upload data")
+if menu == "Data":
     if uploaded_file is not None:
             csv = convert_df(rrf)
 
@@ -356,6 +340,8 @@ with tab5:
                 mime='text/csv',
                 )
             st.dataframe(rrf.style.highlight_min(axis=0))
+    else:
+        st.warning("Upload data")
 
 
            
