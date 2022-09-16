@@ -84,7 +84,6 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 #st.title("Biofluid Technology")
 with st.sidebar:
-    st.title("Rapid Profile Rheometer 🩸")
     menu = option_menu(None, ["Home", "Records", "Test Analytics", 'Shear Rate and RRF', 'Data'], 
     icons=['house',  "list-task", 'graph-up', 'moisture', 'table'], 
     menu_icon="cast", default_index=0, orientation="vertical")
