@@ -88,9 +88,8 @@ with st.sidebar:
     icons=['house',  "list-task", 'graph-up', 'moisture', 'table'], 
     menu_icon="cast", default_index=0, orientation="vertical")
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
-    with st.sidebar.expander("Device Parameters"):
-        needlesize = st.number_input('Insert the needle size', value=16)
-        st.write(needlesize)
+    needlesize = st.number_input('Insert the needle size', value=16)
+    st.write(needlesize)
         if uploaded_file is not None:
             bytes_data = uploaded_file.getvalue()
             stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
