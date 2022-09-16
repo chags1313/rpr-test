@@ -227,7 +227,6 @@ if menu == "Records":
     components.iframe("http://desktop-kvcjuh6.localdomain:8000/rpr2.html")
             
 if menu == "Test Analytics":
-    #uploaded_file = st.file_uploader("Upload Your RPR Test File", type="csv")
 
     if uploaded_file is not None:
         colored_header("Raw Test Data and Sliced Curves")
@@ -255,7 +254,8 @@ if menu == "Test Analytics":
             st.plotly_chart(fig, config= dict(
         displayModeBar = False, staticPlot= True))
         
-         
+    else:
+            st.info("Upload data")
 
 if menu == "Shear Rate and RRF":
     if uploaded_file is not None:
