@@ -91,6 +91,7 @@ with st.sidebar:
     needlesize = st.number_input('Insert the needle size', value=16)
     st.write(needlesize)
     if uploaded_file is not None:
+    def processing(uploaded_file):
         bytes_data = uploaded_file.getvalue()
         stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
         string_data = stringio.read()
@@ -199,6 +200,8 @@ with st.sidebar:
         rrf = avg_curve1
         del avg_curve
         del dataframe
+        return rrf, avg_curve1, cur, wad
+        rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file)
     
 
 #tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Home","💉 Run Test", "📈 Test Analytics", "🩸 Shear Rate and RRF Analytics", "🗃 Data"])
