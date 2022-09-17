@@ -238,8 +238,8 @@ if menu == "Records":
     result = db.fetch().items
     db_df = pd.DataFrame(result)
     slct_rcd = st.multiselect("Select Record", options = db_df['record_id'])
-    st.write(pd.DataFrame(slct_rcd))
-    st.dataframe(db_df)
+    rcd_plt = px.bar(x = '5 -s Shear Rate RRF', y ='record_id', color = 'record_id')
+    st.plotly_chart(rcd_plt)
             
 if menu == "Test Analytics":
 
