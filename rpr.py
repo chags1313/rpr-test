@@ -246,30 +246,35 @@ if menu == "Records":
         met1, met2, met3, met4, met5 = st.columns(5)
         with met1:
             meta = float(dta['5 -s Shear Rate RRF'])
+            st.write("5 -s Shear Rate RRF")
             if meta > 10:
                 st.error(str(meta), icon='🔴')
             else:
                 st.info(str(meta), icon = '🔵')
         with met2:
             metb = float(dta['10 -s Shear Rate RRF'])
+            st.write("10 -s Shear Rate RRF")
             if metb > 10:
                 st.error(str(metb), icon='🔴')
             else:
                 st.info(str(metb), icon = '🔵')
         with met3:
             metc = float(dta['100 -s Shear Rate RRF'])
+            st.write("100 -s Shear Rate RRF")
             if metc > 10:
                 st.error(str(metc), icon='🔴')
             else:
                 st.info(str(metc), icon = '🔵')
         with met4:
             metd= float(dta['200 -s Shear Rate RRF'])
+            st.write("200 -s Shear Rate RRF")
             if metd > 10:
                 st.error(str(metd), icon='🔴')
             else:
                 st.info(str(metd), icon = '🔵')
         with met5:
             mete = float(dta['500 -s Shear Rate RRF'])
+            st.write("500 -s Shear Rate RRF")
             if mete > 10:
                 st.error(str(mete), icon='🔴')
             else:
