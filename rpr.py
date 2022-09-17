@@ -407,6 +407,7 @@ if menu == "Shear Rate and RRF":
     except:
             st.warning("Upload data", icon='📁')
 if menu == "Data":
+    colored_header("Data")
     try:
             csv = convert_df(rrf)
 
