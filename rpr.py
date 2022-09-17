@@ -239,8 +239,9 @@ if menu == "Records":
     db_df = pd.DataFrame(result)
     slct_rcd = st.multiselect("Select Record", options = db_df['record_id'])
     for rcds in slct_rcd:
-        colored_header(rcds)
-        st.dataframe(db_df[db_df['record_id'] == rcds].iloc[-1])
+        with st.columns(count(rcds)):
+            colored_header(rcds)
+            st.dataframe(db_df[db_df['record_id'] == rcds].iloc[-1])
             
 if menu == "Test Analytics":
 
