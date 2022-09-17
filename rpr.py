@@ -19,6 +19,8 @@ import base64
 import itertools
 import streamlit.components.v1 as components
 from deta import Deta
+from st_aggrid import AgGrid
+
 
 deta = Deta("b02l5gt3_MFtTQuHFmWUEofyrn54FjjnWxAevcaY1")
 db = deta.Base("rrf")
