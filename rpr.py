@@ -22,7 +22,6 @@ from deta import Deta
 
 deta = Deta("b02l5gt3_MFtTQuHFmWUEofyrn54FjjnWxAevcaY1")
 db = deta.Base("rrf")
-db.put({"record_id": 'abc', "5 -s Shear Rate RRF": 100, "10 -s Shear Rate RRF": 10, "100 -s Shear Rate RRF": 1, "200 -s Shear Rate RRF": 0.5, "500 -s Shear Rate RRF": 0.3})
 
 @st.cache(allow_output_mutation=True)
 def get_r2_numpy_corrcoef(x, y):
@@ -233,6 +232,11 @@ if menu == 'Home':
 
 if menu == "Records":
     st.warning("Under construction", icon = '🚧')
+    result = db.fetch().items
+    db_df = pd.DataFrame(result)
+    st.dataframe(db_df)
+    one_r = get(key='iovujumlr4i6')
+    st.write(one_r)
             
 if menu == "Test Analytics":
 
@@ -309,6 +313,8 @@ if menu == "Shear Rate and RRF":
             z1 = z['Relative Resistance to Flow'].median()
             z1 = round(z1, 2)
             st.error(str(z1))
+        db.put({"5 -s Shear Rate RRF": z1, "10 -s Shear Rate RRF": y1, "100 -s Shear Rate RRF": x1, "200 -s Shear Rate RRF": o1, "500 -s Shear Rate RRF": p1})
+
             
         e1, e2 = st.columns(2)
      
