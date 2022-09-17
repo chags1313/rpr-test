@@ -287,7 +287,10 @@ if menu == "Shear Rate and RRF":
             global p1
             p1 = p['Relative Resistance to Flow'].median()
             p1 = round(p1, 2)
-            st.success(str(p1)) 
+            if p1 > 10:
+                st.error(str(p1), icon = 'red_circle')
+            else:
+                st.info(str(p1))
         with c4:
             st.text("200-s Shear Rate RRF")
             o = rrf[rrf['Shear Rate'] > 190]
@@ -295,7 +298,10 @@ if menu == "Shear Rate and RRF":
             global o1
             o1 = o['Relative Resistance to Flow'].median()
             o1 = round(o1, 2)
-            st.success(str(o1)) 
+            if o1 > 10:
+                st.error(str(o1), icon = 'red_circle')
+            else:
+                st.info(str(o1), icon = 'large_blue_circle')
         with c3:
             st.text("100-s Shear Rate RRF")
             x = rrf[rrf['Shear Rate'] > 90]
@@ -303,7 +309,10 @@ if menu == "Shear Rate and RRF":
             global x1
             x1 = x['Relative Resistance to Flow'].median()
             x1 = round(x1, 2)
-            st.info(str(x1)) 
+            if x1 > 10:
+                st.error(str(x1), icon = 'red_circle')
+            else:
+                st.info(str(x1), icon = 'large_blue_circle') 
         with c2:
             st.text("10-s Shear Rate RRF")
             y = rrf[rrf['Shear Rate'] > 9.75]
@@ -311,7 +320,10 @@ if menu == "Shear Rate and RRF":
             global y1
             y1 = y['Relative Resistance to Flow'].median()
             y1 = round(y1, 2)
-            st.warning(str(y1))
+            if y1 > 10:
+                st.error(str(y1), icon = 'red_circle')
+            else:
+                st.info(str(y1), icon = 'large_blue_circle')
         with c1:
             st.text("5-s Shear Rate RRF")
             z = rrf[rrf['Shear Rate'] > 4.75]
@@ -319,7 +331,10 @@ if menu == "Shear Rate and RRF":
             global z1
             z1 = z['Relative Resistance to Flow'].median()
             z1 = round(z1, 2)
-            st.error(str(z1))
+            if z1 > 10:
+                st.error(str(z1), icon = 'red_circle')
+            else:
+                st.info(str(z1), icon = 'large_blue_circle')
         db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
 
             
