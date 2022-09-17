@@ -245,7 +245,7 @@ if menu == "Records":
         #st.write(dta)
         met1, met2, met3, met4, met5 = st.columns(5)
         with met1:
-            meta = dta['5 -s Shear Rate RRF']
+            meta = float(dta['5 -s Shear Rate RRF'])
             if meta > 10:
                 st.error(str(meta), icon='🔴')
             else:
