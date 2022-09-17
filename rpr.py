@@ -302,15 +302,15 @@ if menu == "Test Analytics":
         with uu1:
             #with st.expander("Original Data"):
             if rsq > 0.9:
-                st.success("Valid Test")
+                st.success("Valid Test", icon='✅')
             else:
-                st.error("Invalid Test - Try Running Test Again")
+                st.error("Invalid Test - Try Running Test Again", icon ='❌')
             fig.update_layout(width=480,showlegend=False)
             st.plotly_chart(fig, config= dict(
             displayModeBar = False, staticPlot= True))
         
     except:
-            st.info("Upload data")
+            st.warning("Upload data", icon ='i')
 
 if menu == "Shear Rate and RRF":
     try:
@@ -405,7 +405,7 @@ if menu == "Shear Rate and RRF":
 
 
     except:
-            st.info("Upload data")
+            st.warning("Upload data", icon='i')
 if menu == "Data":
     try:
             csv = convert_df(rrf)
