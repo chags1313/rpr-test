@@ -334,7 +334,7 @@ if menu == "Shear Rate and RRF":
             if z1 > 10:
                 st.error(str(z1), icon = '🔴')
             else:
-                st.info(str(z1), icon = '🔵)
+                st.info(str(z1), icon = '🔵')
         db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
 
             
