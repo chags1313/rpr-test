@@ -234,6 +234,7 @@ if menu == "Records":
     st.warning("Under construction", icon = '🚧')
     result = db.fetch().items
     db_df = pd.DataFrame(result)
+    slct_rcd = st.multi_select("Select Record", options = db_df['record_id'])
     st.dataframe(db_df)
     one_r = get(key='iovujumlr4i6')
     st.write(one_r)
