@@ -242,22 +242,22 @@ if menu == "Records":
     for rcds in slct_rcd:
         colored_header(rcds)
         dta = dd[dd['record_id'] == rcds].iloc[-1]
-        st.write(dta)
+        #st.write(dta)
         met1, met2, met3, met4, met5 = st.columns(5)
         with met1:
-            meta = dta['5 -s Shear Rate']
+            meta = dta['5 -s Shear Rate RRF']
             st.info(str(meta))
         with met2:
-            metb = dta['10 -s Shear Rate']
+            metb = dta['10 -s Shear Rate RRF']
             st.info(str(metb))
         with met3:
-            metc = dta['100 -s Shear Rate']
+            metc = dta['100 -s Shear Rate RRF']
             st.info(str(metc))
         with met4:
-            metd= dta['200 -s Shear Rate']
+            metd= dta['200 -s Shear Rate RRF']
             st.info(str(metd))
         with met5:
-            mete = dta['500 -s Shear Rate']
+            mete = dta['500 -s Shear Rate RRF']
             st.info(str(mete))
         #st.dataframe(dd[dd['record_id'] == rcds].iloc[-1])
             
