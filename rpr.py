@@ -204,7 +204,7 @@ with st.sidebar:
     icons=['house',  "list-task", 'graph-up', 'moisture', 'table'], 
     menu_icon="cast", default_index=0, orientation="vertical")
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
-    wtih st.expander("Needle Size"):
+    with st.expander("Needle Size"):
         needlesize = st.number_input('', value=16)
         st.write(needlesize)
     if uploaded_file is not None:
