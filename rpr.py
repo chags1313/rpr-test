@@ -289,32 +289,32 @@ if menu == "Shear Rate and RRF":
             st.text("200-s Shear Rate RRF")
             o = rrf[rrf['Shear Rate'] > 190]
             o = o[o['Shear Rate'] < 210]
-            o1 = o['Relative Resistance to Flow'].median()
             global o1
+            o1 = o['Relative Resistance to Flow'].median()
             o1 = round(o1, 2)
             st.success(str(o1)) 
         with c3:
             st.text("100-s Shear Rate RRF")
             x = rrf[rrf['Shear Rate'] > 90]
             x = x[x['Shear Rate'] < 110]
-            x1 = x['Relative Resistance to Flow'].median()
             global x1
+            x1 = x['Relative Resistance to Flow'].median()
             x1 = round(x1, 2)
             st.info(str(x1)) 
         with c2:
             st.text("10-s Shear Rate RRF")
             y = rrf[rrf['Shear Rate'] > 9.75]
             y = rrf[rrf['Shear Rate'] < 10.25]
-            y1 = y['Relative Resistance to Flow'].median()
             global y1
+            y1 = y['Relative Resistance to Flow'].median()
             y1 = round(y1, 2)
             st.warning(str(y1))
         with c1:
             st.text("5-s Shear Rate RRF")
             z = rrf[rrf['Shear Rate'] > 4.75]
             z = rrf[rrf['Shear Rate'] < 5.25]
-            z1 = z['Relative Resistance to Flow'].median()
             global z1
+            z1 = z['Relative Resistance to Flow'].median()
             z1 = round(z1, 2)
             st.error(str(z1))
 
