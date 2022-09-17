@@ -288,9 +288,9 @@ if menu == "Shear Rate and RRF":
             p1 = p['Relative Resistance to Flow'].median()
             p1 = round(p1, 2)
             if p1 > 10:
-                st.error(str(p1), icon = 'red_circle')
+                st.error(str(p1), icon = '🔴')
             else:
-                st.info(str(p1))
+                st.info(str(p1), icon = '🔵')
         with c4:
             st.text("200-s Shear Rate RRF")
             o = rrf[rrf['Shear Rate'] > 190]
@@ -299,9 +299,9 @@ if menu == "Shear Rate and RRF":
             o1 = o['Relative Resistance to Flow'].median()
             o1 = round(o1, 2)
             if o1 > 10:
-                st.error(str(o1), icon = 'red_circle')
+                st.error(str(o1), icon = '🔴')
             else:
-                st.info(str(o1), icon = 'large_blue_circle')
+                st.info(str(o1), icon = '🔵')
         with c3:
             st.text("100-s Shear Rate RRF")
             x = rrf[rrf['Shear Rate'] > 90]
@@ -310,9 +310,9 @@ if menu == "Shear Rate and RRF":
             x1 = x['Relative Resistance to Flow'].median()
             x1 = round(x1, 2)
             if x1 > 10:
-                st.error(str(x1), icon = 'red_circle')
+                st.error(str(x1), icon = '🔴')
             else:
-                st.info(str(x1), icon = 'large_blue_circle') 
+                st.info(str(x1), icon = '🔵') 
         with c2:
             st.text("10-s Shear Rate RRF")
             y = rrf[rrf['Shear Rate'] > 9.75]
@@ -321,9 +321,9 @@ if menu == "Shear Rate and RRF":
             y1 = y['Relative Resistance to Flow'].median()
             y1 = round(y1, 2)
             if y1 > 10:
-                st.error(str(y1), icon = 'red_circle')
+                st.error(str(y1), icon = '🔴')
             else:
-                st.info(str(y1), icon = 'large_blue_circle')
+                st.info(str(y1), icon = '🔵')
         with c1:
             st.text("5-s Shear Rate RRF")
             z = rrf[rrf['Shear Rate'] > 4.75]
@@ -332,9 +332,9 @@ if menu == "Shear Rate and RRF":
             z1 = z['Relative Resistance to Flow'].median()
             z1 = round(z1, 2)
             if z1 > 10:
-                st.error(str(z1), icon = 'red_circle')
+                st.error(str(z1), icon = '🔴')
             else:
-                st.info(str(z1), icon = 'large_blue_circle')
+                st.info(str(z1), icon = '🔵)
         db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
 
             
