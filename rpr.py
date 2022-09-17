@@ -239,7 +239,7 @@ if menu == "Records":
     result = db.fetch().items
     db_df = pd.DataFrame(result)
     dd = db_df.reindex(sorted(db_df.columns), axis=1)
-    slct_rcd = st.multiselect("Select Record", options = db_df['record_id'])
+    slct_rcd = st.multiselect("", options = db_df['record_id'], help='Previous records are stored with a record id corresponding the file name analyzed')
     for rcds in slct_rcd:
         colored_header(rcds)
         dta = dd[dd['record_id'] == rcds].iloc[-1]
