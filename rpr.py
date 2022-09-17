@@ -294,7 +294,7 @@ if menu == "Test Analytics":
             #with st.expander("Averaged Curve Sliced Data"):
             rsq = get_r2_numpy_corrcoef(x=cur['First Curve'], y=cur['Second Curve'])
             rsq = round(rsq, 3)
-            st.info('R Squared: ' + str(rsq))
+            st.info('R Squared: ' + str(rsq), icon ='📊')
             avg_plt.update_layout(width=480, showlegend=False, hovermode='x unified')
             st.plotly_chart(avg_plt, config= dict(
         displayModeBar = False))
@@ -310,7 +310,7 @@ if menu == "Test Analytics":
             displayModeBar = False, staticPlot= True))
         
     except:
-            st.warning("Upload data", icon ='i')
+            st.warning("Upload data", icon ='📁')
 
 if menu == "Shear Rate and RRF":
     try:
@@ -405,7 +405,7 @@ if menu == "Shear Rate and RRF":
 
 
     except:
-            st.warning("Upload data", icon='i')
+            st.warning("Upload data", icon='📁')
 if menu == "Data":
     try:
             csv = convert_df(rrf)
@@ -419,7 +419,7 @@ if menu == "Data":
                 )
             st.dataframe(rrf)
     except:
-        st.warning("Upload data")
+        st.warning("Upload data", icon = '📁')
 
 
 
