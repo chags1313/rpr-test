@@ -237,12 +237,11 @@ if menu == "Records":
     st.warning("Under construction", icon = '🚧')
     result = db.fetch().items
     db_df = pd.DataFrame(result)
+    dd = db_df.reindex(sorted(db_df.columns), axis=1)
     slct_rcd = st.multiselect("Select Record", options = db_df['record_id'])
     for rcds in slct_rcd:
-        dd = db_df[db_df['record_id'] == rcds].iloc[-1]
-        dd.concat(dd)
         colored_header(rcds)
-        st.dataframe(dd)
+        st.dataframe(dd[dd['record_id'] == rcds].iloc[-1])
             
 if menu == "Test Analytics":
 
