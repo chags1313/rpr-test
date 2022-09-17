@@ -242,6 +242,7 @@ if menu == "Records":
     for rcds in slct_rcd:
         colored_header(rcds)
         dta = dd[dd['record_id'] == rcds].iloc[-1]
+        st.write(dta)
         met1, met2, met3, met4, met5 = st.columns(5)
         with met1:
             meta = dta['5 -s Shear Rate']
