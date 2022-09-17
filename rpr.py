@@ -19,7 +19,6 @@ import base64
 import itertools
 import streamlit.components.v1 as components
 from deta import Deta
-from st_aggrid import AgGrid
 
 
 deta = Deta("b02l5gt3_MFtTQuHFmWUEofyrn54FjjnWxAevcaY1")
@@ -68,6 +67,9 @@ def colored_header(label, description=None, color=None):
     )
     if description:
         st.caption(description)
+@st.experimental_memo(suppress_st_warning =True)
+def db_upload(f, z1, y1, x1, o1, p1):
+    db.put({"5 -s Shear Rate RRF": str(z1), "10 -s Shear Rate RRF": str(y1), "100 -s Shear Rate RRF": str(x1), "200 -s Shear Rate RRF": str(o1), "500 -s Shear Rate RRF": str(p1), "record_id": f})
 
 
 #set page config
@@ -181,7 +183,6 @@ def processing(uploaded_file):
                         R = (2.74 * 10**-11)
                 Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
                 shear = 4*(Q/(pi*(R)))
-                print(shear)
                 avg_curve1['shear'].iloc[i] = shear
                 avg_curve1['flow'].iloc[i] = Q
 
@@ -237,7 +238,7 @@ if menu == "Records":
     result = db.fetch().items
     db_df = pd.DataFrame(result)
     slct_rcd = st.multiselect("Select Record", options = db_df['record_id'])
-    AgGrid(db_df)
+    st.dataframe(db_df)
             
 if menu == "Test Analytics":
 
@@ -319,6 +320,7 @@ if menu == "Shear Rate and RRF":
             z1 = z['Relative Resistance to Flow'].median()
             z1 = round(z1, 2)
             st.error(str(z1))
+        db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
 
             
         e1, e2 = st.columns(2)
@@ -359,12 +361,11 @@ if menu == "Data":
                 file_name='Results.csv',
                 mime='text/csv',
                 )
-            AgGrid(rrf)
+            st.dataframe(rrf)
     except:
         st.warning("Upload data")
-fname = uploaded_file.name
-st.write(fname)
-db.put({"5 -s Shear Rate RRF": str(z1), "10 -s Shear Rate RRF": str(y1), "100 -s Shear Rate RRF": str(x1), "200 -s Shear Rate RRF": str(o1), "500 -s Shear Rate RRF": str(p1), "record_id": fname})
+
+
 
 
 
