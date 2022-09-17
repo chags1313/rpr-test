@@ -241,7 +241,24 @@ if menu == "Records":
     slct_rcd = st.multiselect("Select Record", options = db_df['record_id'])
     for rcds in slct_rcd:
         colored_header(rcds)
-        st.dataframe(dd[dd['record_id'] == rcds].iloc[-1])
+        dta = dd[dd['record_id'] == rcds].iloc[-1]
+        met1, met2, met3, met4, met5 = st.columns(5)
+        with met1:
+            meta = dta['5 -s Shear Rate']
+            st.info(str(meta))
+        with met2:
+            metb = dta['10 -s Shear Rate']
+            st.info(str(metb))
+        with met3:
+            metc = dta['100 -s Shear Rate']
+            st.info(str(metc))
+        with met4:
+            metd= dta['200 -s Shear Rate']
+            st.info(str(metd))
+        with met5:
+            mete = dta['500 -s Shear Rate']
+            st.info(str(mete))
+        #st.dataframe(dd[dd['record_id'] == rcds].iloc[-1])
             
 if menu == "Test Analytics":
 
