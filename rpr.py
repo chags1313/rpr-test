@@ -234,7 +234,6 @@ if menu == 'Home':
            st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
 
 if menu == "Records":
-    st.warning("Under construction", icon = '🚧')
     result = db.fetch().items
     db_df = pd.DataFrame(result)
     dd = db_df.reindex(sorted(db_df.columns), axis=1)
