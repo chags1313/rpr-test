@@ -281,8 +281,8 @@ if menu == "Shear Rate and RRF":
             st.text("500-s Shear Rate RRF")
             p = rrf[rrf['Shear Rate'] > 490]
             p = p[p['Shear Rate'] < 510]
-            p1 = p['Relative Resistance to Flow'].median()
             global p1
+            p1 = p['Relative Resistance to Flow'].median()
             p1 = round(p1, 2)
             st.success(str(p1)) 
         with c4:
