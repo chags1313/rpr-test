@@ -360,7 +360,8 @@ if menu == "Data":
             st.dataframe(rrf.style.highlight_min(axis=0))
     except:
         st.warning("Upload data")
-db.put({"5 -s Shear Rate RRF": z1, "10 -s Shear Rate RRF": y1, "100 -s Shear Rate RRF": x1, "200 -s Shear Rate RRF": o1, "500 -s Shear Rate RRF": p1, "record_id": uploaded_file.name})
+fname = uploaded_file.name
+db.put({"5 -s Shear Rate RRF": z1, "10 -s Shear Rate RRF": y1, "100 -s Shear Rate RRF": x1, "200 -s Shear Rate RRF": o1, "500 -s Shear Rate RRF": p1, "record_id": fname})
 
 
 
