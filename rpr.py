@@ -238,6 +238,7 @@ if menu == "Records":
     result = db.fetch().items
     db_df = pd.DataFrame(result)
     slct_rcd = st.multiselect("Select Record", options = db_df['record_id'])
+    st.write(slct_rcd)
     st.dataframe(db_df)
             
 if menu == "Test Analytics":
