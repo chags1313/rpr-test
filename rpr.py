@@ -361,6 +361,7 @@ if menu == "Data":
     except:
         st.warning("Upload data")
 fname = uploaded_file.name
+st.write(z1)
 db.put({"5 -s Shear Rate RRF": 100, "10 -s Shear Rate RRF": 10, "100 -s Shear Rate RRF": 5, "200 -s Shear Rate RRF": 1, "500 -s Shear Rate RRF": 0.5, "record_id": 'u'})
 
 
