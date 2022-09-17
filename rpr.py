@@ -237,7 +237,7 @@ if menu == "Records":
     result = db.fetch().items
     db_df = pd.DataFrame(result)
     slct_rcd = st.multiselect("Select Record", options = db_df['record_id'])
-    st.dataframe(db_df)
+    AgGrid(db_df)
             
 if menu == "Test Analytics":
 
@@ -359,7 +359,7 @@ if menu == "Data":
                 file_name='Results.csv',
                 mime='text/csv',
                 )
-            st.dataframe(rrf.style.highlight_min(axis=0))
+            AgGrid(rrf)
     except:
         st.warning("Upload data")
 fname = uploaded_file.name
