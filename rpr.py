@@ -79,19 +79,7 @@ hide_streamlit_style = """
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
-
-
-
-#st.title("Biofluid Technology")
-with st.sidebar:
-    menu = option_menu(None, ["Home", "Records", "Test Analytics", 'Shear Rate and RRF', 'Data'], 
-    icons=['house',  "list-task", 'graph-up', 'moisture', 'table'], 
-    menu_icon="cast", default_index=0, orientation="vertical")
-    uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
-    needlesize = st.number_input('Insert the needle size', value=16)
-    st.write(needlesize)
-    if uploaded_file is not None:
-    def processing(uploaded_file):
+def processing(uploaded_file):
         bytes_data = uploaded_file.getvalue()
         stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
         string_data = stringio.read()
@@ -201,6 +189,18 @@ with st.sidebar:
         del avg_curve
         del dataframe
         return rrf, avg_curve1, cur, wad
+
+
+#st.title("Biofluid Technology")
+with st.sidebar:
+    menu = option_menu(None, ["Home", "Records", "Test Analytics", 'Shear Rate and RRF', 'Data'], 
+    icons=['house',  "list-task", 'graph-up', 'moisture', 'table'], 
+    menu_icon="cast", default_index=0, orientation="vertical")
+    uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
+    needlesize = st.number_input('Insert the needle size', value=16)
+    st.write(needlesize)
+    if uploaded_file is not None:
+    
         rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file)
     
 
@@ -255,7 +255,7 @@ if menu == "Test Analytics":
                 st.error("Invalid Test - Try Running Test Again")
             fig.update_layout(width=480,showlegend=False)
             st.plotly_chart(fig, config= dict(
-        displayModeBar = False, staticPlot= True))
+            displayModeBar = False, staticPlot= True))
         
     except:
             st.info("Upload data")
