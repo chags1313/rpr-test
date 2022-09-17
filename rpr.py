@@ -18,7 +18,11 @@ import numpy as np
 import base64
 import itertools
 import streamlit.components.v1 as components
-#from pycaret.regression import setup, create_model, predict_model
+from deta import Deta
+
+deta = Deta("b02l5gt3_MFtTQuHFmWUEofyrn54FjjnWxAevcaY1")
+db = deta.Base("rrf")
+db.put({"record_id": 'abc', "5 -s Shear Rate RRF": 100, "10 -s Shear Rate RRF": 10, "100 -s Shear Rate RRF": 1, "200 -s Shear Rate RRF": 0.5, "500 -s Shear Rate RRF": 0.3})
 
 @st.cache(allow_output_mutation=True)
 def get_r2_numpy_corrcoef(x, y):
