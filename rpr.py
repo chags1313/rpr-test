@@ -228,7 +228,7 @@ if menu == "Records":
             
 if menu == "Test Analytics":
 
-    if uploaded_file is not None:
+    try:
         colored_header("Raw Test Data and Sliced Curves")
         uu1, uu2 = st.columns(2)
         fig =  px.scatter(wad, y='Amplitude - Normalized Pressure Data',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
@@ -254,11 +254,11 @@ if menu == "Test Analytics":
             st.plotly_chart(fig, config= dict(
         displayModeBar = False, staticPlot= True))
         
-    else:
+    except:
             st.info("Upload data")
 
 if menu == "Shear Rate and RRF":
-    if uploaded_file is not None:
+    try:
 
 
         
@@ -327,10 +327,10 @@ if menu == "Shear Rate and RRF":
              
 
 
-    else:
+    except:
             st.info("Upload data")
 if menu == "Data":
-    if uploaded_file is not None:
+    try:
             csv = convert_df(rrf)
 
 
@@ -341,7 +341,7 @@ if menu == "Data":
                 mime='text/csv',
                 )
             st.dataframe(rrf.style.highlight_min(axis=0))
-    else:
+    except:
         st.warning("Upload data")
 
 
