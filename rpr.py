@@ -314,10 +314,10 @@ if menu == "Shear Rate and RRF":
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
             st.text("500-s Shear Rate RRF")
-            p = rrf[rrf['Shear Rate'] > 400]
-            p = p[p['Shear Rate'] < 600]
+            p = rrf[rrf['Shear Rate'] > 475]
+            p = p[p['Shear Rate'] < 525]
             global p1
-            p1 = len(p) / 83.6
+            p1 = len(p) 
             p1 = round(p1, 2)
             if p1 > 10:
                 st.error(str(p1), icon = '🔴')
@@ -325,10 +325,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(p1), icon = '🔵')
         with c4:
             st.text("200-s Shear Rate RRF")
-            o = rrf[rrf['Shear Rate'] > 160]
-            o = o[o['Shear Rate'] < 240]
+            o = rrf[rrf['Shear Rate'] > 190]
+            o = o[o['Shear Rate'] < 210]
             global o1
-            o1 = len(o) / 64.8
+            o1 = len(o) 
             o1 = round(o1, 2)
             if o1 > 10:
                 st.error(str(o1), icon = '🔴')
@@ -336,10 +336,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(o1), icon = '🔵')
         with c3:
             st.text("100-s Shear Rate RRF")
-            x = rrf[rrf['Shear Rate'] > 80]
-            x = x[x['Shear Rate'] < 120]
+            x = rrf[rrf['Shear Rate'] > 95]
+            x = x[x['Shear Rate'] < 105]
             global x1
-            x1 = len(x) / 257
+            x1 = len(x) 
             x1 = round(x1, 2)
             if x1 > 10:
                 st.error(str(x1), icon = '🔴')
@@ -347,10 +347,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(x1), icon = '🔵') 
         with c2:
             st.text("10-s Shear Rate RRF")
-            y = rrf[rrf['Shear Rate'] > 8]
-            y = rrf[rrf['Shear Rate'] < 12]
+            y = rrf[rrf['Shear Rate'] > 9.5]
+            y = rrf[rrf['Shear Rate'] < 10.5]
             global y1
-            y1 = len(y) / 673
+            y1 = len(y) 
             y1 = round(y1, 2)
             if y1 > 10:
                 st.error(str(y1), icon = '🔴')
@@ -358,10 +358,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(y1), icon = '🔵')
         with c1:
             st.text("5-s Shear Rate RRF")
-            z = rrf[rrf['Shear Rate'] > 4]
-            z = rrf[rrf['Shear Rate'] < 6]
+            z = rrf[rrf['Shear Rate'] > 4.75]
+            z = rrf[rrf['Shear Rate'] < 5.25]
             global z1
-            z1 = len(z) / 332.2
+            z1 = len(z) 
             z1 = round(z1, 2)
             if z1 > 10:
                 st.error(str(z1), icon = '🔴')
