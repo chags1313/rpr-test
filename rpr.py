@@ -70,7 +70,8 @@ def colored_header(label, description=None, color=None):
 @st.experimental_memo(suppress_st_warning =True)
 def db_upload(f, z1, y1, x1, o1, p1):
     db.put({"5 -s Shear Rate RRF": str(z1), "10 -s Shear Rate RRF": str(y1), "100 -s Shear Rate RRF": str(x1), "200 -s Shear Rate RRF": str(o1), "500 -s Shear Rate RRF": str(p1), "record_id": f})
-
+def zero_crossing(data):
+    return np.where(np.diff(np.sign(np.array(data))))[0]
 
 #set page config
 st.set_page_config(layout="wide",
@@ -122,10 +123,8 @@ def processing(uploaded_file):
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - lastpav
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
         ### removing data less than zero for water
-        zeropoint = avg_curve1[avg_curve1['Amplitude - Normalized Pressure Data'] == 0]
-        zeropoint = zeropoint.reset_index()
-        zeropoint = zeropoint['index'].iloc[0]
-        avg_curve1 = avg_curve1.head(zeropoint)
+        zeropoint = avg_curve1.index[zero_crossing(avg_curve1['Amplitude - Normalized Pressure Data'])]
+        avg_curve1 = avg_curve1.head(zeropoint[0])
         shear = 4*(Q/(pi*(R**3)))
         fir_curve1 = pd.DataFrame(fir_curve)
         wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
