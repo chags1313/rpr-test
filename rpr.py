@@ -317,7 +317,7 @@ if menu == "Shear Rate and RRF":
             p = rrf[rrf['Shear Rate'] > 475]
             p = p[p['Shear Rate'] < 525]
             global p1
-            p1 = len(p) 
+            p1 = len(p) / 24
             p1 = round(p1, 2)
             if p1 > 10:
                 st.error(str(p1), icon = '🔴')
@@ -328,7 +328,7 @@ if menu == "Shear Rate and RRF":
             o = rrf[rrf['Shear Rate'] > 190]
             o = o[o['Shear Rate'] < 210]
             global o1
-            o1 = len(o) 
+            o1 = len(o) / 16.2
             o1 = round(o1, 2)
             if o1 > 10:
                 st.error(str(o1), icon = '🔴')
@@ -339,7 +339,7 @@ if menu == "Shear Rate and RRF":
             x = rrf[rrf['Shear Rate'] > 95]
             x = x[x['Shear Rate'] < 105]
             global x1
-            x1 = len(x) 
+            x1 = len(x) / 55
             x1 = round(x1, 2)
             if x1 > 10:
                 st.error(str(x1), icon = '🔴')
@@ -350,7 +350,7 @@ if menu == "Shear Rate and RRF":
             y = rrf[rrf['Shear Rate'] > 9.5]
             y = rrf[rrf['Shear Rate'] < 10.5]
             global y1
-            y1 = len(y) 
+            y1 = len(y) / 583.4
             y1 = round(y1, 2)
             if y1 > 10:
                 st.error(str(y1), icon = '🔴')
@@ -361,7 +361,7 @@ if menu == "Shear Rate and RRF":
             z = rrf[rrf['Shear Rate'] > 4.75]
             z = rrf[rrf['Shear Rate'] < 5.25]
             global z1
-            z1 = len(z) 
+            z1 = len(z)  / 277.8
             z1 = round(z1, 2)
             if z1 > 10:
                 st.error(str(z1), icon = '🔴')
