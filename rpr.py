@@ -409,7 +409,7 @@ if menu == "Data":
                 file_name='Results.csv',
                 mime='text/csv',
                 )
-            st.dataframe(rrf, use_container_width=True)
+            st.dataframe(rrf, width = 1000)
     except:
         st.warning("Upload data", icon = '📁')
 
