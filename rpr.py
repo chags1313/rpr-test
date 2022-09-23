@@ -123,8 +123,6 @@ def processing(uploaded_file):
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
         shear = 4*(Q/(pi*(R**3)))
         fir_curve1 = pd.DataFrame(fir_curve)
-        avg_curve1['shear'] = 'na'
-        avg_curve1['flow'] = 'na'
         wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
         wad['Second Curve'] = (wad.index.isin(sec_curve.index)).astype(int)
         wad['curves'] = wad['First Curve'] + wad['Second Curve']
