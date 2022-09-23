@@ -184,7 +184,7 @@ def processing(uploaded_file):
         avg_curve1['Flow'] = Q
         avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
 
-rrf = avg_curve1
+        rrf = avg_curve1
         del avg_curve
         del dataframe
         return rrf, avg_curve1, cur, wad
