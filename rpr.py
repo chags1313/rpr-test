@@ -120,7 +120,8 @@ def processing(uploaded_file):
         time = len(fir_curve) / 1000
         Q = ((((0.6 * curve) / 20 / time)) * (1*10**-6))
         lastpav = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
-        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - lastpav
+        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] 
+        #####avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - lastpav
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
         ### removing data less than zero for water
         zeropoint = avg_curve1.index[zero_crossing(avg_curve1['Amplitude - Normalized Pressure Data'])]
