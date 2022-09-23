@@ -140,59 +140,51 @@ def processing(uploaded_file):
         df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve']) 
 
         
-        
-        #cur['flow'] = cur['Flow'].rolling(window= 1000).mean().diff()
-        #cur['shear rate'] = cur['Shear Rate'].rolling(window=1000).mean()
         cur['Average curve mmHg'] = cur['Averaged Curve'].rolling(window=100).mean()
         lastcur = cur['Average curve mmHg'].iloc[-1]
         cur['Average curve mmHg'] =cur['Average curve mmHg'] - lastcur
         md = max(avg_curve1['Amplitude - Normalized Pressure Data'])
-        with st.spinner("Processing Analytics"):
-            for i in range(len(avg_curve1)):
-                first = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[i] 
-                last = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1] 
-                are = avg_curve1['Amplitude - Normalized Pressure Data'] * 0.001
-                totalarea = are.sum()
-                curve =  first - last
-                if needlesize == 12:
-                    Q = ((((0.6 * curve)/ md / time))) * (1*10**-6)
-                    R = (1.26 * 10**-9)
-                if needlesize == 13:
-                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                        R = (7.33 * 10**-10)
-                if needlesize == 14:
-                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                        R = (5.12 * 10**-10)
-                if needlesize == 15:
-                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                        R = (3.23 * 10**-10)
-                if needlesize == 16:
-                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                        R = (2.13 * 10**-10)
-                if needlesize == 17:
-                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                        R = (1.52 * 10**-10)  
-                if needlesize == 18:
-                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                        R = (7.36 * 10**-11)
-                if needlesize == 19:
-                        Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                        R = (4.04 * 10**-11)
-                if needlesize == 20:
-                        Q = ((((0.6 * curve)/md / time)))* (1*10**-6)
-                        R = (2.74 * 10**-11)
-                Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
-                shear = 4*(Q/(pi*(R)))
-                avg_curve1['shear'].iloc[i] = shear
-                avg_curve1['flow'].iloc[i] = Q
-
-        #cur['Shear Rate'] = avg_curve1['shear']
-        #cur['Flow'] = avg_curve1['flow']
-        avg_curve1['Shear Rate'] = avg_curve1['shear']
-        avg_curve1['Flow'] = avg_curve1['flow']
+        #with st.spinner("Processing Analytics"):
+            #for i in range(len(avg_curve1)):
+        first = avg_curve1['Amplitude - Normalized Pressure Data'] 
+        last = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1] 
+        are = avg_curve1['Amplitude - Normalized Pressure Data'] * 0.001
+        totalarea = are.sum()
+        curve =  first - last
+        if needlesize == 12:
+            Q = ((((0.6 * curve)/ md / time))) * (1*10**-6)
+            R = (1.26 * 10**-9)
+        if needlesize == 13:
+                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                R = (7.33 * 10**-10)
+        if needlesize == 14:
+                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                R = (5.12 * 10**-10)
+        if needlesize == 15:
+                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                R = (3.23 * 10**-10)
+        if needlesize == 16:
+                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                R = (2.13 * 10**-10)
+        if needlesize == 17:
+                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                R = (1.52 * 10**-10)  
+        if needlesize == 18:
+                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                R = (7.36 * 10**-11)
+        if needlesize == 19:
+                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                R = (4.04 * 10**-11)
+        if needlesize == 20:
+                Q = ((((0.6 * curve)/md / time)))* (1*10**-6)
+                R = (2.74 * 10**-11)
+        Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
+        shear = 4*(Q/(pi*(R)))
+        avg_curve1['Shear Rate'] = shear
+        avg_curve1['Flow'] = Q
         avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
 
-        rrf = avg_curve1
+rrf = avg_curve1
         del avg_curve
         del dataframe
         return rrf, avg_curve1, cur, wad
