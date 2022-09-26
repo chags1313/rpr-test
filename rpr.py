@@ -190,6 +190,8 @@ def processing(uploaded_file):
         avg_curve1['Shear Rate'] = shear
         avg_curve1['Flow'] = Q
         avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
+        avg_curve1['Shear Stress'] = avg_curve1['Amplitude - Normalized Pressure Data'] * 133.32
+        avg_curve1['Viscosity] = avg_curve1['Shear Stress'] / avg_curve1['Shear Rate']
 
         rrf = avg_curve1
         del avg_curve
@@ -384,7 +386,7 @@ if menu == "Shear Rate and RRF":
         
         #rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window=10).mean()
         #rrf = rrf[rrf['Blood Sample'] != 0]
-        shears = px.histogram(rrf, x='Shear Rate', color_discrete_sequence=['orange'])
+        shears = px.scatter(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'])
         #shear.data = [t for t in shears.data if t.mode == "lines"] trendline="lowess", trendline_options=dict(frac=0.09)
         #shears.update_yaxes(range=(0,100))
         #shears.update_xaxes(range=(0,500))
