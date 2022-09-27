@@ -327,10 +327,10 @@ if menu == "Shear Rate and RRF":
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
             st.text("500-s Shear Rate RRF")
-            p = rrf[rrf['Shear Rate'] > 475]
-            p = p[p['Shear Rate'] < 525]
+            p = rrf[rrf['Shear Rate'] > 495]
+            p = p[p['Shear Rate'] < 505]
             global p1
-            p1 = len(p) / 24
+            p1 = p['Viscosity'].median()
             p1 = round(p1, 2)
             if p1 > 10:
                 st.error(str(p1), icon = '🔴')
@@ -338,10 +338,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(p1), icon = '🔵')
         with c4:
             st.text("200-s Shear Rate RRF")
-            o = rrf[rrf['Shear Rate'] > 190]
-            o = o[o['Shear Rate'] < 210]
+            o = rrf[rrf['Shear Rate'] > 198]
+            o = o[o['Shear Rate'] < 202]
             global o1
-            o1 = len(o) / 16.2
+            o1 = o['Viscosity'].median()
             o1 = round(o1, 2)
             if o1 > 10:
                 st.error(str(o1), icon = '🔴')
@@ -349,10 +349,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(o1), icon = '🔵')
         with c3:
             st.text("100-s Shear Rate RRF")
-            x = rrf[rrf['Shear Rate'] > 95]
-            x = x[x['Shear Rate'] < 105]
+            x = rrf[rrf['Shear Rate'] > 98]
+            x = x[x['Shear Rate'] < 102]
             global x1
-            x1 = len(x) / 55
+            x1 = x['Viscosity'].median()
             x1 = round(x1, 2)
             if x1 > 10:
                 st.error(str(x1), icon = '🔴')
@@ -363,7 +363,7 @@ if menu == "Shear Rate and RRF":
             y = rrf[rrf['Shear Rate'] > 9.5]
             y = rrf[rrf['Shear Rate'] < 10.5]
             global y1
-            y1 = len(y) / 583.4
+            y1 = y['Viscosity'].median()
             y1 = round(y1, 2)
             if y1 > 10:
                 st.error(str(y1), icon = '🔴')
@@ -371,10 +371,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(y1), icon = '🔵')
         with c1:
             st.text("5-s Shear Rate RRF")
-            z = rrf[rrf['Shear Rate'] > 4.75]
-            z = rrf[rrf['Shear Rate'] < 5.25]
+            z = rrf[rrf['Shear Rate'] > 4.5]
+            z = rrf[rrf['Shear Rate'] < 5.5]
             global z1
-            z1 = len(z)  / 277.8
+            z1 = z['Viscosity'].median()
             z1 = round(z1, 2)
             if z1 > 10:
                 st.error(str(z1), icon = '🔴')
