@@ -326,7 +326,7 @@ if menu == "Shear Rate and RRF":
 
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
-            st.text("500-s Shear Rate RRF")
+            st.text("500-s Relative Viscosity")
             p = rrf[rrf['Shear Rate'] > 495]
             p = p[p['Shear Rate'] < 505]
             global p1
@@ -337,7 +337,7 @@ if menu == "Shear Rate and RRF":
             else:
                 st.info(str(p1), icon = '🔵')
         with c4:
-            st.text("200-s Shear Rate RRF")
+            st.text("200-s Relative Viscosity")
             o = rrf[rrf['Shear Rate'] > 198]
             o = o[o['Shear Rate'] < 202]
             global o1
@@ -348,7 +348,7 @@ if menu == "Shear Rate and RRF":
             else:
                 st.info(str(o1), icon = '🔵')
         with c3:
-            st.text("100-s Shear Rate RRF")
+            st.text("100-s Relative Viscosity")
             x = rrf[rrf['Shear Rate'] > 98]
             x = x[x['Shear Rate'] < 102]
             global x1
@@ -359,7 +359,7 @@ if menu == "Shear Rate and RRF":
             else:
                 st.info(str(x1), icon = '🔵') 
         with c2:
-            st.text("10-s Shear Rate RRF")
+            st.text("10-s Relative Viscosity")
             y = rrf[rrf['Shear Rate'] > 9.5]
             y = rrf[rrf['Shear Rate'] < 10.5]
             global y1
@@ -370,7 +370,7 @@ if menu == "Shear Rate and RRF":
             else:
                 st.info(str(y1), icon = '🔵')
         with c1:
-            st.text("5-s Shear Rate RRF")
+            st.text("5-s Relative Viscosity")
             z = rrf[rrf['Shear Rate'] > 4.5]
             z = rrf[rrf['Shear Rate'] < 5.5]
             global z1
