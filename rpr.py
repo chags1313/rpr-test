@@ -389,7 +389,7 @@ if menu == "Shear Rate and RRF":
         #rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window=10).mean()
         #rrf = rrf[rrf['Blood Sample'] != 0]
         shears = px.scatter(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'], trendline="lowess", trendline_options=dict(frac=0.09))
-        shear.data = [t for t in shears.data if t.mode == "lines"] 
+        #shear.data = [t for t in shears.data if t.mode == "lines"] 
         shears.update_yaxes(range=(0,10))
         shears.update_xaxes(range=(0,500))
         shears.update_layout(width=525, hovermode='x unified')
