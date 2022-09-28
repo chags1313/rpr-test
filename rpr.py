@@ -212,7 +212,7 @@ with st.sidebar:
     menu_icon="cast", default_index=0, orientation="vertical")
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
     with st.expander("Needle Size"):
-        needlesize = st.number_input('', value=18)
+        needlesize = st.number_input('', value=14)
         st.write(needlesize)
     if uploaded_file is not None:
     
@@ -395,7 +395,7 @@ if menu == "Shear Rate and RRF":
         shears = px.scatter(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'], trendline="lowess", trendline_options=dict(frac=0.02))
         #shear.data = [t for t in shears.data if t.mode == "lines"] 
         shears.update_traces(visible=False, selector=dict(mode="markers"))
-        shears.update_yaxes(range=(0,10))
+        shears.update_yaxes(range=(0,0.005))
         shears.update_xaxes(range=(0,500))
         shears.update_layout(width=525, hovermode='x unified')
         with e1:
