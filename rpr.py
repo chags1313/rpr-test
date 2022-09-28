@@ -330,7 +330,7 @@ if menu == "Shear Rate and RRF":
             p = rrf[rrf['Shear Rate'] > 495]
             p = p[p['Shear Rate'] < 505]
             global p1
-            p1 = p['Viscosity'].mean() / 0.014
+            p1 = p['Viscosity'].mean() 
             p1 = round(p1, 2)
             if p1 > 10:
                 st.error(str(p1), icon = '🔴')
@@ -341,7 +341,7 @@ if menu == "Shear Rate and RRF":
             o = rrf[rrf['Shear Rate'] > 198]
             o = o[o['Shear Rate'] < 202]
             global o1
-            o1 = o['Viscosity'].mean() / 0.014
+            o1 = o['Viscosity'].mean() 
             o1 = round(o1, 2)
             if o1 > 10:
                 st.error(str(o1), icon = '🔴')
@@ -352,7 +352,7 @@ if menu == "Shear Rate and RRF":
             x = rrf[rrf['Shear Rate'] > 98]
             x = x[x['Shear Rate'] < 102]
             global x1
-            x1 = x['Viscosity'].mean() / 0.04
+            x1 = x['Viscosity'].mean() 
             x1 = round(x1, 2)
             if x1 > 10:
                 st.error(str(x1), icon = '🔴')
@@ -363,7 +363,7 @@ if menu == "Shear Rate and RRF":
             y = rrf[rrf['Shear Rate'] > 9.5]
             y = rrf[rrf['Shear Rate'] < 10.5]
             global y1
-            y1 = y['Viscosity'].mean() / 0.67
+            y1 = y['Viscosity'].mean() 
             y1 = round(y1, 2)
             if y1 > 10:
                 st.error(str(y1), icon = '🔴')
@@ -374,7 +374,7 @@ if menu == "Shear Rate and RRF":
             z = rrf[rrf['Shear Rate'] > 4.5]
             z = rrf[rrf['Shear Rate'] < 5.5]
             global z1
-            z1 = z['Viscosity'].mean() / 0.83
+            z1 = z['Viscosity'].mean()
             z1 = round(z1, 2)
             if z1 > 10:
                 st.error(str(z1), icon = '🔴')
