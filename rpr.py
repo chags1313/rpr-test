@@ -191,8 +191,8 @@ def processing(uploaded_file):
         avg_curve1['Flow'] = Q
         avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
         avg_curve1['Shear Stress'] = (avg_curve1['Amplitude - Normalized Pressure Data'] * 133.32).diff().abs()
-        avg_curve1['Viscosity Equation1'] = ((avg_curve1['Shear Stress'] * (0.686 /1000)) / (4.9 * 10**-4)) / avg_curve1['Shear Rate']
-        avg_curve1['Viscosity'] = avg_curve1['Shear Stress'] / avg_curve1['Shear Rate']
+        avg_curve1['Viscosity'] = ((avg_curve1['Shear Stress'] * (0.686 /1000)) / (4.9 * 10**-4)) / avg_curve1['Shear Rate']
+        #avg_curve1['Viscosity Equation 1'] = avg_curve1['Shear Stress'] / avg_curve1['Shear Rate']
         #avg_curve1['Viscosity Eq1'] = (avg_curve1['Shear Stress'] / avg_curve1['Shear Rate']).round(4)
 
         rrf = avg_curve1
