@@ -132,7 +132,6 @@ def processing(uploaded_file):
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
-        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = 1000).mean()
         shear = 4*(Q/(pi*(R**3)))
         fir_curve1 = pd.DataFrame(fir_curve)
         wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
