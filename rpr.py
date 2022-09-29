@@ -329,8 +329,6 @@ if menu == "Shear Rate and RRF":
         rrf = rrf[rrf['Flow'] != 0]
         rrf = rrf[rrf['Shear Rate'] > 0.05]
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
-        rrf['Viscosity'] = rrf['Viscosity'].rolling(window = 2).mean()
-        rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window = 2).mean()
 
 
         c1, c2, c3, c4, c5 = st.columns(5)
