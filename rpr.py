@@ -328,7 +328,9 @@ if menu == "Shear Rate and RRF":
         colored_header("Processed Test Data")
         rrf = rrf[rrf['Flow'] != 0]
         rrf = rrf[rrf['Shear Rate'] > 0.05]
+        rrf['Viscosity'] = rrf['Viscosity'].rolling(window=10).mean()
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
+        
 
 
         c1, c2, c3, c4, c5 = st.columns(5)
