@@ -329,7 +329,7 @@ if menu == "Shear Rate and RRF":
         rrf = rrf[rrf['Flow'] != 0]
         rrf = rrf[rrf['Shear Rate'] > 0.05]
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
-        rrf['Viscosity'] = rrf['Viscosity'].rolling(window = 10).mean()
+        rrf['Viscosity'] = rrf['Viscosity'].rolling(window = 2).mean()
         rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window = 2).mean()
 
 
@@ -370,7 +370,7 @@ if menu == "Shear Rate and RRF":
         with c2:
             st.text("10-s Relative Viscosity")
             y = rrf[rrf['Shear Rate'] > 9.5]
-            y = rrf[rrf['Shear Rate'] < 10.5]
+            y = rrf[rrf['Shear Rate'] < 10.75]
             global y1
             y1 = y['Viscosity'].mean()  
             y1 = round(y1, 2)
@@ -381,7 +381,7 @@ if menu == "Shear Rate and RRF":
         with c1:
             st.text("5-s Relative Viscosity")
             z = rrf[rrf['Shear Rate'] > 4.5]
-            z = rrf[rrf['Shear Rate'] < 5.5]
+            z = rrf[rrf['Shear Rate'] < 5.75]
             global z1
             z1 = z['Viscosity'].mean() 
             z1 = round(z1, 2)
