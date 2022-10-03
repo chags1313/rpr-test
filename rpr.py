@@ -212,8 +212,6 @@ with st.sidebar:
     menu = option_menu(None, ["Home", "Records", "Test Analytics", 'Shear Rate and RRF', 'Data'], 
     icons=['house',  "list-task", 'graph-up', 'moisture', 'table'], 
     menu_icon="cast", default_index=0, orientation="vertical")
-    uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
-
 
     
 
@@ -241,6 +239,9 @@ if menu == 'Home':
     with st.expander("Needle Size"):
         needlesize = st.number_input(' ', value=20)
         st.write(needlesize)
+with st.sidebar:
+    uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
+
     if uploaded_file is not None:
     
         rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file)
