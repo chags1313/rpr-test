@@ -205,22 +205,6 @@ def processing(uploaded_file):
         del avg_curve
         del dataframe
         return rrf, avg_curve1, cur, wad
-
-
-#st.title("Biofluid Technology")
-with st.sidebar:
-    menu = option_menu(None, ["Home", "Records", "Test Analytics", 'Shear Rate and RRF', 'Data'], 
-    icons=['house',  "list-task", 'graph-up', 'moisture', 'table'], 
-    menu_icon="cast", default_index=0, orientation="vertical")
-    uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
-
-    if uploaded_file is not None:
-    
-        rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file)
-    
-
-#tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Home","💉 Run Test", "📈 Test Analytics", "🩸 Shear Rate and RRF Analytics", "🗃 Data"])
-
 if menu == 'Home':  
     st.title("Rapid Profile Rheometer 🩸")
     st.write("Biofluid Technology Inc.")
@@ -243,6 +227,23 @@ if menu == 'Home':
     with st.expander("Needle Size"):
         needlesize = st.number_input(' ', value=20)
         st.write(needlesize)
+
+
+#st.title("Biofluid Technology")
+with st.sidebar:
+    menu = option_menu(None, ["Home", "Records", "Test Analytics", 'Shear Rate and RRF', 'Data'], 
+    icons=['house',  "list-task", 'graph-up', 'moisture', 'table'], 
+    menu_icon="cast", default_index=0, orientation="vertical")
+    uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
+
+    if uploaded_file is not None:
+    
+        rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file)
+    
+
+#tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Home","💉 Run Test", "📈 Test Analytics", "🩸 Shear Rate and RRF Analytics", "🗃 Data"])
+
+
 
 if menu == "Records":
     colored_header("Records")
