@@ -124,11 +124,11 @@ def processing(uploaded_file):
         #####avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - lastpav
         
         ### removing data less than zero for water
-        zeropoint = avg_curve1.index[zero_crossing(avg_curve1['Amplitude - Normalized Pressure Data'])]
-        print(zeropoint)
-        print(len(avg_curve1))
-        avg_curve1 = avg_curve1.iloc[:zeropoint[0],:]
-        print(len(avg_curve1))
+        #zeropoint = avg_curve1.index[zero_crossing(avg_curve1['Amplitude - Normalized Pressure Data'])]
+        #print(zeropoint)
+        #print(len(avg_curve1))
+        #avg_curve1 = avg_curve1.iloc[:zeropoint[0],:]
+        #print(len(avg_curve1))
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
