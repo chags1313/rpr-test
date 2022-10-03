@@ -213,9 +213,7 @@ with st.sidebar:
     icons=['house',  "list-task", 'graph-up', 'moisture', 'table'], 
     menu_icon="cast", default_index=0, orientation="vertical")
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
-    with st.expander("Needle Size"):
-        needlesize = st.number_input('', value=18)
-        st.write(needlesize)
+
     if uploaded_file is not None:
     
         rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file)
@@ -225,7 +223,7 @@ with st.sidebar:
 
 if menu == 'Home':  
     st.title("Rapid Profile Rheometer 🩸")
-    st.write("Biofluid Technology LLC")
+    st.write("Biofluid Technology Inc.")
     with st.expander("How to Run a Test"):
         st.markdown("1. On the test tab, click run test")
         st.markdown("2. Pull up plunger.. wait for the fluid to settle in tube")
@@ -242,6 +240,9 @@ if menu == 'Home':
         st.markdown("- The graph with the red and blue lines displays the relationship between a given fluid and water plus the relationship with time and pressure")
     with st.expander("Device Usage Tutorial"):
            st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
+    with st.expander("Needle Size"):
+        needlesize = st.number_input(' ', value=20)
+        st.write(needlesize)
 
 if menu == "Records":
     colored_header("Records")
