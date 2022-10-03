@@ -181,19 +181,21 @@ def processing(uploaded_file):
         if needlesize == 18:
                 Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (7.36 * 10**-11)
+                radius = 0.419 / 1000
         if needlesize == 19:
                 Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (4.04 * 10**-11)
+                radius = 0.343 / 1000
         if needlesize == 20:
                 Q = ((((0.6 * curve)/md / time)))* (1*10**-6)
-                R = (2.74 * 10**-11)
+                R = (2.75 * 10**-11)
+                radius = 0.302 / 1000
         Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
         shear = 4*(Q/(pi*(R)))
         avg_curve1['Shear Rate'] = shear
         avg_curve1['Flow'] = Q
         avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
         length = 3.81 * 10**-2
-        radius = 0.419 / 1000
         avg_curve1['Shear Stress'] = (avg_curve1['Amplitude - Normalized Pressure Data'] * 133.32).diff().abs() * radius
         avg_curve1['Viscosity'] = (avg_curve1['Shear Stress'] / (length *2)) / avg_curve1['Shear Rate']
         #avg_curve1['Viscosity Equation 1'] = avg_curve1['Shear Stress'] / avg_curve1['Shear Rate']
