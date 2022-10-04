@@ -149,7 +149,7 @@ def processing(uploaded_file):
         df_melt = cur.melt(id_vars="Time", value_vars=['First Curve', 'Second Curve', 'Averaged Curve']) 
 
         
-        cur['Average curve mmHg'] = cur['Averaged Curve'].rolling(window=100).mean()
+        cur['Average curve mmHg'] = cur['Averaged Curve'].rolling(window=1000).mean()
         lastcur = cur['Average curve mmHg'].iloc[-1]
         cur['Average curve mmHg'] =cur['Average curve mmHg'] - lastcur
         md = max(avg_curve1['Amplitude - Normalized Pressure Data'])
