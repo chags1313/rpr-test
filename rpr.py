@@ -333,7 +333,7 @@ if menu == "Shear Rate and RRF":
         colored_header("Processed Test Data")
         rrf = rrf[rrf['Flow'] != 0]
         rrf = rrf[rrf['Shear Rate'] > 0.05]
-        rrf['Viscosity'] = rrf['Viscosity'].rolling(window=10).mean()
+        rrf['Viscosity'] = rrf['Viscosity'].rolling(window=100).mean()
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
         
 
@@ -404,7 +404,7 @@ if menu == "Shear Rate and RRF":
         #rrf = rrf[rrf['Blood Sample'] != 0]
         shears = px.scatter(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'], trendline="lowess", trendline_options=dict(frac=0.5))
         #shear.data = [t for t in shears.data if t.mode == "lines"] 
-        shears.update_traces(visible=False, selector=dict(mode="markers"))
+        #shears.update_traces(visible=False, selector=dict(mode="markers"))
         shears.update_yaxes(range=(0,5))
         shears.update_xaxes(range=(0,500))
         shears.update_layout(width=525, hovermode='x unified')
