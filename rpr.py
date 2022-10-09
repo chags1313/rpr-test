@@ -322,6 +322,8 @@ if menu == "Test Analytics":
             fig.update_layout(width=480,showlegend=False)
             st.plotly_chart(fig, config= dict(
             displayModeBar = False, staticPlot= True))
+            with st.expander("Autocorrelation", help='Autocorrelation is an indirect measure of noise'):
+                st.write(cur['Second Curve'].autocorr())
         
     except:
             st.warning("Upload data", icon ='📁')
