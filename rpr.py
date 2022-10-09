@@ -322,7 +322,7 @@ if menu == "Test Analytics":
             fig.update_layout(width=480,showlegend=False)
             st.plotly_chart(fig, config= dict(
             displayModeBar = False, staticPlot= True))
-            st.write(cur['Second Curve'].autocorr())
+            st.write("Autocorrelation: " + cur['Second Curve'].autocorr())
         
     except:
             st.warning("Upload data", icon ='📁')
