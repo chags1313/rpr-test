@@ -339,7 +339,7 @@ if menu == "Shear Rate and RRF":
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
         
 
-        st.radio("Label", help="Relative viscosity values have been computed from water controls as of 10/10/22",options=['a'], label_visibility='hidden')
+        st.checkbox("Label", help="Relative viscosity values have been computed from water controls as of 10/10/22",value=" ", label_visibility='hidden')
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
             st.text("500-s Relative Viscosity")
