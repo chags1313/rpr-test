@@ -107,7 +107,7 @@ def processing(uploaded_file):
         wadmin = wad['Amplitude - Normalized Pressure Data'].idxmin()
         fir_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmax:wadmin-800]
         sec_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmin:]
-        avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
+        avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True)) / 2
         avg_curve1 = pd.DataFrame()
         avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
         last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
@@ -130,9 +130,9 @@ def processing(uploaded_file):
         #print(len(avg_curve1))
         #avg_curve1 = avg_curve1.iloc[:zeropoint[0],:]
         #print(len(avg_curve1))
-        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
+        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data']
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
-        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
+        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data']
         shear = 4*(Q/(pi*(R**3)))
         fir_curve1 = pd.DataFrame(fir_curve)
         wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
@@ -140,7 +140,7 @@ def processing(uploaded_file):
         wad['curves'] = wad['First Curve'] + wad['Second Curve']
         wad['curves'] = wad['curves'].replace(0, "No Identified Curve")
         wad['curves'] = wad['curves'].replace(1, "Curve Used For Analysis")
-        avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True).abs()) / 2
+        avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True)) / 2
         cur = pd.DataFrame()
         cur['First Curve'] = fir_curve.reset_index(drop=True)
         cur['Second Curve'] = sec_curve[:len(fir_curve)].abs().reset_index(drop=True)
