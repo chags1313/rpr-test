@@ -408,7 +408,7 @@ if menu == "Shear Rate and RRF":
         shears = px.scatter(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'])
         #shear.data = [t for t in shears.data if t.mode == "lines"] , trendline="lowess", trendline_options=dict(frac=0.5)
         #shears.update_traces(visible=False, selector=dict(mode="markers"))
-        shears.update_yaxes(range=(0,2))
+        shears.update_yaxes(range=(0,0.5))
         shears.update_xaxes(range=(0,500))
         shears.update_layout(width=525, hovermode='x unified')
         with e1:
