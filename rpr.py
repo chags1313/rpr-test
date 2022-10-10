@@ -339,7 +339,7 @@ if menu == "Shear Rate and RRF":
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
         
 
-        st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22", disabled=True)
+        st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
             st.text("500-s Relative Viscosity")
