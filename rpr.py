@@ -378,7 +378,7 @@ if menu == "Shear Rate and RRF":
         with c2:
             st.text("10-s Relative Viscosity")
             y = rrf[rrf['Shear Rate'] > 9.5]
-            y = rrf[rrf['Shear Rate'] < 10.75]
+            y = rrf[rrf['Shear Rate'] < 10.5]
             global y1
             y1 = y['Viscosity'].mean() / 0.00475  
             y1 = round(y1, 2)
@@ -388,8 +388,8 @@ if menu == "Shear Rate and RRF":
                 st.info(str(y1) + " " +str(y['Viscosity'].mean()), icon = '🔵')
         with c1:
             st.text("5-s Relative Viscosity")
-            z = rrf[rrf['Shear Rate'] > 4.5]
-            z = rrf[rrf['Shear Rate'] < 5.75]
+            z = rrf[rrf['Shear Rate'] > 4.75]
+            z = rrf[rrf['Shear Rate'] < 5.25]
             global z1
             z1 = z['Viscosity'].mean() / 0.007825
             z1 = round(z1, 2)
