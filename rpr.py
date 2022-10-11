@@ -337,7 +337,7 @@ if menu == "Shear Rate and RRF":
         rrf = rrf[rrf['Shear Rate'] > 0.05]
         #rrf['Viscosity'] = rrf['Viscosity'].rolling(window=10).mean()
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
-        rrf['Viscosity'] = rrf['Viscosity'] * 1000
+        rrf['Viscosity'] = rrf['Viscosity'] * 100
         
 
         st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
