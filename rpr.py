@@ -385,7 +385,7 @@ if menu == "Shear Rate and RRF":
             if y1 > 10:
                 st.error(str(y1), icon = '🔴')
             else:
-                st.info(str(y1), icon = '🔵')
+                st.info(str(y1) + " " +str(y['Viscosity'].mean()), icon = '🔵')
         with c1:
             st.text("5-s Relative Viscosity")
             z = rrf[rrf['Shear Rate'] > 4.5]
