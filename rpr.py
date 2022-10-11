@@ -338,7 +338,7 @@ if menu == "Shear Rate and RRF":
         #rrf['Viscosity'] = rrf['Viscosity'].rolling(window=10).mean()
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
         #rrf['Viscosity'] = rrf['Viscosity'] * 1000
-        rrf = rrf[rrf['Viscosity'] != 0]
+        
         
 
         st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
@@ -399,7 +399,7 @@ if menu == "Shear Rate and RRF":
             else:
                 st.info(str(z1), icon = '🔵')
         db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
-
+        rrf = rrf[rrf['Viscosity'] != 0]
             
         e1, e2 = st.columns(2)
      
