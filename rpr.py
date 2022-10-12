@@ -417,8 +417,9 @@ if menu == "Shear Rate and RRF":
             st.plotly_chart(shears, config= dict(
             displayModeBar = False))
         with e2:
+            rrf['Rate of Shear Rate Change'] = rrf['Shear Rate'].diff().abs()
             rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
-            flowc = px.histogram(rrf, x ='Flow')
+            flowc = px.histogram(rrf, x ='Rate of Shear Rate Change')
             flowc.update_layout(width=525, hovermode='x unified')
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
