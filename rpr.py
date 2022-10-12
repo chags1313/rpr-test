@@ -407,7 +407,7 @@ if menu == "Shear Rate and RRF":
         #rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window=10).mean()
         #rrf = rrf[rrf['Blood Sample'] != 0]
         
-        shears = px.scatter(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'])
+        shears = px.line(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'])
         #shear.data = [t for t in shears.data if t.mode == "lines"] , trendline="lowess", trendline_options=dict(frac=0.5)
         #shears.update_traces(visible=False, selector=dict(mode="markers"))
         shears.update_yaxes(range=(0,0.5))
@@ -419,7 +419,7 @@ if menu == "Shear Rate and RRF":
         with e2:
             rrf['Rate of Shear Rate Change'] = rrf['Shear Rate'].diff().abs()
             rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
-            flowc = px.line(rrf, y ='Rate of Shear Rate Change', x = 'Shear Rate', color_discrete_sequence=['black'])
+            flowc = px.scatter(rrf, y ='Rate of Shear Rate Change', x = 'Shear Rate', color_discrete_sequence=['black'])
             flowc.update_layout(width=525, hovermode='x unified')
             #flowc.update_yaxes(range=(0,10000))
             #flowc.update_xaxes(range=(0,500))
