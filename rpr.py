@@ -433,8 +433,8 @@ if menu == "Shear Rate and RRF":
         stime.update_xaxes(range=(0,500))
         st.plotly_chart(stime, config= dict(
             displayModeBar = False))
-        shearbin = np.histogram(rrf['Shear Rate'], bins = 60000)
-        st.dataframe(shearbin)
+        #shearbin = np.histogram(rrf['Shear Rate'], bins = 60000)
+        #st.dataframe(shearbin)
 
 
 
