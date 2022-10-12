@@ -338,6 +338,7 @@ if menu == "Shear Rate and RRF":
         #rrf['Viscosity'] = rrf['Viscosity'].rolling(window=10).mean()
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
         #rrf['Viscosity'] = rrf['Viscosity'] * 1000
+        rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
         rrf2 = rrf[rrf['Pressure - mmHg'] < 50]
         rrf2['Time in Seconds'] = rrf2.reset_index(drop=True).index / 1000
 
@@ -418,7 +419,7 @@ if menu == "Shear Rate and RRF":
             displayModeBar = False))
         with e2:
             rrf['Rate of Shear Rate Change'] = rrf['Shear Rate'].diff().abs()
-            rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
+            
             flowc = px.scatter(rrf, y ='Rate of Shear Rate Change', x = 'Shear Rate', color_discrete_sequence=['green'])
             flowc.update_layout(width=525, hovermode='x unified')
             #flowc.update_yaxes(range=(0,10000))
