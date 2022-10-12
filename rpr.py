@@ -421,7 +421,7 @@ if menu == "Shear Rate and RRF":
             rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
             flowc = px.histogram(rrf, x ='Rate of Shear Rate Change')
             flowc.update_layout(width=525, hovermode='x unified')
-            #flowc.update_yaxes(range=(0,10000))
+            flowc.update_yaxes(range=(0,10000))
             #flowc.update_xaxes(range=(0,1))
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
