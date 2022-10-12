@@ -422,7 +422,7 @@ if menu == "Shear Rate and RRF":
             flowc = px.scatter(rrf, y ='Rate of Shear Rate Change', x = 'Shear Rate')
             flowc.update_layout(width=525, hovermode='x unified')
             #flowc.update_yaxes(range=(0,10000))
-            flowc.update_xaxes(range=(0,500))
+            #flowc.update_xaxes(range=(0,500))
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
 
