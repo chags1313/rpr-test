@@ -425,6 +425,12 @@ if menu == "Shear Rate and RRF":
             #flowc.update_xaxes(range=(0,500))
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
+        rrf['Time (1/1000 s)'] = rrf.reset_index(drop=True).values
+        stime = px.scatter(rrf, y ='Time (1/1000 s)', x = 'Shear Rate')
+        stime.update_layout(width=1200)
+        st.plotly_chart(stime, config= dict(
+            displayModeBar = False))
+
 
 
 
