@@ -338,17 +338,17 @@ if menu == "Shear Rate and RRF":
         #rrf['Viscosity'] = rrf['Viscosity'].rolling(window=10).mean()
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
         #rrf['Viscosity'] = rrf['Viscosity'] * 1000
-        
-        
+        rrf2 = rrf[rrf['Pressure - mmHg'] < 50]
+        rrf2['Time in Seconds'] = rrf2.reset_index(drop=True).index / 1000
 
         #st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
             st.text("500-s Relative Viscosity")
-            p = rrf[rrf['Shear Rate'] > 495]
+            p = rrf2[rrf2['Shear Rate'] > 495]
             p = p[p['Shear Rate'] < 505]
             global p1
-            p1 = len(p) 
+            p1 = p['Time in Seconds'].mean()
             p1 = round(p1, 4)
             if p1 > 10:
                 st.error(str(p1), icon = '🔴')
@@ -356,10 +356,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(p1), icon = '🔵')
         with c4:
             st.text("200-s Relative Viscosity")
-            o = rrf[rrf['Shear Rate'] > 198]
+            o = rrf2[rrf2['Shear Rate'] > 198]
             o = o[o['Shear Rate'] < 202]
             global o1
-            o1 = len(o) 
+            o1 = o['Time in Seconds'].mean()
             o1 = round(o1, 4)
             if o1 > 10:
                 st.error(str(o1), icon = '🔴')
@@ -367,10 +367,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(o1), icon = '🔵')
         with c3:
             st.text("100-s Relative Viscosity")
-            x = rrf[rrf['Shear Rate'] > 98]
+            x = rrf2[rrf2['Shear Rate'] > 98]
             x = x[x['Shear Rate'] < 102]
             global x1
-            x1 = len(x)
+            x1 = x['Time in Seconds'].mean()
             x1 = round(x1, 4)
             if x1 > 10:
                 st.error(str(x1), icon = '🔴')
@@ -378,10 +378,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(x1), icon = '🔵') 
         with c2:
             st.text("10-s Relative Viscosity")
-            y = rrf[rrf['Shear Rate'] > 9.5]
-            y = rrf[rrf['Shear Rate'] < 10.5]
+            y = rrf2[rrf2['Shear Rate'] > 9.5]
+            y = rrf2[rrf2['Shear Rate'] < 10.5]
             global y1
-            y1 = len(y) 
+            y1 = y['Time in Seconds'].mean()
             y1 = round(y1, 4)
             if y1 > 10:
                 st.error(str(y1), icon = '🔴')
@@ -389,10 +389,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(y1), icon = '🔵')
         with c1:
             st.text("5-s Relative Viscosity")
-            z = rrf[rrf['Shear Rate'] > 4.75]
-            z = rrf[rrf['Shear Rate'] < 5.25]
+            z = rrf2[rrf2['Shear Rate'] > 4.75]
+            z = rrf2[rrf2['Shear Rate'] < 5.25]
             global z1
-            z1 = len(z)
+            z1 = z['Time in Seconds'].mean()
             z1 = round(z1, 4)
             if z1 > 10:
                 st.error(str(z1), icon = '🔴')
@@ -425,8 +425,7 @@ if menu == "Shear Rate and RRF":
             #flowc.update_xaxes(range=(0,500))
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
-        rrf2 = rrf[rrf['Pressure - mmHg'] < 50]
-        rrf2['Time in Seconds'] = rrf2.reset_index(drop=True).index / 1000
+
         colored_header("Time vs Shear Rate")
         stime = px.area(rrf2, y ='Time in Seconds', x = 'Shear Rate', color_discrete_sequence=['purple'])
         stime.update_layout(width=1050, hovermode='x unified')
