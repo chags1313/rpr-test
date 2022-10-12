@@ -349,8 +349,8 @@ if menu == "Shear Rate and RRF":
             p = rrf2[rrf2['Shear Rate'] > 495]
             p = p[p['Shear Rate'] < 505]
             global p1
-            p1 = p['Time in Seconds'].mean()
-            p1 = round(p1, 4)
+            p1 = p['Time in Seconds'].mean() / 2.738583333
+            p1 = round(p1, 2)
             if p1 > 10:
                 st.error(str(p1), icon = '🔴')
             else:
@@ -360,8 +360,8 @@ if menu == "Shear Rate and RRF":
             o = rrf2[rrf2['Shear Rate'] > 198]
             o = o[o['Shear Rate'] < 202]
             global o1
-            o1 = o['Time in Seconds'].mean()
-            o1 = round(o1, 4)
+            o1 = o['Time in Seconds'].mean() / 3.323
+            o1 = round(o1, 2)
             if o1 > 10:
                 st.error(str(o1), icon = '🔴')
             else:
@@ -371,8 +371,8 @@ if menu == "Shear Rate and RRF":
             x = rrf2[rrf2['Shear Rate'] > 98]
             x = x[x['Shear Rate'] < 102]
             global x1
-            x1 = x['Time in Seconds'].mean()
-            x1 = round(x1, 4)
+            x1 = x['Time in Seconds'].mean() / 3.887833333
+            x1 = round(x1, 2)
             if x1 > 10:
                 st.error(str(x1), icon = '🔴')
             else:
@@ -382,8 +382,8 @@ if menu == "Shear Rate and RRF":
             y = rrf2[rrf2['Shear Rate'] > 9.5]
             y = rrf2[rrf2['Shear Rate'] < 10.5]
             global y1
-            y1 = y['Time in Seconds'].mean()
-            y1 = round(y1, 4)
+            y1 = y['Time in Seconds'].mean() / 7.864967
+            y1 = round(y1, 2)
             if y1 > 10:
                 st.error(str(y1), icon = '🔴')
             else:
@@ -393,8 +393,8 @@ if menu == "Shear Rate and RRF":
             z = rrf2[rrf2['Shear Rate'] > 4.75]
             z = rrf2[rrf2['Shear Rate'] < 5.25]
             global z1
-            z1 = z['Time in Seconds'].mean()
-            z1 = round(z1, 4)
+            z1 = z['Time in Seconds'].mean() / 8.255
+            z1 = round(z1, 2)
             if z1 > 10:
                 st.error(str(z1), icon = '🔴')
             else:
