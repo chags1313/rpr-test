@@ -428,6 +428,7 @@ if menu == "Shear Rate and RRF":
         rrf['Time'] = rrf.reset_index(drop=True).index
         stime = px.scatter(rrf, y ='Time', x = 'Shear Rate', color_discrete_sequence=['purple'])
         stime.update_layout(width=1050, hovermode='x unified')
+        stime.update_yaxes(range=(0,20000))
         st.plotly_chart(stime, config= dict(
             displayModeBar = False))
 
