@@ -419,10 +419,10 @@ if menu == "Shear Rate and RRF":
         with e2:
             rrf['Rate of Shear Rate Change'] = rrf['Shear Rate'].diff().abs()
             rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
-            flowc = px.scatter(rrf, x ='Rate of Shear Rate Change', y = 'Shear Rate')
+            flowc = px.scatter(rrf, y ='Rate of Shear Rate Change', x = 'Shear Rate')
             flowc.update_layout(width=525, hovermode='x unified')
             #flowc.update_yaxes(range=(0,10000))
-            #flowc.update_xaxes(range=(0,1))
+            flowc.update_xaxes(range=(0,500))
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
 
