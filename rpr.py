@@ -341,7 +341,7 @@ if menu == "Shear Rate and RRF":
         
         
 
-        st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
+        #st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
             st.text("500-s Relative Viscosity")
@@ -426,6 +426,7 @@ if menu == "Shear Rate and RRF":
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
         rrf['Time in Seconds'] = rrf.reset_index(drop=True).index / 1000
+        colored_header("Time vs Shear Rate")
         stime = px.area(rrf, y ='Time in Seconds', x = 'Shear Rate', color_discrete_sequence=['purple'])
         stime.update_layout(width=1050, hovermode='x unified')
         stime.update_yaxes(range=(0,60))
