@@ -425,8 +425,8 @@ if menu == "Shear Rate and RRF":
             #flowc.update_xaxes(range=(0,500))
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
-        rrf['Time'] = rrf.reset_index(drop=True).index
-        stime = px.area(rrf, y ='Time', x = 'Shear Rate', color_discrete_sequence=['purple'])
+        rrf['Time in Seconds'] = rrf.reset_index(drop=True).index / 1000
+        stime = px.area(rrf, y ='Time in Seconds', x = 'Shear Rate', color_discrete_sequence=['purple'])
         stime.update_layout(width=1050, hovermode='x unified')
         stime.update_yaxes(range=(0,60000))
         stime.update_xaxes(range=(0,500))
