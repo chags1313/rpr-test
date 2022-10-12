@@ -427,7 +427,7 @@ if menu == "Shear Rate and RRF":
             displayModeBar = False))
         rrf['Time'] = rrf.reset_index(drop=True).index
         stime = px.scatter(rrf, y ='Time', x = 'Shear Rate')
-        stime.update_layout(width=1200)
+        stime.update_layout(width=1100)
         st.plotly_chart(stime, config= dict(
             displayModeBar = False))
 
