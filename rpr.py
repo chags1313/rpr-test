@@ -402,7 +402,7 @@ if menu == "Shear Rate and RRF":
                 st.info(str(z1), icon = '🔵')
         db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
         stime = px.area(rrf2, y ='Time in Seconds', x = 'Shear Rate', color_discrete_sequence=['purple'])
-        stime.update_layout(width=1050, hovermode='x unified')
+        stime.update_layout(width=950, hovermode='x unified')
         stime.update_yaxes(range=(0,60))
         stime.update_xaxes(range=(0,500))
         st.plotly_chart(stime, config= dict(
