@@ -438,7 +438,7 @@ if menu == "Shear Rate and RRF":
         #st.dataframe(shearbin)
         if 'slid' not in st.session_state:
             st.session_state = 0
-        with st.slider("Select Shear Rate", min_value = min(rrf['Shear Rate']), max_value=max(rrf['Shear Rate']), value = st.session_state.slid) as st.session_state.slid:
+        st.session_state.slid == st.slider("Enter Shear Rate", min_value = 0, max_value = 500, step = 0.5)
             rg = rrf[rrf['Shear Rate'] < st.session_state.slid + 0.1]
             rg = rg[rg['Shear Rate'] > st.session_state.slid - 0.1]
             st.dataframe(rg)
