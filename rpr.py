@@ -401,7 +401,20 @@ if menu == "Shear Rate and RRF":
                 st.info(str(z1), icon = '🔵')
         db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
         rrf = rrf[rrf['Viscosity'] != 0]
-            
+
+        stime = px.area(rrf2, y ='Time in Seconds', x = 'Shear Rate', color_discrete_sequence=['purple'])
+        stime.update_layout(width=1050, hovermode='x unified')
+        stime.update_yaxes(range=(0,60))
+        stime.update_xaxes(range=(0,500))
+        st.plotly_chart(stime, config= dict(
+            displayModeBar = False))
+        #shearbin = np.histogram(rrf['Shear Rate'], bins = 60000)
+        #st.dataframe(shearbin)
+        slid = st.slider("Enter Shear Rate", min_value = 0.0, value = 0.0,max_value = 500.0, step = 0.5)
+        rg = rrf[rrf['Shear Rate'] < slid + 0.1]
+        rg = rg[rg['Shear Rate'] > slid - 0.1]
+        st.dataframe(rg)
+        colored_header("Exploratory Analysis")
         e1, e2 = st.columns(2)
      
         
@@ -427,19 +440,7 @@ if menu == "Shear Rate and RRF":
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False))
 
-        colored_header("Time vs Shear Rate")
-        stime = px.area(rrf2, y ='Time in Seconds', x = 'Shear Rate', color_discrete_sequence=['purple'])
-        stime.update_layout(width=1050, hovermode='x unified')
-        stime.update_yaxes(range=(0,60))
-        stime.update_xaxes(range=(0,500))
-        st.plotly_chart(stime, config= dict(
-            displayModeBar = False))
-        #shearbin = np.histogram(rrf['Shear Rate'], bins = 60000)
-        #st.dataframe(shearbin)
-        slid = st.slider("Enter Shear Rate", min_value = 0.0, value = 0.0,max_value = 500.0, step = 0.5)
-        rg = rrf[rrf['Shear Rate'] < slid + 0.1]
-        rg = rg[rg['Shear Rate'] > slid - 0.1]
-        st.dataframe(rg)
+
 
 
 
