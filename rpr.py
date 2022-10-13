@@ -411,7 +411,7 @@ if menu == "Shear Rate and RRF":
         #st.dataframe(shearbin)
 
         colored_header("Data Exploration")
-        slid = st.slider("Enter Shear Rate", min_value = 0.0, value = 0.0,max_value = 500.0, step = 0.5, help ='Enter a Shear Rate to Take a Deeper Look at the Data', label_visibility='collapsed')
+        slid = st.slider("Enter Shear Rate", min_value = 0.0, value = 0.0,max_value = 500.0, step = 0.5, help ='Enter a Shear Rate to Take a Deeper Look at the Data')
         rg = rrf[rrf['Shear Rate'] < slid + 0.49]
         rg = rg[rg['Shear Rate'] > slid - 0.49]
         st.dataframe(rg)
