@@ -410,11 +410,12 @@ if menu == "Shear Rate and RRF":
             displayModeBar = False))
         #shearbin = np.histogram(rrf['Shear Rate'], bins = 60000)
         #st.dataframe(shearbin)
+        colored_header("Data by Shear Rate")
         slid = st.slider("Enter Shear Rate", min_value = 0.0, value = 0.0,max_value = 500.0, step = 0.5)
         rg = rrf[rrf['Shear Rate'] < slid + 0.1]
         rg = rg[rg['Shear Rate'] > slid - 0.1]
         st.dataframe(rg)
-        colored_header("Exploratory Analysis")
+        colored_header("Shear Rate and Viscosity")
         e1, e2 = st.columns(2)
      
         
