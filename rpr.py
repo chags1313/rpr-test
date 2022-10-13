@@ -339,9 +339,10 @@ if menu == "Shear Rate and RRF":
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
         #rrf['Viscosity'] = rrf['Viscosity'] * 1000
         rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
+        rrf = rrf[rrf['Viscosity'] != 0]
         rrf2 = rrf[rrf['Pressure - mmHg'] < 50]
         rrf2['Time in Seconds'] = rrf2.reset_index(drop=True).index / 1000
-
+        
         #st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
         c1, c2, c3, c4, c5 = st.columns(5)
         with c5:
@@ -400,20 +401,21 @@ if menu == "Shear Rate and RRF":
             else:
                 st.info(str(z1), icon = '🔵')
         db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
-        rrf = rrf[rrf['Viscosity'] != 0]
-
-        stime = px.area(rrf2, y ='Time in Seconds', x = 'Shear Rate', color_discrete_sequence=['purple'])
-        stime.update_layout(width=1050, hovermode='x unified')
-        stime.update_yaxes(range=(0,60))
-        stime.update_xaxes(range=(0,500))
-        st.plotly_chart(stime, config= dict(
-            displayModeBar = False))
-        #shearbin = np.histogram(rrf['Shear Rate'], bins = 60000)
-        #st.dataframe(shearbin)
-        slid = st.slider("Enter Shear Rate", min_value = 0.0, value = 0.0,max_value = 500.0, step = 0.5, help ='Enter a Shear Rate to Take a Deeper Look at the Data')
-        rg = rrf[rrf['Shear Rate'] < slid + 0.1]
-        rg = rg[rg['Shear Rate'] > slid - 0.1]
-        st.dataframe(rg)
+        st, sli = st.columns(2)
+        with st:
+            stime = px.area(rrf2, y ='Time in Seconds', x = 'Shear Rate', color_discrete_sequence=['purple'])
+            stime.update_layout(width=1050, hovermode='x unified')
+            stime.update_yaxes(range=(0,60))
+            stime.update_xaxes(range=(0,500))
+            st.plotly_chart(stime, config= dict(
+                displayModeBar = False))
+            #shearbin = np.histogram(rrf['Shear Rate'], bins = 60000)
+            #st.dataframe(shearbin)
+        with si:
+            slid = st.slider("Enter Shear Rate", min_value = 0.0, value = 0.0,max_value = 500.0, step = 0.5, help ='Enter a Shear Rate to Take a Deeper Look at the Data')
+            rg = rrf[rrf['Shear Rate'] < slid + 0.1]
+            rg = rg[rg['Shear Rate'] > slid - 0.1]
+            st.dataframe(rg)
         colored_header("Shear Rate and Viscosity")
         e1, e2 = st.columns(2)
      
