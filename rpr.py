@@ -436,6 +436,13 @@ if menu == "Shear Rate and RRF":
             displayModeBar = False))
         #shearbin = np.histogram(rrf['Shear Rate'], bins = 60000)
         #st.dataframe(shearbin)
+        if 'slid' not in st.session_state:
+            st.session_state = 0
+        with st.slider("Select Shear Rate", min_value = min(rrf['Shear Rate']), max_value=max(rrf['Shear Rate']), value = st.session_state.slid) as st.session_state.slid:
+            rg = rrf[rrf['Shear Rate'] < st.session_state.slid + 0.1]
+            rg = rg[rg['Shear Rate'] > st.session_state.slid - 0.1]
+            st.dataframe(rg)
+
 
 
 
