@@ -333,8 +333,8 @@ if menu == "Shear Rate and RRF":
 
         
         colored_header("Relative Resistance to Flow by Shear Rate")
-        rrf = rrf[rrf['Flow'] != 0]
-        rrf = rrf[rrf['Shear Rate'] > 0.05]
+        #rrf = rrf[rrf['Flow'] != 0]
+        rrf = rrf[rrf['Shear Rate'] > 0.01]
         #rrf['Viscosity'] = rrf['Viscosity'].rolling(window=10).mean()
         rrf['Viscosity'] = rrf['Viscosity'] * 1000
         #rrf['Viscosity'] = rrf['Viscosity'] * 1000
