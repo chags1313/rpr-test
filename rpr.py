@@ -332,7 +332,7 @@ if menu == "Shear Rate and RRF":
 
 
         
-        colored_header("Processed Test Data")
+        colored_header("Relative Resistance to Flow by Shear Rate")
         rrf = rrf[rrf['Flow'] != 0]
         rrf = rrf[rrf['Shear Rate'] > 0.05]
         #rrf['Viscosity'] = rrf['Viscosity'].rolling(window=10).mean()
@@ -410,8 +410,7 @@ if menu == "Shear Rate and RRF":
             displayModeBar = False))
         #shearbin = np.histogram(rrf['Shear Rate'], bins = 60000)
         #st.dataframe(shearbin)
-        colored_header("Data by Shear Rate")
-        slid = st.slider("Enter Shear Rate", min_value = 0.0, value = 0.0,max_value = 500.0, step = 0.5)
+        slid = st.slider("Enter Shear Rate", min_value = 0.0, value = 0.0,max_value = 500.0, step = 0.5, help ='Enter a Shear Rate to Take a Deeper Look at the Data')
         rg = rrf[rrf['Shear Rate'] < slid + 0.1]
         rg = rg[rg['Shear Rate'] > slid - 0.1]
         st.dataframe(rg)
