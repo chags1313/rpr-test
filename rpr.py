@@ -352,7 +352,6 @@ if menu == "Shear Rate and RRF":
             w = rrf2[rrf2['Shear Rate'] > 400]
             w = w[w['Shear Rate'] < 600]
             w1 = len(w) / 200
-            w1 = w1 / 200
             w1 = round(w1, 2)
             if w1 > 10:
                 st.error(str(w1), icon = '🔴')
