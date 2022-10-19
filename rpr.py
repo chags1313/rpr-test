@@ -346,46 +346,80 @@ if menu == "Shear Rate and RRF":
         rrf2['Time in Seconds'] = rrf2.reset_index(drop=True).index / 1000
         
         #st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
-        c1, c2, c3, c4, c5 = st.columns(5)
-        with c5:
+        c1, c2, c3, c4, c5, c6, c7, c8 = st.columns(8)
+        with c8:
             st.text("500-s Relative Viscosity")
-            p = rrf2[rrf2['Shear Rate'] > 495]
-            p = p[p['Shear Rate'] < 505]
+            w = rrf2[rrf2['Shear Rate'] > 400]
+            w = w[w['Shear Rate'] < 600]
+            global w1
+            w1 = len(w) / 200
+            w1 = round(w1, 2)
+            if w1 > 10:
+                st.error(str(w1), icon = '🔴')
+            else:
+                st.info(str(w1), icon = '🔵')
+            standard = w1 / 200
+        with c7:
+            st.text("400-s Relative Viscosity")
+            f = rrf2[rrf2['Shear Rate'] > 300]
+            f = f[f['Shear Rate'] < 500]
+            global f1
+            f1 = (len(f)/200) / standard
+            f1 = round(f1, 2)
+            if f1 > 10:
+                st.error(str(f1), icon = '🔴')
+            else:
+                st.info(str(f1), icon = '🔵')
+        with c6:
+            st.text("300-s Relative Viscosity")
+            l = rrf2[rrf2['Shear Rate'] > 200]
+            l = l[l['Shear Rate'] < 400]
+            global l1
+            l1 = (len(l)/200) / standard
+            l1 = round(l1, 2)
+            if l1 > 10:
+                st.error(str(l1), icon = '🔴')
+            else:
+                st.info(str(l1), icon = '🔵')
+        with c5:
+            st.text("200-s Relative Viscosity")
+            p = rrf2[rrf2['Shear Rate'] > 150]
+            p = p[p['Shear Rate'] < 250]
             global p1
-            p1 = p['Time in Seconds'].mean() / 2.738583333
+            p1 = (len(p)/100) / standard
             p1 = round(p1, 2)
             if p1 > 10:
                 st.error(str(p1), icon = '🔴')
             else:
                 st.info(str(p1), icon = '🔵')
         with c4:
-            st.text("200-s Relative Viscosity")
-            o = rrf2[rrf2['Shear Rate'] > 198]
-            o = o[o['Shear Rate'] < 202]
+            st.text("100-s Relative Viscosity")
+            o = rrf2[rrf2['Shear Rate'] > 50]
+            o = o[o['Shear Rate'] < 150]
             global o1
-            o1 = o['Time in Seconds'].mean() / 3.323
+            o1 = (len(o)/100) / standard
             o1 = round(o1, 2)
             if o1 > 10:
                 st.error(str(o1), icon = '🔴')
             else:
                 st.info(str(o1), icon = '🔵')
         with c3:
-            st.text("100-s Relative Viscosity")
-            x = rrf2[rrf2['Shear Rate'] > 98]
-            x = x[x['Shear Rate'] < 102]
+            st.text("50-s Relative Viscosity")
+            x = rrf2[rrf2['Shear Rate'] > 0]
+            x = x[x['Shear Rate'] < 50]
             global x1
             x1 = x['Time in Seconds'].mean() / 3.887833333
-            x1 = round(x1, 2)
+            x1 = (len(x)/50) / standard
             if x1 > 10:
                 st.error(str(x1), icon = '🔴')
             else:
                 st.info(str(x1), icon = '🔵') 
         with c2:
             st.text("10-s Relative Viscosity")
-            y = rrf2[rrf2['Shear Rate'] > 9.5]
-            y = rrf2[rrf2['Shear Rate'] < 10.5]
+            y = rrf2[rrf2['Shear Rate'] > 0]
+            y = rrf2[rrf2['Shear Rate'] < 20]
             global y1
-            y1 = y['Time in Seconds'].mean() / 7.864967
+            y1 = (len(y)/20) / standard
             y1 = round(y1, 2)
             if y1 > 10:
                 st.error(str(y1), icon = '🔴')
@@ -393,10 +427,10 @@ if menu == "Shear Rate and RRF":
                 st.info(str(y1), icon = '🔵')
         with c1:
             st.text("5-s Relative Viscosity")
-            z = rrf2[rrf2['Shear Rate'] > 4.75]
-            z = rrf2[rrf2['Shear Rate'] < 5.25]
+            z = rrf2[rrf2['Shear Rate'] > 0]
+            z = rrf2[rrf2['Shear Rate'] < 10]
             global z1
-            z1 = z['Time in Seconds'].mean() / 8.255
+            z1 = (len(z)/10) / standard
             z1 = round(z1, 2)
             if z1 > 10:
                 st.error(str(z1), icon = '🔴')
