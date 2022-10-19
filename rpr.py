@@ -133,6 +133,7 @@ def processing(uploaded_file):
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data']
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
+        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = avg_filt).mean()
         shear = 4*(Q/(pi*(R**3)))
         fir_curve1 = pd.DataFrame(fir_curve)
         wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
@@ -237,9 +238,10 @@ if menu == 'Home':
         st.markdown("- The graph with the red and blue lines displays the relationship between a given fluid and water plus the relationship with time and pressure")
     with st.expander("Device Usage Tutorial"):
            st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
-    with st.expander("Needle Size"):
-        needlesize = st.number_input(' ', value=20)
+    with st.expander("Admin Settings"):
+        needlesize = st.number_input('Needle Size', value=20, step = 1)
         st.write(needlesize)
+        avg_filt = st.number_input('Averaging Filter', value = 10, step=1)
 with st.sidebar:
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
 
