@@ -352,19 +352,21 @@ if menu == "Shear Rate and RRF":
             w = rrf2[rrf2['Shear Rate'] > 400]
             w = w[w['Shear Rate'] < 600]
             global w1
-            w1 = len(w) 
+            w1 = len(w) / 200
+            w1 = w1 / 200
             w1 = round(w1, 2)
             if w1 > 10:
                 st.error(str(w1), icon = '🔴')
             else:
                 st.info(str(w1), icon = '🔵')
-            standard = w1 / 200
+            standard = w1 
         with c7:
             st.text("400-s Relative Viscosity")
             f = rrf2[rrf2['Shear Rate'] > 300]
             f = f[f['Shear Rate'] < 500]
             global f1
-            f1 = len(f)
+            f1 = len(f) / 200
+            f1 = f1 / standard
             f1 = round(f1, 2)
             if f1 > 10:
                 st.error(str(f1), icon = '🔴')
@@ -375,7 +377,8 @@ if menu == "Shear Rate and RRF":
             l = rrf2[rrf2['Shear Rate'] > 200]
             l = l[l['Shear Rate'] < 400]
             global l1
-            l1 = len(l)
+            l1 = len(l) / 200
+            l1 = l1 / standard
             l1 = round(l1, 2)
             if l1 > 10:
                 st.error(str(l1), icon = '🔴')
@@ -386,7 +389,8 @@ if menu == "Shear Rate and RRF":
             p = rrf2[rrf2['Shear Rate'] > 150]
             p = p[p['Shear Rate'] < 250]
             global p1
-            p1 = len(p)
+            p1 = len(p) / 100
+            p1 = p1 / standard
             p1 = round(p1, 2)
             if p1 > 10:
                 st.error(str(p1), icon = '🔴')
@@ -397,7 +401,8 @@ if menu == "Shear Rate and RRF":
             o = rrf2[rrf2['Shear Rate'] > 50]
             o = o[o['Shear Rate'] < 150]
             global o1
-            o1 = len(o)
+            o1 = len(o) / 100
+            o1 = o1 / standard
             o1 = round(o1, 2)
             if o1 > 10:
                 st.error(str(o1), icon = '🔴')
@@ -408,7 +413,8 @@ if menu == "Shear Rate and RRF":
             x = rrf2[rrf2['Shear Rate'] > 0.1]
             x = x[x['Shear Rate'] < 50]
             global x1
-            x1 = len(x)
+            x1 = len(x) / 50
+            x1 = x1 / standard
             x1 = round(x1, 2)
             if x1 > 10:
                 st.error(str(x1), icon = '🔴')
@@ -419,7 +425,8 @@ if menu == "Shear Rate and RRF":
             y = rrf2[rrf2['Shear Rate'] > 0.1]
             y = y[y['Shear Rate'] < 20]
             global y1
-            y1 = len(y)
+            y1 = len(y) / 20
+            y1 = y1 / standard
             y1 = round(y1, 2)
             if y1 > 10:
                 st.error(str(y1), icon = '🔴')
@@ -430,7 +437,8 @@ if menu == "Shear Rate and RRF":
             z = rrf2[rrf2['Shear Rate'] > 0.1]
             z = z[z['Shear Rate'] < 10]
             global z1
-            z1 = len(z)
+            z1 = len(z)/ 10
+            z1 = z1 / standard
             z1 = round(z1, 2)
             if z1 > 10:
                 st.error(str(z1), icon = '🔴')
