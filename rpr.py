@@ -86,6 +86,10 @@ hide_streamlit_style = """
             </style>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+if 'avg_filt' not in st.session_state:
+    st.session_state.avg_filt = 1
+else:
+    st.session_state.avg_filt = st.session_state.avg_filt
 
 @st.experimental_memo(suppress_st_warning=True)
 def processing(uploaded_file):
@@ -241,10 +245,7 @@ if menu == 'Home':
     with st.expander("Admin Settings"):
         needlesize = st.number_input('Needle Size', value=20, step = 1)
         st.write(needlesize)
-        if 'avg_filt' not in st.session_state:
-            st.session_state.avg_filt = st.number_input('Averaging Filter',value = 1, step=1)
-        else:
-            st.session_state.avg_filt = st.number_input('Averaging Filter',value = st.session_state.avg_filt, step=1)
+        st.session_state.avg_filt = st.number_input('Averaging Filter',value = st.session_state.avg_filt, step=1)
 with st.sidebar:
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
 
