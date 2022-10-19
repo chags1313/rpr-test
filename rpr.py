@@ -241,7 +241,10 @@ if menu == 'Home':
     with st.expander("Admin Settings"):
         needlesize = st.number_input('Needle Size', value=20, step = 1)
         st.write(needlesize)
-        st.session_state.avg_filt = st.number_input('Averaging Filter', step=1)
+        if 'avg_filt' not in st.session_state:
+            st.session_state.avg_filt = st.number_input('Averaging Filter',value = 1, step=1)
+        else:
+            st.session_state.avg_filt = st.number_input('Averaging Filter',value = st.session_state.avg_filt, step=1)
 with st.sidebar:
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
 
@@ -358,7 +361,6 @@ if menu == "Shear Rate and RRF":
             else:
                 st.info(str(w1), icon = '🔵')
             standard = w1 
-            st.write(standard)
         with c7:
             st.text("400-s Relative Viscosity")
             f = rrf2[rrf2['Shear Rate'] > 300]
