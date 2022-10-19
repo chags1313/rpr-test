@@ -351,7 +351,6 @@ if menu == "Shear Rate and RRF":
             st.text("500-s Relative Viscosity")
             w = rrf2[rrf2['Shear Rate'] > 400]
             w = w[w['Shear Rate'] < 600]
-            global w1
             w1 = len(w) / 200
             w1 = w1 / 200
             w1 = round(w1, 2)
@@ -360,11 +359,11 @@ if menu == "Shear Rate and RRF":
             else:
                 st.info(str(w1), icon = '🔵')
             standard = w1 
+            st.write(standard)
         with c7:
             st.text("400-s Relative Viscosity")
             f = rrf2[rrf2['Shear Rate'] > 300]
             f = f[f['Shear Rate'] < 500]
-            global f1
             f1 = len(f) / 200
             f1 = f1 / standard
             f1 = round(f1, 2)
@@ -376,7 +375,6 @@ if menu == "Shear Rate and RRF":
             st.text("300-s Relative Viscosity")
             l = rrf2[rrf2['Shear Rate'] > 200]
             l = l[l['Shear Rate'] < 400]
-            global l1
             l1 = len(l) / 200
             l1 = l1 / standard
             l1 = round(l1, 2)
@@ -388,7 +386,6 @@ if menu == "Shear Rate and RRF":
             st.text("200-s Relative Viscosity")
             p = rrf2[rrf2['Shear Rate'] > 150]
             p = p[p['Shear Rate'] < 250]
-            global p1
             p1 = len(p) / 100
             p1 = p1 / standard
             p1 = round(p1, 2)
@@ -400,7 +397,6 @@ if menu == "Shear Rate and RRF":
             st.text("100-s Relative Viscosity")
             o = rrf2[rrf2['Shear Rate'] > 50]
             o = o[o['Shear Rate'] < 150]
-            global o1
             o1 = len(o) / 100
             o1 = o1 / standard
             o1 = round(o1, 2)
@@ -424,7 +420,6 @@ if menu == "Shear Rate and RRF":
             st.text("10-s Relative Viscosity")
             y = rrf2[rrf2['Shear Rate'] > 0.1]
             y = y[y['Shear Rate'] < 20]
-            global y1
             y1 = len(y) / 20
             y1 = y1 / standard
             y1 = round(y1, 2)
@@ -436,7 +431,6 @@ if menu == "Shear Rate and RRF":
             st.text("5-s Relative Viscosity")
             z = rrf2[rrf2['Shear Rate'] > 0.1]
             z = z[z['Shear Rate'] < 10]
-            global z1
             z1 = len(z)/ 10
             z1 = z1 / standard
             z1 = round(z1, 2)
