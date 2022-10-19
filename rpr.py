@@ -110,6 +110,7 @@ def processing(uploaded_file):
         avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True)) / 2
         avg_curve1 = pd.DataFrame()
         avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
+        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = avg_filt).mean()
         last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         #avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] -  1.1
         R = ((0.0165 * 2.54) / 100)
@@ -133,7 +134,6 @@ def processing(uploaded_file):
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data']
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
-        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = avg_filt).mean()
         shear = 4*(Q/(pi*(R**3)))
         fir_curve1 = pd.DataFrame(fir_curve)
         wad['First Curve'] = (wad.index.isin(fir_curve.index)).astype(int)
