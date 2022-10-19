@@ -110,7 +110,7 @@ def processing(uploaded_file):
         avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True)) / 2
         avg_curve1 = pd.DataFrame()
         avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
-        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = avg_filt).mean()
+        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = st.session_state.avg_filt).mean()
         last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         #avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] -  1.1
         R = ((0.0165 * 2.54) / 100)
@@ -241,7 +241,7 @@ if menu == 'Home':
     with st.expander("Admin Settings"):
         needlesize = st.number_input('Needle Size', value=20, step = 1)
         st.write(needlesize)
-        avg_filt = st.number_input('Averaging Filter', value = 10, step=1)
+        st.session_state.avg_filt = st.number_input('Averaging Filter', value = 10, step=1)
 with st.sidebar:
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
 
