@@ -405,7 +405,7 @@ if menu == "Shear Rate and RRF":
                 st.info(str(o1), icon = '🔵')
         with c3:
             st.text("50-s Relative Viscosity")
-            x = rrf2[rrf2['Shear Rate'] > 0]
+            x = rrf2[rrf2['Shear Rate'] > 0.1]
             x = x[x['Shear Rate'] < 50]
             global x1
             x1 = len(x)/(50 * standard)
@@ -416,7 +416,7 @@ if menu == "Shear Rate and RRF":
                 st.info(str(x1), icon = '🔵') 
         with c2:
             st.text("10-s Relative Viscosity")
-            y = rrf2[rrf2['Shear Rate'] > 0]
+            y = rrf2[rrf2['Shear Rate'] > 0.1]
             y = rrf2[rrf2['Shear Rate'] < 20]
             global y1
             y1 = len(y)/(20 * standard)
@@ -427,7 +427,7 @@ if menu == "Shear Rate and RRF":
                 st.info(str(y1), icon = '🔵')
         with c1:
             st.text("5-s Relative Viscosity")
-            z = rrf2[rrf2['Shear Rate'] > 0]
+            z = rrf2[rrf2['Shear Rate'] > 0.1]
             z = rrf2[rrf2['Shear Rate'] < 10]
             global z1
             z1 = len(z)/(10 * standard)
