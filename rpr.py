@@ -242,11 +242,11 @@ if menu == 'Home':
 with st.sidebar:
     with st.expander("Admin Settings"):
         if 'avg_filt' not in st.session_state:
-            st.session_state.avg_filt = 1
+            st.session_state.avg_filt = 10
         else:
             st.session_state.avg_filt = st.session_state.avg_filt
 
-        needlesize = st.number_input('Needle Size', value=20, step = 1)
+        needlesize = st.number_input('Needle Size', value=17, step = 1)
         st.write(needlesize)
         st.session_state.avg_filt = st.number_input('Averaging Filter',value = st.session_state.avg_filt, step=1)
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
