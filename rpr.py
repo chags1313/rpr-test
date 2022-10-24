@@ -87,7 +87,7 @@ hide_streamlit_style = """
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
-@st.experimental_memo(suppress_st_warning=True)
+#@st.experimental_memo(suppress_st_warning=True)
 def processing(uploaded_file):
         bytes_data = uploaded_file.getvalue()
         stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
