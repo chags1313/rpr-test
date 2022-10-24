@@ -97,7 +97,6 @@ def processing(uploaded_file, needlesize):
             dataframe['Amplitude - Normalized Pressure Data'] = dataframe['Amplitude - Normalized Pressure Data']
         except:
             dataframe['Amplitude - Normalized Pressure Data'] = dataframe
-        needlesize = 20
         fv = dataframe['Amplitude - Normalized Pressure Data'].iloc[1]
         dataframe = dataframe - fv
         dataframe['Seconds'] = dataframe.index / 1000
