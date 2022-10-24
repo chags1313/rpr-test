@@ -192,7 +192,8 @@ def processing(uploaded_file):
                 Q = ((((0.6 * curve)/md / time)))* (1*10**-6)
                 R = (2.75 * 10**-11)
                 radius = 0.302 / 1000
-        Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
+        else:
+            Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
         shear = 4*(Q/(pi*(R)))
         avg_curve1['Shear Rate'] = shear
         avg_curve1['Flow'] = Q
