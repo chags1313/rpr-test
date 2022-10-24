@@ -242,11 +242,12 @@ if menu == 'Home':
         st.markdown("- The graph with the red and blue lines displays the relationship between a given fluid and water plus the relationship with time and pressure")
     with st.expander("Device Usage Tutorial"):
            st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
+
+with st.sidebar:
     with st.expander("Admin Settings"):
         needlesize = st.number_input('Needle Size', value=20, step = 1)
         st.write(needlesize)
         st.session_state.avg_filt = st.number_input('Averaging Filter',value = st.session_state.avg_filt, step=1)
-with st.sidebar:
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
 
     if uploaded_file is not None:
