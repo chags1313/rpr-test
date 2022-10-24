@@ -88,7 +88,7 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
 #@st.experimental_memo(suppress_st_warning=True)
-def processing(uploaded_file):
+def processing(uploaded_file, needlesize):
         bytes_data = uploaded_file.getvalue()
         stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
         string_data = stringio.read()
@@ -192,7 +192,7 @@ def processing(uploaded_file):
                 Q = ((((0.6 * curve)/md / time)))* (1*10**-6)
                 R = (2.75 * 10**-11)
                 radius = 0.302 / 1000
-        #Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
+        Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
         shear = 4*(Q/(pi*(R)))
         avg_curve1['Shear Rate'] = shear
         avg_curve1['Flow'] = Q
@@ -253,7 +253,7 @@ with st.sidebar:
 
     if uploaded_file is not None:
     
-        rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file)
+        rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file,needlesize = needlesize)
 
 if menu == "Records":
     colored_header("Records")
