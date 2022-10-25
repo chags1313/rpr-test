@@ -19,9 +19,6 @@ import base64
 import itertools
 import streamlit.components.v1 as components
 from deta import Deta
-from numpy.random import randn
-from numpy.fft import rfft
-from scipy.signal import butter, lfilter
 
 
 deta = Deta("b02l5gt3_MFtTQuHFmWUEofyrn54FjjnWxAevcaY1")
@@ -104,7 +101,7 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
 #@st.experimental_memo(suppress_st_warning=True)
-def processing(uploaded_file, needlesize, l_butt_in, h_butt_in):
+def processing(uploaded_file, needlesize):
         needlesize = needlesize
         bytes_data = uploaded_file.getvalue()
         stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
@@ -127,8 +124,6 @@ def processing(uploaded_file, needlesize, l_butt_in, h_butt_in):
         avg_curve1 = pd.DataFrame()
         avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = st.session_state.avg_filt).mean()
-
-        avg_curve1['Amplitude - Normalized Pressure Data'] = pd.DataFrame({'Amplitude - Normalized Pressure Data':[butter_bandpass_filter(data=avg_curve1['Amplitude - Normalized Pressure Data'], lowcut=l_butt_in,highcut= h_butt_in, fs=1000, order=4)]})
         last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         #avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] -  1.1
         R = ((0.0165 * 2.54) / 100)
@@ -267,14 +262,12 @@ with st.sidebar:
 
         needlesize = st.number_input('Needle Size', value=17, step = 1)
         st.session_state.avg_filt = st.number_input('Averaging Filter',value = st.session_state.avg_filt, step=1)
-        h_butt_in = st.number_input("High Frequency Cut Off", step = 1, help = 'High frequency butterworth cutoff')
-        l_butt_in = st.number_input("Low Frequency Cut Off", step = 1, help = 'Low frequency butterworth cutoff')
 
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
 
     if uploaded_file is not None:
     
-        rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file,needlesize = needlesize, l_butt_in=l_butt_in, h_butt_in=h_butt_in)
+        rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file,needlesize = needlesize)
 
 if menu == "Records":
     colored_header("Records")
