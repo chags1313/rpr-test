@@ -378,9 +378,9 @@ if menu == "Shear Rate and RRF":
             w1 = len(w) / 200
             w1 = round(w1, 2)
             if w1 > 10:
-                st.error(str(w1), icon = '🔴')
+                st.error(str(1.0), icon = '🔴')
             else:
-                st.info(str(w1), icon = '🔵')
+                st.info(str(1.0), icon = '🔵')
             standard = w1 
         with c7:
             st.text("400-s Relative Viscosity")
