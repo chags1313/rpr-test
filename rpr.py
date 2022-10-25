@@ -128,7 +128,7 @@ def processing(uploaded_file, needlesize, l_butt_in, h_butt_in):
         avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = st.session_state.avg_filt).mean()
 
-        avg_curve1['Amplitude - Normalized Pressure Data'] = butter_bandpass_filter(data=avg_curve1['Amplitude - Normalized Pressure Data'], lowcut=l_butt_in,highcut= h_butt_in, fs=1000, order=4)
+        avg_curve1['Amplitude - Normalized Pressure Data'] = pd.DataFrame({'Amplitude - Normalized Pressure Data':[butter_bandpass_filter(data=avg_curve1['Amplitude - Normalized Pressure Data'], lowcut=l_butt_in,highcut= h_butt_in, fs=1000, order=4)]})
         last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         #avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] -  1.1
         R = ((0.0165 * 2.54) / 100)
