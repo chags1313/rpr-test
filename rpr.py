@@ -264,7 +264,7 @@ with st.sidebar:
         else:
             st.session_state.avg_filt = st.session_state.avg_filt
 
-        needlesize = st.number_input('Needle Size', value=17.0, step=0.5)
+        needlesize = st.number_input('Needle Size', value=17.5, step=0.5)
         st.session_state.avg_filt = st.number_input('Averaging Filter',value = st.session_state.avg_filt, step=1)
 
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
