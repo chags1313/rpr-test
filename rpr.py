@@ -24,6 +24,19 @@ from deta import Deta
 deta = Deta("b02l5gt3_MFtTQuHFmWUEofyrn54FjjnWxAevcaY1")
 db = deta.Base("rrf")
 
+def butter_bandpass(lowcut, highcut, fs, order=5):
+    nyq = 0.5 * fs
+    low = lowcut / nyq
+    high = highcut / nyq
+    b, a = butter(order, [low, high], btype='band')
+    return b, a
+
+
+def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
+    b, a = butter_bandpass(lowcut, highcut, fs, order=order)
+    y = lfilter(b, a, data)
+    return y
+
 @st.cache(allow_output_mutation=True)
 def get_r2_numpy_corrcoef(x, y):
     return np.corrcoef(x, y)[0, 1]**2
@@ -88,7 +101,7 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
 #@st.experimental_memo(suppress_st_warning=True)
-def processing(uploaded_file, needlesize):
+def processing(uploaded_file, needlesize, l_butt_in, h_butt_in):
         needlesize = needlesize
         bytes_data = uploaded_file.getvalue()
         stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
@@ -111,6 +124,8 @@ def processing(uploaded_file, needlesize):
         avg_curve1 = pd.DataFrame()
         avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = st.session_state.avg_filt).mean()
+
+        avg_curve1['Amplitude - Normalized Pressure Data'] = butter_bandpass_filter(avg_curve1['Amplitude - Normalized Pressure Data'], l_butt_in, h_butt_in, fs, order=4)
         last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         #avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] -  1.1
         R = ((0.0165 * 2.54) / 100)
@@ -232,7 +247,7 @@ if menu == 'Home':
         st.markdown("6. Click export data button")
         st.markdown("7. Save exported data as a .csv file")
         st.markdown("8. Upload data on the analytics tab of the rpr web application")
-    with st.expander("How to Intepret Analaytics"):
+    with st.expander("How to Intepret Analytics"):
         st.markdown("- Relative resistance to flow represents the relative difference between the fluid of interest and water controls")
         st.markdown("- Shear rate flow time represents the amount of time the fluid takes to flow from a given shear rate")
         st.markdown("- The graph with the orange line displays the relationship between shear rate and relative resistance to flow")
@@ -248,13 +263,15 @@ with st.sidebar:
             st.session_state.avg_filt = st.session_state.avg_filt
 
         needlesize = st.number_input('Needle Size', value=17, step = 1)
-        st.write(needlesize)
         st.session_state.avg_filt = st.number_input('Averaging Filter',value = st.session_state.avg_filt, step=1)
+        h_butt_in = st.number_input("High Frequency Cut Off", step = 1, help = 'High frequency butterworth cutoff')
+        l_butt_in = st.number_input("Low Frequency Cut Off", step = 1, help = 'Low frequency butterworth cutoff')
+
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
 
     if uploaded_file is not None:
     
-        rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file,needlesize = needlesize)
+        rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file,needlesize = needlesize, l_butt_in=l_butt_in, h_butt_in=h_butt_in)
 
 if menu == "Records":
     colored_header("Records")
