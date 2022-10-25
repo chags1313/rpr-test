@@ -19,6 +19,9 @@ import base64
 import itertools
 import streamlit.components.v1 as components
 from deta import Deta
+from numpy.random import randn
+from numpy.fft import rfft
+from scipy.signal import butter, lfilter
 
 
 deta = Deta("b02l5gt3_MFtTQuHFmWUEofyrn54FjjnWxAevcaY1")
