@@ -194,6 +194,10 @@ def processing(uploaded_file, needlesize):
                 Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (1.52 * 10**-10)
                 radius = 0.419 / 1000  
+        if needlesize == 17.5:
+                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
+                R = (1.25*10**-10)
+                radius = 0.419 / 1000  
         if needlesize == 18:
                 Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (7.36 * 10**-11)
@@ -212,7 +216,7 @@ def processing(uploaded_file, needlesize):
         avg_curve1['Flow'] = Q
         avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
         length = 3.81 * 10**-2
-        avg_curve1['Shear Stress'] = (avg_curve1['Amplitude - Normalized Pressure Data'] * 133.32).diff().abs() * radius
+        avg_curve1['Shear Stress'] = (avg_curve1['Amplitude - Normalized Pressure Data'] * 133.32).diff().abs() 
         avg_curve1['Viscosity'] = (avg_curve1['Shear Stress'] / (length *2)) / avg_curve1['Shear Rate']
         #avg_curve1['Viscosity Equation 1'] = avg_curve1['Shear Stress'] / avg_curve1['Shear Rate']
         #avg_curve1['Viscosity Eq1'] = (avg_curve1['Shear Stress'] / avg_curve1['Shear Rate']).round(4)
@@ -260,7 +264,7 @@ with st.sidebar:
         else:
             st.session_state.avg_filt = st.session_state.avg_filt
 
-        needlesize = st.number_input('Needle Size', value=17, step = 1)
+        needlesize = st.number_input('Needle Size', value=17, step = 0.5)
         st.session_state.avg_filt = st.number_input('Averaging Filter',value = st.session_state.avg_filt, step=1)
 
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
