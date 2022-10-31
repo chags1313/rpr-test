@@ -447,7 +447,7 @@ if menu == "Shear Rate and RRF":
             global t1
             t1 = t['Viscosity'].mean()
             t1 = t1 / standard
-            t1 = round(x1, 2)
+            t1 = round(t1, 2)
             if t1 > 10:
                 st.error(str(t1), icon = '🔴')
             else:
