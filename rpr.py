@@ -373,18 +373,18 @@ if menu == "Shear Rate and RRF":
         
         #st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
         c1, c2, c3, c4, c5, c6, c7, c8 = st.columns(8)
+        #with c8:
+            #st.text("500-s Relative Viscosity")
+        w = rrf2[rrf2['Shear Rate'] > 499]
+        w = w[w['Shear Rate'] < 501]
+        w1 = w['Viscosity'].mean()
+        w1 = round(w1, 2)
+            #if w1 > 10:
+            #    st.error(str(1.0), icon = '🔴')
+            #else:
+            #    st.info(str(1.0), icon = '🔵')
+        standard = w['Viscosity'].mean()
         with c8:
-            st.text("500-s Relative Viscosity")
-            w = rrf2[rrf2['Shear Rate'] > 499]
-            w = w[w['Shear Rate'] < 501]
-            w1 = w['Viscosity'].mean()
-            w1 = round(w1, 2)
-            if w1 > 10:
-                st.error(str(1.0), icon = '🔴')
-            else:
-                st.info(str(1.0), icon = '🔵')
-            standard = w['Viscosity'].mean()
-        with c7:
             st.text("400-s Relative Viscosity")
             f = rrf2[rrf2['Shear Rate'] > 399]
             f = f[f['Shear Rate'] < 401]
@@ -395,7 +395,7 @@ if menu == "Shear Rate and RRF":
                 st.error(str(f1), icon = '🔴')
             else:
                 st.info(str(f1), icon = '🔵')
-        with c6:
+        with c7:
             st.text("300-s Relative Viscosity")
             l = rrf2[rrf2['Shear Rate'] > 299]
             l = l[l['Shear Rate'] < 301]
@@ -406,7 +406,7 @@ if menu == "Shear Rate and RRF":
                 st.error(str(l1), icon = '🔴')
             else:
                 st.info(str(l1), icon = '🔵')
-        with c5:
+        with c6:
             st.text("200-s Relative Viscosity")
             p = rrf2[rrf2['Shear Rate'] > 199]
             p = p[p['Shear Rate'] < 201]
@@ -417,7 +417,7 @@ if menu == "Shear Rate and RRF":
                 st.error(str(p1), icon = '🔴')
             else:
                 st.info(str(p1), icon = '🔵')
-        with c4:
+        with c5:
             st.text("100-s Relative Viscosity")
             o = rrf2[rrf2['Shear Rate'] > 99]
             o = o[o['Shear Rate'] < 101]
@@ -428,7 +428,7 @@ if menu == "Shear Rate and RRF":
                 st.error(str(o1), icon = '🔴')
             else:
                 st.info(str(o1), icon = '🔵')
-        with c3:
+        with c4:
             st.text("50-s Relative Viscosity")
             x = rrf2[rrf2['Shear Rate'] > 49]
             x = x[x['Shear Rate'] < 51]
@@ -440,6 +440,18 @@ if menu == "Shear Rate and RRF":
                 st.error(str(x1), icon = '🔴')
             else:
                 st.info(str(x1), icon = '🔵') 
+        with c3:
+            st.text("25-s Relative Viscosity")
+            t = rrf2[rrf2['Shear Rate'] > 24]
+            t = t[t['Shear Rate'] < 26]
+            global t1
+            t1 = t['Viscosity'].mean()
+            t1 = t1 / standard
+            t1 = round(x1, 2)
+            if t1 > 10:
+                st.error(str(t1), icon = '🔴')
+            else:
+                st.info(str(t1), icon = '🔵') 
         with c2:
             st.text("10-s Relative Viscosity")
             y = rrf2[rrf2['Shear Rate'] > 9]
