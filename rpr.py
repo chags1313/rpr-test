@@ -175,6 +175,7 @@ def processing(uploaded_file, needlesize):
         are = avg_curve1['Amplitude - Normalized Pressure Data'] * 0.001
         totalarea = are.sum()
         curve =  first - last
+        length = 3.81 * 10**-2
         if needlesize == 12:
             Q = ((((0.6 * curve)/ md / time))) * (1*10**-6)
             R = (1.26 * 10**-9)
@@ -216,8 +217,7 @@ def processing(uploaded_file, needlesize):
         avg_curve1['Shear Rate'] = shear
         avg_curve1['Flow'] = Q
         avg_curve1['Relative Resistance to Flow'] = 0.000000017591156283221753 / avg_curve1['Flow']
-        if length is None:
-            length = 3.81 * 10**-2
+            
         avg_curve1['Shear Stress'] = (avg_curve1['Amplitude - Normalized Pressure Data'] * 133.32).diff().abs() * R
         avg_curve1['Viscosity'] = (avg_curve1['Shear Stress'] / (length *2)) / avg_curve1['Shear Rate']
         #avg_curve1['Viscosity Equation 1'] = avg_curve1['Shear Stress'] / avg_curve1['Shear Rate']
