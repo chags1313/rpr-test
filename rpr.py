@@ -383,7 +383,7 @@ if menu == "Shear Rate and RRF":
                 st.error(str(1.0), icon = '🔴')
             else:
                 st.info(str(1.0), icon = '🔵')
-            standard = w1 
+            standard = w['Viscosity'].mean()
         with c7:
             st.text("400-s Relative Viscosity")
             f = rrf2[rrf2['Shear Rate'] > 399]
