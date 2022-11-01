@@ -376,15 +376,15 @@ if menu == "Shear Rate and RRF":
 
         w = rrf2[rrf2['Shear Rate'] > 499.9]
         w = w[w['Shear Rate'] < 500.1]
-        w1 = w['Viscosity'].mean()
+        w1 = w['Viscosity'].median()
         w1 = round(w1, 2)
 
-        standard = w['Viscosity'].mean()
+        standard = w['Viscosity'].median()
         with c8:
             st.text("400-s Relative Viscosity")
             f = rrf2[rrf2['Shear Rate'] > 399.9]
             f = f[f['Shear Rate'] < 400.1]
-            f1 = f['Viscosity'].mean()
+            f1 = f['Viscosity'].median()
             f1 = f1 / standard
             f1 = round(f1, 2)
             if f1 > 10:
@@ -395,7 +395,7 @@ if menu == "Shear Rate and RRF":
             st.text("300-s Relative Viscosity")
             l = rrf2[rrf2['Shear Rate'] > 299.9]
             l = l[l['Shear Rate'] < 300.1]
-            l1 = l['Viscosity'].mean()
+            l1 = l['Viscosity'].median()
             l1 = l1 / standard
             l1 = round(l1, 2)
             if l1 > 10:
@@ -406,7 +406,7 @@ if menu == "Shear Rate and RRF":
             st.text("200-s Relative Viscosity")
             p = rrf2[rrf2['Shear Rate'] > 199.9]
             p = p[p['Shear Rate'] < 200.1]
-            p1 = p['Viscosity'].mean()
+            p1 = p['Viscosity'].median()
             p1 = p1 / standard
             p1 = round(p1, 2)
             if p1 > 10:
@@ -417,7 +417,7 @@ if menu == "Shear Rate and RRF":
             st.text("100-s Relative Viscosity")
             o = rrf2[rrf2['Shear Rate'] > 99.9]
             o = o[o['Shear Rate'] < 100.1]
-            o1 = o['Viscosity'].mean()
+            o1 = o['Viscosity'].median()
             o1 = o1 / standard
             o1 = round(o1, 2)
             if o1 > 10:
@@ -429,7 +429,7 @@ if menu == "Shear Rate and RRF":
             x = rrf2[rrf2['Shear Rate'] > 49.9]
             x = x[x['Shear Rate'] < 50.1]
             global x1
-            x1 = x['Viscosity'].mean()
+            x1 = x['Viscosity'].median()
             x1 = x1 / standard
             x1 = round(x1, 2)
             if x1 > 10:
@@ -441,7 +441,7 @@ if menu == "Shear Rate and RRF":
             t = rrf2[rrf2['Shear Rate'] > 24.9]
             t = t[t['Shear Rate'] < 25.1]
             global t1
-            t1 = t['Viscosity'].mean()
+            t1 = t['Viscosity'].median()
             t1 = t1 / standard
             t1 = round(t1, 2)
             if t1 > 10:
@@ -452,7 +452,7 @@ if menu == "Shear Rate and RRF":
             st.text("10-s Relative Viscosity")
             y = rrf2[rrf2['Shear Rate'] > 9.95]
             y = y[y['Shear Rate'] < 10.05]
-            y1 = y['Viscosity'].mean()
+            y1 = y['Viscosity'].median()
             y1 = y1 / standard
             y1 = round(y1, 2)
             if y1 > 10:
@@ -463,7 +463,7 @@ if menu == "Shear Rate and RRF":
             st.text("5-s Relative Viscosity")
             z = rrf2[rrf2['Shear Rate'] > 4.95]
             z = z[z['Shear Rate'] < 5.05]
-            z1 = z['Viscosity'].mean()
+            z1 = z['Viscosity'].median()
             z1 = z1 / standard
             z1 = round(z1, 2)
             if z1 > 10:
