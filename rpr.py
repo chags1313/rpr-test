@@ -370,6 +370,7 @@ if menu == "Shear Rate and RRF":
         #rrf = rrf[rrf['Viscosity'] != 0]
         rrf2 = rrf[rrf['Pressure - mmHg'] < 50]
         rrf2['Time in Seconds'] = rrf2.reset_index(drop=True).index / 1000
+        rrf2 = rrf2[rrf2['Shear Stress'] !=0]
         
         #st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
         c1, c2, c3, c4, c5, c6, c7, c8 = st.columns(8)
