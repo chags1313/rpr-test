@@ -373,21 +373,17 @@ if menu == "Shear Rate and RRF":
         
         #st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
         c1, c2, c3, c4, c5, c6, c7, c8 = st.columns(8)
-        #with c8:
-            #st.text("500-s Relative Viscosity")
-        w = rrf2[rrf2['Shear Rate'] > 499]
-        w = w[w['Shear Rate'] < 501]
+
+        w = rrf2[rrf2['Shear Rate'] > 499.9]
+        w = w[w['Shear Rate'] < 500.1]
         w1 = w['Viscosity'].mean()
         w1 = round(w1, 2)
-            #if w1 > 10:
-            #    st.error(str(1.0), icon = '🔴')
-            #else:
-            #    st.info(str(1.0), icon = '🔵')
+
         standard = w['Viscosity'].mean()
         with c8:
             st.text("400-s Relative Viscosity")
-            f = rrf2[rrf2['Shear Rate'] > 399]
-            f = f[f['Shear Rate'] < 401]
+            f = rrf2[rrf2['Shear Rate'] > 399.9]
+            f = f[f['Shear Rate'] < 400.1]
             f1 = f['Viscosity'].mean()
             f1 = f1 / standard
             f1 = round(f1, 2)
@@ -397,8 +393,8 @@ if menu == "Shear Rate and RRF":
                 st.info(str(f1), icon = '🔵')
         with c7:
             st.text("300-s Relative Viscosity")
-            l = rrf2[rrf2['Shear Rate'] > 299]
-            l = l[l['Shear Rate'] < 301]
+            l = rrf2[rrf2['Shear Rate'] > 299.9]
+            l = l[l['Shear Rate'] < 300.1]
             l1 = l['Viscosity'].mean()
             l1 = l1 / standard
             l1 = round(l1, 2)
@@ -408,8 +404,8 @@ if menu == "Shear Rate and RRF":
                 st.info(str(l1), icon = '🔵')
         with c6:
             st.text("200-s Relative Viscosity")
-            p = rrf2[rrf2['Shear Rate'] > 199]
-            p = p[p['Shear Rate'] < 201]
+            p = rrf2[rrf2['Shear Rate'] > 199.9]
+            p = p[p['Shear Rate'] < 200.1]
             p1 = p['Viscosity'].mean()
             p1 = p1 / standard
             p1 = round(p1, 2)
@@ -419,8 +415,8 @@ if menu == "Shear Rate and RRF":
                 st.info(str(p1), icon = '🔵')
         with c5:
             st.text("100-s Relative Viscosity")
-            o = rrf2[rrf2['Shear Rate'] > 99]
-            o = o[o['Shear Rate'] < 101]
+            o = rrf2[rrf2['Shear Rate'] > 99.9]
+            o = o[o['Shear Rate'] < 100.1]
             o1 = o['Viscosity'].mean()
             o1 = o1 / standard
             o1 = round(o1, 2)
@@ -430,8 +426,8 @@ if menu == "Shear Rate and RRF":
                 st.info(str(o1), icon = '🔵')
         with c4:
             st.text("50-s Relative Viscosity")
-            x = rrf2[rrf2['Shear Rate'] > 49]
-            x = x[x['Shear Rate'] < 51]
+            x = rrf2[rrf2['Shear Rate'] > 49.9]
+            x = x[x['Shear Rate'] < 50.1]
             global x1
             x1 = x['Viscosity'].mean()
             x1 = x1 / standard
@@ -442,8 +438,8 @@ if menu == "Shear Rate and RRF":
                 st.info(str(x1), icon = '🔵') 
         with c3:
             st.text("25-s Relative Viscosity")
-            t = rrf2[rrf2['Shear Rate'] > 24]
-            t = t[t['Shear Rate'] < 26]
+            t = rrf2[rrf2['Shear Rate'] > 24.9]
+            t = t[t['Shear Rate'] < 25.1]
             global t1
             t1 = t['Viscosity'].mean()
             t1 = t1 / standard
@@ -454,8 +450,8 @@ if menu == "Shear Rate and RRF":
                 st.info(str(t1), icon = '🔵') 
         with c2:
             st.text("10-s Relative Viscosity")
-            y = rrf2[rrf2['Shear Rate'] > 9]
-            y = y[y['Shear Rate'] < 11]
+            y = rrf2[rrf2['Shear Rate'] > 9.9]
+            y = y[y['Shear Rate'] < 10.1]
             y1 = y['Viscosity'].mean()
             y1 = y1 / standard
             y1 = round(y1, 2)
@@ -465,8 +461,8 @@ if menu == "Shear Rate and RRF":
                 st.info(str(y1), icon = '🔵')
         with c1:
             st.text("5-s Relative Viscosity")
-            z = rrf2[rrf2['Shear Rate'] > 4]
-            z = z[z['Shear Rate'] < 6]
+            z = rrf2[rrf2['Shear Rate'] > 4.9]
+            z = z[z['Shear Rate'] < 5.1]
             z1 = z['Viscosity'].mean()
             z1 = z1 / standard
             z1 = round(z1, 2)
