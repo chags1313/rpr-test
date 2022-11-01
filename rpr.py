@@ -516,7 +516,7 @@ if menu == "Shear Rate and RRF":
             displayModeBar = False), use_container_width=True)
         colored_header("Pressure by Shear Rate")
         rrf['Pressure Change'] = rrf['Pressure - mmHg'].diff().abs() * 133.32
-        preshear = px.line(rrf, x='Shear Rate', y = 'Pressure Change', color_discrete_sequence=['black'])
+        preshear = px.line(rrf, x='Shear Rate', y = 'Pressure - mmHg', color_discrete_sequence=['black'])
         preshear.update_xaxes(range=(0,500))
         st.plotly_chart(preshear, config= dict(
             displayModeBar = False),use_container_width=True)
