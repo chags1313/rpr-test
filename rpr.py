@@ -476,11 +476,11 @@ if menu == "Shear Rate and RRF":
                 st.info(str(z1), icon = '🔵')
         db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
         stime = px.area(rrf2, y ='Time in Seconds', x = 'Shear Rate', color_discrete_sequence=['purple'])
-        stime.update_layout(width=950, hovermode='x unified')
+        stime.update_layout(hovermode='x unified')
         stime.update_yaxes(range=(0,60))
         stime.update_xaxes(range=(0,500))
         st.plotly_chart(stime, config= dict(
-            displayModeBar = False))
+            displayModeBar = False), use_container_width=True)
         #shearbin = np.histogram(rrf['Shear Rate'], bins = 60000)
         #st.dataframe(shearbin)
 
@@ -501,25 +501,25 @@ if menu == "Shear Rate and RRF":
         #shears.update_traces(visible=False, selector=dict(mode="markers"))
         shears.update_yaxes(range=(0,0.5))
         shears.update_xaxes(range=(0,500))
-        shears.update_layout(width=525, hovermode='x unified')
+        shears.update_layout(hovermode='x unified', use_container_width=True)
         with e1:
             st.plotly_chart(shears, config= dict(
-            displayModeBar = False))
+            displayModeBar = False), use_container_width=True)
         with e2:
             rrf['Rate of Shear Rate Change'] = rrf['Shear Rate'].diff().abs()
             
             flowc = px.scatter(rrf, y ='Rate of Shear Rate Change', x = 'Shear Rate', color_discrete_sequence=['green'])
-            flowc.update_layout(width=525, hovermode='x unified')
+            flowc.update_layout(hovermode='x unified')
             #flowc.update_yaxes(range=(0,10000))
             #flowc.update_xaxes(range=(0,500))
             st.plotly_chart(flowc, config= dict(
-            displayModeBar = False))
+            displayModeBar = False), use_container_width=True)
         colored_header("Pressure by Shear Rate")
         rrf['Pressure Change'] = rrf['Pressure - mmHg'].diff().abs() * 133.32
         preshear = px.line(rrf, x='Shear Rate', y = 'Pressure Change', color_discrete_sequence=['black'])
         preshear.update_xaxes(range=(0,500))
         st.plotly_chart(preshear, config= dict(
-            displayModeBar = False))
+            displayModeBar = False),use_container_width=True)
         
 
 
