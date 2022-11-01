@@ -518,6 +518,7 @@ if menu == "Shear Rate and RRF":
         preshear = px.line(rrf, x='Shear Rate', y = 'Pressure - mmHg', color_discrete_sequence=['black'])
         st.plotly_chart(preshear, config= dict(
             displayModeBar = False))
+        preshear.update_xaxes(range=(0,500))
 
 
 
