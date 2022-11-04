@@ -436,7 +436,7 @@ if menu == "Shear Rate and RRF":
             x = rrf2[rrf2['Shear Rate'] > 49.95]
             x = x[x['Shear Rate'] < 50.05]
             global x1
-            x1 = x['Viscosity'].mode())
+            x1 = x['Viscosity'].mode()
             x1 = x1 / standard
             x1 = round(x1, 2)
             if x1 > 10:
