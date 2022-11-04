@@ -386,9 +386,10 @@ if menu == "Shear Rate and RRF":
         w = w[w['Shear Rate'] < 500.5]
         w1 = w['Viscosity'].mean()
         w1 = round(w1, 2)
-        rrf['Relative Viscosity'] = rrf['Viscosity'] / standard
+        
 
         standard = w['Viscosity'].median()
+        rrf['Relative Viscosity'] = rrf['Viscosity'] / standard
         with c8:
             st.text("400-s Relative Viscosity")
             f = rrf2[rrf2['Shear Rate'] > 399.5]
