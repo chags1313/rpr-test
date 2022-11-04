@@ -386,7 +386,7 @@ if menu == "Shear Rate and RRF":
         w1 = w['Viscosity'].mode()
         w1 = round(w1, 2)
 
-        standard = w['Viscosity'].median()
+        standard = w['Viscosity'].mode()
         with c8:
             st.text("400-s Relative Viscosity")
             f = rrf2[rrf2['Shear Rate'] > 399.95]
