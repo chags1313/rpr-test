@@ -481,7 +481,7 @@ if menu == "Shear Rate and RRF":
             else:
                 st.info(str(z1), icon = '🔵')
         db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
-        stime = px.scatter(rrf2, x ='Shear Rate', y = 'Relative Viscosity', color_discrete_sequence=['purple'])
+        stime = px.area(rrf2, x ='Shear Rate', y = 'Relative Viscosity', color_discrete_sequence=['purple'])
         stime.update_layout(hovermode='x unified')
         stime.update_yaxes(range=(0,50))
         stime.update_xaxes(range=(0,500))
