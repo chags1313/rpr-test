@@ -381,7 +381,19 @@ if menu == "Shear Rate and RRF":
         
         #st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
         c1, c2, c3, c4, c5, c6, c7, c8 = st.columns(8)
-
+        def create_kpi(data, min_range, max_range, standard):
+            st.text("400-s Relative Viscosity")
+            f = data[data['Shear Rate'] > min_range]
+            f = f[f['Shear Rate'] < max_range]
+            f1 = f['Viscosity'].mean()
+            f1 = f1 / standard
+            f1 = round(f1, 2)
+            if f1 > 10:
+                kpi = st.error(str(f1), icon = '🔴')
+            else:
+                kpi = st.info(str(f1), icon = '🔵')
+            return kpi
+            
         w = rrf2[rrf2['Shear Rate'] > 499.5]
         w = w[w['Shear Rate'] < 500.5]
         w1 = w['Viscosity'].mean()
@@ -392,6 +404,7 @@ if menu == "Shear Rate and RRF":
         rrf2['Relative Viscosity'] = rrf2['Viscosity'] / standard
         with c8:
             st.text("400-s Relative Viscosity")
+            kpi(rrf2, min_range=399.4, max_range=400.5, standard = standard)
             f = rrf2[rrf2['Shear Rate'] > 399.5]
             f = f[f['Shear Rate'] < 400.5]
             f1 = f['Viscosity'].mean()
