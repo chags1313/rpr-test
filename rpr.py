@@ -379,10 +379,10 @@ if menu == "Shear Rate and RRF":
         #st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
         c1, c2, c3, c4, c5, c6, c7, c8 = st.columns(8)
         def create_kpi(data, txt, min_range, max_range, standard):
-            st.text("400-s Relative Viscosity")
+            st.text(txt)
             f = data[data['Shear Rate'] > min_range]
             f = f[f['Shear Rate'] < max_range]
-            f1 = f['Viscosity'].mean()
+            f1 = len(f['Viscosity']) / (max_range - min_range)
             f1 = f1 / standard
             f1 = round(f1, 2)
             if f1 > 10:
@@ -391,95 +391,27 @@ if menu == "Shear Rate and RRF":
                 kpi = st.info(str(f1), icon = '🔵')
             return kpi
             
-        w = rrf2[rrf2['Shear Rate'] > 499.5]
-        w = w[w['Shear Rate'] < 500.5]
-        w1 = w['Viscosity'].mean()
-        w1 = round(w1, 2)
+
         
 
-        standard = w['Viscosity'].median()
+        standard = len(w['Viscosity']) / 100
         rrf2['Relative Viscosity'] = rrf2['Viscosity'] / standard
         with c8:
-            create_kpi(rrf2, "400-s Relative Viscosity", min_range=399.4, max_range=400.5, standard = standard)
+            create_kpi(rrf2, "400-s Relative Viscosity", min_range=350, max_range=450, standard = standard)
         with c7:
-            st.text("300-s Relative Viscosity")
-            l = rrf2[rrf2['Shear Rate'] > 299.5]
-            l = l[l['Shear Rate'] < 300.5]
-            l1 = l['Viscosity'].mean()
-            l1 = l1 / standard
-            l1 = round(l1, 2)
-            if l1 > 10:
-                st.error(str(l1), icon = '🔴')
-            else:
-                st.info(str(l1), icon = '🔵')
+            create_kpi(rrf2, "300-s Relative Viscosity", min_range=250, max_range=350, standard = standard)
         with c6:
-            st.text("200-s Relative Viscosity")
-            p = rrf2[rrf2['Shear Rate'] > 199.75]
-            p = p[p['Shear Rate'] < 200.25]
-            p1 = p['Viscosity'].mean()
-            p1 = p1 / standard
-            p1 = round(p1, 2)
-            if p1 > 10:
-                st.error(str(p1), icon = '🔴')
-            else:
-                st.info(str(p1), icon = '🔵')
+            create_kpi(rrf2, "200-s Relative Viscosity", min_range=150, max_range=250, standard = standard)
         with c5:
-            st.text("100-s Relative Viscosity")
-            o = rrf2[rrf2['Shear Rate'] > 99.75]
-            o = o[o['Shear Rate'] < 100.25]
-            o1 = o['Viscosity'].mean()
-            o1 = o1 / standard
-            o1 = round(o1, 2)
-            if o1 > 10:
-                st.error(str(o1), icon = '🔴')
-            else:
-                st.info(str(o1), icon = '🔵')
+            create_kpi(rrf2, "100-s Relative Viscosity", min_range=50, max_range=150, standard = standard)
         with c4:
-            st.text("50-s Relative Viscosity")
-            x = rrf2[rrf2['Shear Rate'] > 49.95]
-            x = x[x['Shear Rate'] < 50.05]
-            global x1
-            x1 = x['Viscosity'].mean()
-            x1 = x1 / standard
-            x1 = round(x1, 2)
-            if x1 > 10:
-                st.error(str(x1), icon = '🔴')
-            else:
-                st.info(str(x1), icon = '🔵') 
+            create_kpi(rrf2, "50-s Relative Viscosity", min_range=0.1, max_range=100, standard = standard) 
         with c3:
-            st.text("25-s Relative Viscosity")
-            t = rrf2[rrf2['Shear Rate'] > 24.9]
-            t = t[t['Shear Rate'] < 25.1]
-            global t1
-            t1 = t['Viscosity'].mean()
-            t1 = t1 / standard
-            t1 = round(t1, 2)
-            if t1 > 10:
-                st.error(str(t1), icon = '🔴')
-            else:
-                st.info(str(t1), icon = '🔵') 
+            create_kpi(rrf2, "25-s Relative Viscosity", min_range=0.1, max_range=50, standard = standard)
         with c2:
-            st.text("10-s Relative Viscosity")
-            y = rrf2[rrf2['Shear Rate'] > 9.9]
-            y = y[y['Shear Rate'] < 10.1]
-            y1 = y['Viscosity'].mean()
-            y1 = y1 / standard
-            y1 = round(y1, 2)
-            if y1 > 10:
-                st.error(str(y1), icon = '🔴')
-            else:
-                st.info(str(y1), icon = '🔵')
+            create_kpi(rrf2, "10-s Relative Viscosity", min_range=0.1, max_range=20, standard = standard)
         with c1:
-            st.text("5-s Relative Viscosity")
-            z = rrf2[rrf2['Shear Rate'] > 4.9]
-            z = z[z['Shear Rate'] < 5.1]
-            z1 = z['Viscosity'].mean()
-            z1 = z1 / standard
-            z1 = round(z1, 2)
-            if z1 > 10:
-                st.error(str(z1), icon = '🔴')
-            else:
-                st.info(str(z1), icon = '🔵')
+            create_kpi(rrf2, "5-s Relative Viscosity", min_range=0.1, max_range=10, standard = standard)
         db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
         stime = px.area(rrf2, x ='Shear Rate', y = 'Relative Viscosity', color_discrete_sequence=['purple'])
         stime.update_layout(hovermode='x unified')
