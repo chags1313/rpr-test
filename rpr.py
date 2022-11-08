@@ -366,7 +366,7 @@ if menu == "Shear Rate and RRF":
         #rrf = rrf[rrf['Flow'] != 0]
         rrf = rrf[rrf['Shear Rate'] > 0.01]
         #rrf['Viscosity'] = rrf['Viscosity'].rolling(window=10).mean()
-        rrf['Viscosity'] = rrf['Viscosity'] * 1000
+        rrf['Viscosity'] = rrf['Viscosity'] * 10000
         #rrf['Viscosity'] = rrf['Viscosity'] * 1000
         rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
         #rrf = rrf[rrf['Viscosity'] != 0]
@@ -435,7 +435,7 @@ if menu == "Shear Rate and RRF":
             create_kpi(rrf2, txt="5-s Relative Viscosity", min_range=0.1, max_range=10, standard = standard)
             #pressure_kpi(rrf2, txt="5-s Relative Viscosity", min_range=4.9, max_range=5.1, standard = 0.0075)
         #db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
-        stime = px.area(rrf2, x ='Shear Rate', y = 'Relative Viscosity', color_discrete_sequence=['purple'])
+        stime = px.area(rrf2, x ='Shear Rate', y = 'Time of Flow', color_discrete_sequence=['purple'])
         stime.update_layout(hovermode='x unified')
         stime.update_yaxes(range=(0,50))
         stime.update_xaxes(range=(0,500))
