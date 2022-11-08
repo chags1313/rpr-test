@@ -390,6 +390,18 @@ if menu == "Shear Rate and RRF":
             else:
                 kpi = st.info(str(f1), icon = '🔵')
             return kpi
+        def pressure_kpi(data, txt, min_range, max_range, standard):
+            st.text(txt)
+            f = data[data['Shear Rate'] > min_range]
+            f = f[f['Shear Rate'] < max_range]
+            f1 = f['Pressure - mmHg'].mean()
+            f1 = f1 / standard
+            f1 = round(f1, 2)
+            if f1 > 10:
+                kpi = st.error(str(f1), icon = '🔴')
+            else:
+                kpi = st.info(str(f1), icon = '🔵')
+            return kpi
             
 
         
@@ -400,20 +412,28 @@ if menu == "Shear Rate and RRF":
         rrf2['Relative Viscosity'] = rrf2['Viscosity'] / standard
         with c8:
             create_kpi(rrf2, txt="400-s Relative Viscosity", min_range=350, max_range=450, standard = standard)
+            pressure_kpi(rrf2, txt="400-s Relative Viscosity", min_range=399, max_range=401, standard = 0.59)
         with c7:
             create_kpi(rrf2, txt="300-s Relative Viscosity", min_range=250, max_range=350, standard = standard)
+            pressure_kpi(rrf2, txt="300-s Relative Viscosity", min_range=299, max_range=301, standard = 0.44)
         with c6:
             create_kpi(rrf2, txt="200-s Relative Viscosity", min_range=150, max_range=250, standard = standard)
+            pressure_kpi(rrf2, txt="200-s Relative Viscosity", min_range=199, max_range=201, standard = 0.29)
         with c5:
             create_kpi(rrf2, txt="100-s Relative Viscosity", min_range=50, max_range=150, standard = standard)
+            pressure_kpi(rrf2, txt="100-s Relative Viscosity", min_range=99, max_range=101, standard = 0.15)
         with c4:
             create_kpi(rrf2, txt="50-s Relative Viscosity", min_range=0.1, max_range=100, standard = standard) 
+            pressure_kpi(rrf2, txt="50-s Relative Viscosity", min_range=49.9, max_range=50.1, standard = 0.075)
         with c3:
             create_kpi(rrf2, txt="25-s Relative Viscosity", min_range=0.1, max_range=50, standard = standard)
+            pressure_kpi(rrf2, txt="25-s Relative Viscosity", min_range=24.9, max_range=25.1, standard = 0.038)
         with c2:
             create_kpi(rrf2, txt="10-s Relative Viscosity", min_range=0.1, max_range=20, standard = standard)
+            pressure_kpi(rrf2, txt="10-s Relative Viscosity", min_range=9.9, max_range=10.1, standard = 0.015)
         with c1:
             create_kpi(rrf2, txt="5-s Relative Viscosity", min_range=0.1, max_range=10, standard = standard)
+            pressure_kpi(rrf2, txt="5-s Relative Viscosity", min_range=4.9, max_range=5.1, standard = 0.075)
         #db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
         stime = px.area(rrf2, x ='Shear Rate', y = 'Relative Viscosity', color_discrete_sequence=['purple'])
         stime.update_layout(hovermode='x unified')
