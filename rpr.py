@@ -367,7 +367,7 @@ if menu == "Shear Rate and RRF":
         rrf = rrf[rrf['Shear Rate'] > 0.01]
         #rrf['Viscosity'] = rrf['Viscosity'].rolling(window=10).mean()
         #rrf['Viscosity'] = rrf['Viscosity']
-        #rrf['Viscosity'] = rrf['Viscosity'] * 1000
+        rrf['Viscosity'] = rrf['Viscosity'] * 133322
         rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
         #rrf = rrf[rrf['Viscosity'] != 0]
         rrf2 = rrf
