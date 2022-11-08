@@ -362,9 +362,6 @@ if menu == "Test Analytics":
 
 if menu == "Shear Rate and RRF":
     try:
-
-
-        
         colored_header("Relative Resistance to Flow by Shear Rate")
         #rrf = rrf[rrf['Flow'] != 0]
         rrf = rrf[rrf['Shear Rate'] > 0.01]
@@ -404,7 +401,7 @@ if menu == "Shear Rate and RRF":
         rrf2['Relative Viscosity'] = rrf2['Viscosity'] / standard
         with c8:
             st.text("400-s Relative Viscosity")
-            kpi(rrf2, min_range=399.4, max_range=400.5, standard = standard)
+            create_kpi(rrf2, min_range=399.4, max_range=400.5, standard = standard)
             f = rrf2[rrf2['Shear Rate'] > 399.5]
             f = f[f['Shear Rate'] < 400.5]
             f1 = f['Viscosity'].mean()
