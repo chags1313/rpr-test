@@ -383,7 +383,7 @@ if menu == "Shear Rate and RRF":
             st.text(txt)
             f = data[data['Shear Rate'] > min_range]
             f = f[f['Shear Rate'] < max_range]
-            f1 = len(f['Viscosity']) / (max_range - min_range)
+            f1 = len(f['Viscosity']) / (max_range - min_range) / standard
             f1 = f1 
             f1 = round(f1, 2)
             if f1 > 10:
