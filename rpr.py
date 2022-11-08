@@ -370,7 +370,7 @@ if menu == "Shear Rate and RRF":
         #rrf['Viscosity'] = rrf['Viscosity'] * 1000
         rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
         #rrf = rrf[rrf['Viscosity'] != 0]
-        rrf2 = rrf2
+        rrf2 = rrf
         #rrf2 = rrf[rrf['Pressure - mmHg'] < 50]
         rrf2['Time in Seconds'] = rrf2.reset_index(drop=True).index / 1000
         #rrf2 = rrf2[rrf2['Shear Stress'] !=0]
