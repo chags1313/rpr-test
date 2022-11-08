@@ -397,22 +397,22 @@ if menu == "Shear Rate and RRF":
         standard = len(w['Viscosity']) / 100
         rrf2['Relative Viscosity'] = rrf2['Viscosity'] / standard
         with c8:
-            create_kpi(rrf2, "400-s Relative Viscosity", min_range=350, max_range=450, standard = standard)
+            create_kpi(rrf2, txt="400-s Relative Viscosity", min_range=350, max_range=450, standard = standard)
         with c7:
-            create_kpi(rrf2, "300-s Relative Viscosity", min_range=250, max_range=350, standard = standard)
+            create_kpi(rrf2, txt="300-s Relative Viscosity", min_range=250, max_range=350, standard = standard)
         with c6:
-            create_kpi(rrf2, "200-s Relative Viscosity", min_range=150, max_range=250, standard = standard)
+            create_kpi(rrf2, txt="200-s Relative Viscosity", min_range=150, max_range=250, standard = standard)
         with c5:
-            create_kpi(rrf2, "100-s Relative Viscosity", min_range=50, max_range=150, standard = standard)
+            create_kpi(rrf2, txt="100-s Relative Viscosity", min_range=50, max_range=150, standard = standard)
         with c4:
-            create_kpi(rrf2, "50-s Relative Viscosity", min_range=0.1, max_range=100, standard = standard) 
+            create_kpi(rrf2, txt="50-s Relative Viscosity", min_range=0.1, max_range=100, standard = standard) 
         with c3:
-            create_kpi(rrf2, "25-s Relative Viscosity", min_range=0.1, max_range=50, standard = standard)
+            create_kpi(rrf2, txt="25-s Relative Viscosity", min_range=0.1, max_range=50, standard = standard)
         with c2:
-            create_kpi(rrf2, "10-s Relative Viscosity", min_range=0.1, max_range=20, standard = standard)
+            create_kpi(rrf2, txt="10-s Relative Viscosity", min_range=0.1, max_range=20, standard = standard)
         with c1:
-            create_kpi(rrf2, "5-s Relative Viscosity", min_range=0.1, max_range=10, standard = standard)
-        db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
+            create_kpi(rrf2, txt="5-s Relative Viscosity", min_range=0.1, max_range=10, standard = standard)
+        #db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
         stime = px.area(rrf2, x ='Shear Rate', y = 'Relative Viscosity', color_discrete_sequence=['purple'])
         stime.update_layout(hovermode='x unified')
         stime.update_yaxes(range=(0,50))
