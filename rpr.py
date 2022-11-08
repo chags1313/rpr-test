@@ -435,6 +435,7 @@ if menu == "Shear Rate and RRF":
             create_kpi(rrf2, txt="5-s Relative Viscosity", min_range=0.1, max_range=10, standard = standard)
             #pressure_kpi(rrf2, txt="5-s Relative Viscosity", min_range=4.9, max_range=5.1, standard = 0.0075)
         #db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
+        rrf2['Time of Flow'] = rrf2.index / 1000
         stime = px.area(rrf2, x ='Shear Rate', y = 'Time of Flow', color_discrete_sequence=['purple'])
         stime.update_layout(hovermode='x unified')
         stime.update_yaxes(range=(0,50))
