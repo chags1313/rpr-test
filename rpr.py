@@ -397,7 +397,7 @@ if menu == "Shear Rate and RRF":
             f = data[data['Shear Rate'] > min_range]
             f = f[f['Shear Rate'] < max_range]
             f1 = f['Pressure - mmHg'].mean()
-            f1 = f1 / standard
+            f1 = f1 
             f1 = round(f1, 2)
             if f1 > 10:
                 kpi = st.error(str(f1), icon = '🔴')
@@ -521,28 +521,28 @@ if menu == "Shear Rate and RRF":
         C1, C2, C3, C4, C5, C6, C7, C8 = st.columns(8)
         with C8:
             #create_kpi(rrf2, txt="400-s Relative Viscosity", min_range=350, max_range=450, standard = standard)
-            pressure_kpi(rrf2, txt="400-s Relative Viscosity", min_range=399, max_range=401, standard = 0.59)
+            pressure_kpi(rrf2, txt="400-s Pressure", min_range=399, max_range=401, standard = 0.59)
         with C7:
             #create_kpi(rrf2, txt="300-s Relative Viscosity", min_range=250, max_range=350, standard = standard)
-            pressure_kpi(rrf2, txt="300-s Relative Viscosity", min_range=299, max_range=301, standard = 0.44)
+            pressure_kpi(rrf2, txt="300-s Pressure", min_range=299, max_range=301, standard = 0.44)
         with C6:
             #create_kpi(rrf2, txt="200-s Relative Viscosity", min_range=150, max_range=250, standard = standard)
-            pressure_kpi(rrf2, txt="200-s Relative Viscosity", min_range=199, max_range=201, standard = 0.29)
+            pressure_kpi(rrf2, txt="200-s Pressure", min_range=199, max_range=201, standard = 0.29)
         with C5:
             #create_kpi(rrf2, txt="100-s Relative Viscosity", min_range=50, max_range=150, standard = standard)
-            pressure_kpi(rrf2, txt="100-s Relative Viscosity", min_range=99, max_range=101, standard = 0.15)
+            pressure_kpi(rrf2, txt="100-s Pressure", min_range=99, max_range=101, standard = 0.15)
         with C4:
             #create_kpi(rrf2, txt="50-s Relative Viscosity", min_range=0.1, max_range=100, standard = standard) 
-            pressure_kpi(rrf2, txt="50-s Relative Viscosity", min_range=49.9, max_range=50.1, standard = 0.075)
+            pressure_kpi(rrf2, txt="50-s Pressure", min_range=49.9, max_range=50.1, standard = 0.075)
         with C3:
             #create_kpi(rrf2, txt="25-s Relative Viscosity", min_range=0.1, max_range=50, standard = standard)
-            pressure_kpi(rrf2, txt="25-s Relative Viscosity", min_range=24.9, max_range=25.1, standard = 0.038)
+            pressure_kpi(rrf2, txt="25-s Pressure", min_range=24.9, max_range=25.1, standard = 0.038)
         with C2:
             #create_kpi(rrf2, txt="10-s Relative Viscosity", min_range=0.1, max_range=20, standard = standard)
-            pressure_kpi(rrf2, txt="10-s Relative Viscosity", min_range=9.9, max_range=10.1, standard = 0.015)
+            pressure_kpi(rrf2, txt="10-s Pressure", min_range=9.9, max_range=10.1, standard = 0.015)
         with C1:
             #create_kpi(rrf2, txt="5-s Relative Viscosity", min_range=0.1, max_range=10, standard = standard)
-            pressure_kpi(rrf2, txt="5-s Relative Viscosity", min_range=4.9, max_range=5.1, standard = 0.0075)
+            pressure_kpi(rrf2, txt="5-s Pressure", min_range=4.9, max_range=5.1, standard = 0.0075)
         preshear = px.area(rrf, x='Shear Rate', y = 'Pressure - mmHg', color_discrete_sequence=['black'])
         preshear.update_xaxes(range=(0,500))
         st.plotly_chart(preshear, config= dict(
