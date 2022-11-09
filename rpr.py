@@ -465,7 +465,7 @@ if menu == "Shear Rate and RRF":
         rg = rg[rg['Shear Rate'] > slid - 0.49]
         st.dataframe(rg)
         colored_header("Shear Rate by Viscosity")
-        e1, e2 = st.columns(2)
+        
      
         
         #rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window=10).mean()
@@ -503,6 +503,7 @@ if menu == "Shear Rate and RRF":
         shears.update_xaxes(range=(5,500))
         shears.update_yaxes(range=(0,20))
         shears.update_layout(hovermode='x unified')
+        e1, e2 = st.columns(2)
         with e1:
             st.plotly_chart(shears, config= dict(
             displayModeBar = False), use_container_width=True)
