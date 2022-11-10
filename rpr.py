@@ -207,9 +207,9 @@ def processing(uploaded_file, needlesize):
                 radius = 0.419 / 1000
         if needlesize == 18.5:
                 Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
-                R = (7.36 * 10**-11)
+                R = (4.425 * 10**-10)
                 radius = 0.419 / 1000
-                length = (7.62 * 10**-2)
+                length = (2.54 * 10**-1)
         if needlesize == 19:
                 Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (4.04 * 10**-11)
