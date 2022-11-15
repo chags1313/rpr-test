@@ -304,7 +304,7 @@ if menu == "Test Analytics":
         colored_header("Raw Test Data and Sliced Curves")
         uu1, uu2 = st.columns(2)
         fig =  px.scatter(wad, y='Amplitude - Normalized Pressure Data',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
-        avg_curve1['analyzed'] = avg_curve1['shear rate'] < 500
+        avg_curve1['analyzed'] = avg_curve1['Shear Rate'] < 500
         avg_plt = px.line(avg_curve1, y = "Amplitude - Normalized Pressure Data",x = 'Seconds', color = 'analyzed', color_discrete_sequence=['black'])#color_discrete_sequence=['black'])
 
         with uu2:
