@@ -40,17 +40,10 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
 @st.cache(allow_output_mutation=True)
 def get_r2_numpy_corrcoef(x, y):
     return np.corrcoef(x, y)[0, 1]**2
-#@st.cache(allow_output_mutation=True)
-#def regression_model(data, target):
- #   dset = setup(data, target=target, silent=True)
-  #  reg_model = create_model('et')
-   # predictions = predict_model(reg_model, data = data)
-    #return predictions, reg_model
 @st.cache(allow_output_mutation=True)
 def create_download_link(val, filename):
     b64 = base64.b64encode(val)  # val looks like b'...'
     return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}.pdf">Download file</a>'
-
 @st.cache(allow_output_mutation=True)
 def convert_df(df):
     return df.to_csv().encode('utf-8')
@@ -115,7 +108,6 @@ def processing(uploaded_file, needlesize):
         dataframe = dataframe - fv
         dataframe['Seconds'] = dataframe.index / 1000
         wad = dataframe
-        #wad['Amplitude - Normalized Pressure Data'] = wad[0]
         wadmax = wad['Amplitude - Normalized Pressure Data'].idxmax()
         wadmin = wad['Amplitude - Normalized Pressure Data'].idxmin()
         fir_curve = wad['Amplitude - Normalized Pressure Data'].iloc[wadmax:wadmin-800]
@@ -125,7 +117,6 @@ def processing(uploaded_file, needlesize):
         avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = st.session_state.avg_filt).mean()
         last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
-        #avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] -  1.1
         R = ((0.0165 * 2.54) / 100)
         pi = 3.14256
         first = fir_curve.iloc[20]
@@ -136,14 +127,6 @@ def processing(uploaded_file, needlesize):
         Q = ((((0.6 * curve) / 20 / time)) * (1*10**-6))
         lastpav = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] 
-        #####avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - lastpav
-        
-        ### removing data less than zero for water
-        #zeropoint = avg_curve1.index[zero_crossing(avg_curve1['Amplitude - Normalized Pressure Data'])]
-        #print(zeropoint)
-        #print(len(avg_curve1))
-        #avg_curve1 = avg_curve1.iloc[:zeropoint[0],:]
-        #print(len(avg_curve1))
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data']
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'] - avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].abs()
@@ -168,8 +151,6 @@ def processing(uploaded_file, needlesize):
         lastcur = cur['Average curve mmHg'].iloc[-1]
         cur['Average curve mmHg'] =cur['Average curve mmHg'] - lastcur
         md = max(avg_curve1['Amplitude - Normalized Pressure Data'])
-        #with st.spinner("Processing Analytics"):
-            #for i in range(len(avg_curve1)):
         first = avg_curve1['Amplitude - Normalized Pressure Data'] 
         last = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1] 
         are = avg_curve1['Amplitude - Normalized Pressure Data'] * 0.001
@@ -177,47 +158,37 @@ def processing(uploaded_file, needlesize):
         curve =  first - last
         length = 3.81 * 10**-2
         if needlesize == 12:
-            Q = ((((0.6 * curve)/ md / time))) * (1*10**-6)
             R = (1.26 * 10**-9)
         if needlesize == 13:
-                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (7.33 * 10**-10)
         if needlesize == 14:
-                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (5.12 * 10**-10)
         if needlesize == 15:
-                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (3.23 * 10**-10)
         if needlesize == 16:
-                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (2.13 * 10**-10)
                 length = (3.81 * 10**-2)
         if needlesize == 17:
-                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (1.52 * 10**-10)
                 radius = 0.419 / 1000  
         if needlesize == 17.5:
-                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (1.25*10**-10)
                 radius = 0.419 / 1000  
                 length = 0.2286
         if needlesize == 18:
-                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (7.36 * 10**-11)
                 radius = 0.419 / 1000
         if needlesize == 18.5:
-                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (4.425 * 10**-10)
                 radius = 0.419 / 1000
                 length = (2.54 * 10**-1)
         if needlesize == 19:
-                Q = ((((0.6 * curve)/md / time))) * (1*10**-6)
                 R = (4.04 * 10**-11)
                 radius = 0.343 / 1000
         if needlesize == 20:
-                Q = ((((0.6 * curve)/md / time)))* (1*10**-6)
                 R = (2.75 * 10**-11)
                 radius = 0.302 / 1000
+
         Q = (((0.6 * (first * 0.001)) / totalarea) / 0.001) * (1*10**-6)
         shear = 4*(Q/(pi*(R)))
         avg_curve1['Shear Rate'] = shear
@@ -226,8 +197,6 @@ def processing(uploaded_file, needlesize):
             
         avg_curve1['Shear Stress'] = (avg_curve1['Amplitude - Normalized Pressure Data'] * 133322).diff().abs() / 4
         avg_curve1['Viscosity'] = (avg_curve1['Shear Stress'] / (length *2)) / avg_curve1['Shear Rate']
-        #avg_curve1['Viscosity Equation 1'] = avg_curve1['Shear Stress'] / avg_curve1['Shear Rate']
-        #avg_curve1['Viscosity Eq1'] = (avg_curve1['Shear Stress'] / avg_curve1['Shear Rate']).round(4)
 
         rrf = avg_curve1
         del avg_curve
@@ -235,17 +204,16 @@ def processing(uploaded_file, needlesize):
         return rrf, avg_curve1, cur, wad
 
 
-#st.title("Biofluid Technology")
 with st.sidebar:
+    # Sidebar
     menu = option_menu(None, ["Home", "Records", "Test Analytics", 'Shear Rate and RRF', 'Data'], 
     icons=['house',  "list-task", 'graph-up', 'moisture', 'table'], 
     menu_icon="cast", default_index=0, orientation="vertical")
 
-    
-
 #tab1, tab2, tab3, tab4, tab5 = st.tabs(["🏠 Home","💉 Run Test", "📈 Test Analytics", "🩸 Shear Rate and RRF Analytics", "🗃 Data"])
 
 if menu == 'Home':  
+    # Home page
     st.title("Rapid Profile Rheometer 🩸")
     st.write("Biofluid Technology Inc.")
     with st.expander("How to Run a Test"):
@@ -266,6 +234,7 @@ if menu == 'Home':
            st.markdown("![Alt Text](https://github.com/chags1313/graphs/blob/main/ezgif.com-gif-maker%20(5).gif?raw=true)")
 
 with st.sidebar:
+    # additional sidebar
     with st.expander("Admin Settings"):
         if 'avg_filt' not in st.session_state:
             st.session_state.avg_filt = 10
@@ -282,6 +251,7 @@ with st.sidebar:
         rrf, avg_curve1, cur, wad = processing(uploaded_file = uploaded_file,needlesize = needlesize)
 
 if menu == "Records":
+    # past records
     colored_header("Records")
     result = db.fetch().items
     db_df = pd.DataFrame(result)
@@ -290,7 +260,6 @@ if menu == "Records":
     for rcds in slct_rcd:
         colored_header(rcds)
         dta = dd[dd['record_id'] == rcds].iloc[-1]
-        #st.write(dta)
         met1, met2, met3, met4, met5 = st.columns(5)
         with met1:
             meta = float(dta['5 -s Shear Rate RRF'])
@@ -330,13 +299,13 @@ if menu == "Records":
         #st.dataframe(dd[dd['record_id'] == rcds].iloc[-1])
             
 if menu == "Test Analytics":
-
+    # test analytics page
     try:
         colored_header("Raw Test Data and Sliced Curves")
         uu1, uu2 = st.columns(2)
         fig =  px.scatter(wad, y='Amplitude - Normalized Pressure Data',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
-        
-        avg_plt = px.line(avg_curve1, y = "Amplitude - Normalized Pressure Data", color_discrete_sequence=['black'])
+        avg_curve1['analyzed'] = avg_curve1['shear rate'] < 500
+        avg_plt = px.line(avg_curve1, y = "Amplitude - Normalized Pressure Data",x = 'Seconds', color = 'analyzed', color_discrete_sequence=['black'])#color_discrete_sequence=['black'])
 
         with uu2:
             #with st.expander("Averaged Curve Sliced Data"):
@@ -364,21 +333,14 @@ if menu == "Test Analytics":
 if menu == "Shear Rate and RRF":
     try:
         colored_header("Relative Resistance to Flow by Shear Rate")
-        #rrf = rrf[rrf['Flow'] != 0]
         rrf = rrf[rrf['Shear Rate'] > 0.01]
-        #rrf['Viscosity'] = rrf['Viscosity'].rolling(window=10).mean()
-        #rrf['Viscosity'] = rrf['Viscosity']
-        #rrf['Viscosity'] = rrf['Viscosity'] * 133322
         rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
-        #rrf = rrf[rrf['Viscosity'] != 0]
         rrf2 = rrf
-        #rrf2 = rrf[rrf['Pressure - mmHg'] < 50]
         rrf2['Time in Seconds'] = rrf2.reset_index(drop=True).index / 1000
         rrf2 = rrf2[rrf2['Shear Stress'] !=0]
         rrf2 = rrf2[rrf2['Viscosity'] !=0]
         rrf2['Viscosity'] = rrf2['Viscosity'].round(16)
         
-        #st.metric(label = "", value = None, help="Relative viscosity values have been computed from water controls as of 10/10/22")
         c1, c2, c3, c4, c5, c6, c7, c8 = st.columns(8)
         def create_kpi(data, txt, min_range, max_range, standard):
             st.text(txt)
@@ -421,33 +383,24 @@ if menu == "Shear Rate and RRF":
         
         f = rrf2[rrf2['Shear Rate'] > 450]
         f = f[f['Shear Rate'] < 550]
-        #f1 = len(f['Viscosity']) / (550 - 450)
         standard = len(f['Viscosity']) / 100
         rrf2['Relative Viscosity'] = rrf2['Viscosity'] / standard
         with c8:
             create_kpi(rrf2, txt="400-s Relative Viscosity", min_range=350, max_range=450, standard = standard)
-            #pressure_kpi(rrf2, txt="400-s Relative Viscosity", min_range=399, max_range=401, standard = 0.59)
         with c7:
             create_kpi(rrf2, txt="300-s Relative Viscosity", min_range=250, max_range=350, standard = standard)
-            #pressure_kpi(rrf2, txt="300-s Relative Viscosity", min_range=299, max_range=301, standard = 0.44)
         with c6:
             create_kpi(rrf2, txt="200-s Relative Viscosity", min_range=150, max_range=250, standard = standard)
-            #pressure_kpi(rrf2, txt="200-s Relative Viscosity", min_range=199, max_range=201, standard = 0.29)
         with c5:
             create_kpi(rrf2, txt="100-s Relative Viscosity", min_range=50, max_range=150, standard = standard)
-            #pressure_kpi(rrf2, txt="100-s Relative Viscosity", min_range=99, max_range=101, standard = 0.15)
         with c4:
             create_kpi(rrf2, txt="50-s Relative Viscosity", min_range=0.1, max_range=100, standard = standard) 
-            #pressure_kpi(rrf2, txt="50-s Relative Viscosity", min_range=49.9, max_range=50.1, standard = 0.075)
         with c3:
             create_kpi(rrf2, txt="25-s Relative Viscosity", min_range=0.1, max_range=50, standard = standard)
-            #pressure_kpi(rrf2, txt="25-s Relative Viscosity", min_range=24.9, max_range=25.1, standard = 0.038)
         with c2:
             create_kpi(rrf2, txt="10-s Relative Viscosity", min_range=0.1, max_range=20, standard = standard)
-            #pressure_kpi(rrf2, txt="10-s Relative Viscosity", min_range=9.9, max_range=10.1, standard = 0.015)
         with c1:
             create_kpi(rrf2, txt="5-s Relative Viscosity", min_range=0.1, max_range=10, standard = standard)
-            #pressure_kpi(rrf2, txt="5-s Relative Viscosity", min_range=4.9, max_range=5.1, standard = 0.0075)
         #db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
         rrf2['Time of Flow'] = rrf2.index / 1000
         stime = px.area(rrf2, x ='Shear Rate', y = 'Time in Seconds', color_discrete_sequence=['purple'])
@@ -456,44 +409,30 @@ if menu == "Shear Rate and RRF":
         stime.update_xaxes(range=(0,500))
         st.plotly_chart(stime, config= dict(
             displayModeBar = False), use_container_width=True)
-        #shearbin = np.histogram(rrf['Shear Rate'], bins = 60000)
-        #st.dataframe(shearbin)
 
         colored_header("Data Exploration")
         slid = st.slider("Enter Shear Rate", min_value = 0.0, value = 0.0,max_value = 500.0, step = 0.5, help ='Enter a Shear Rate to Take a Deeper Look at the Data')
         rg = rrf2[rrf2['Shear Rate'] < slid + 0.49]
         rg = rg[rg['Shear Rate'] > slid - 0.49]
         st.dataframe(rg)
+
         colored_header("Shear Rate by Viscosity")
-        
-     
-        
-        #rrf['Shear Rate'] = rrf['Shear Rate'].rolling(window=10).mean()
-        #rrf = rrf[rrf['Blood Sample'] != 0]
         c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8 = st.columns(8)
         with c_8:
-            #_kpi(rrf2, txt="400-s Relative Viscosity", min_range=350, max_range=450, standard = standard)
             visc_kpi(rrf2, txt="400-s Viscosity", min_range=399, max_range=401, standard = 0.59)
         with c_7:
-            #create_kpi(rrf2, txt="300-s Relative Viscosity", min_range=250, max_range=350, standard = standard)
             visc_kpi(rrf2, txt="300-s Viscosity", min_range=299, max_range=301, standard = 0.44)
         with c_6:
-            #create_kpi(rrf2, txt="200-s Relative Viscosity", min_range=150, max_range=250, standard = standard)
             visc_kpi(rrf2, txt="200-s Viscosity", min_range=199, max_range=201, standard = 0.29)
         with c_5:
-            #create_kpi(rrf2, txt="100-s Relative Viscosity", min_range=50, max_range=150, standard = standard)
             visc_kpi(rrf2, txt="100-s Viscosity", min_range=99, max_range=101, standard = 0.15)
         with c_4:
-            #reate_kpi(rrf2, txt="50-s Relative Viscosity", min_range=0.1, max_range=100, standard = standard) 
             visc_kpi(rrf2, txt="50-s Viscosity", min_range=49.9, max_range=50.1, standard = 0.075)
         with c_3:
-            #create_kpi(rrf2, txt="25-s Relative Viscosity", min_range=0.1, max_range=50, standard = standard)
             visc_kpi(rrf2, txt="25-s Viscosity", min_range=24.9, max_range=25.1, standard = 0.038)
         with c_2:
-            #create_kpi(rrf2, txt="10-s Relative Viscosity", min_range=0.1, max_range=20, standard = standard)
             visc_kpi(rrf2, txt="10-s Viscosity", min_range=9.9, max_range=10.1, standard = 0.015)
         with c_1:
-            #create_kpi(rrf2, txt="5-s Relative Viscosity", min_range=0.1, max_range=10, standard = standard)
             visc_kpi(rrf2, txt="5-s Viscosity", min_range=4.9, max_range=5.1, standard = 0.0075)
         #db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
         shears = px.line(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'])
@@ -548,24 +487,12 @@ if menu == "Shear Rate and RRF":
         st.plotly_chart(preshear, config= dict(
             displayModeBar = False),use_container_width=True)
         
-
-
-
-
-
-
-
-             
-
-
     except:
             st.warning("Upload data", icon='📁')
 if menu == "Data":
     colored_header("Data")
     try:
             csv = convert_df(rrf)
-
-
             st.download_button(
                 label="Download Processed Shear Rate and RRF",
                 data=csv,
