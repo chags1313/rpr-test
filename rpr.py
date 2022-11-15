@@ -300,7 +300,7 @@ if menu == "Records":
             
 if menu == "Test Analytics":
     # test analytics page
-    try:
+    #try:
         colored_header("Raw Test Data and Sliced Curves")
         uu1, uu2 = st.columns(2)
         fig =  px.scatter(wad, y='Amplitude - Normalized Pressure Data',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
@@ -327,7 +327,7 @@ if menu == "Test Analytics":
             displayModeBar = False, staticPlot= True))
             st.write("Autocorrelation: " + str(round(cur['Second Curve'].autocorr(lag=1000), 4)))
         
-    except:
+    #except:
             st.warning("Upload data", icon ='📁')
 
 if menu == "Shear Rate and RRF":
