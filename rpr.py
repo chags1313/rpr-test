@@ -382,9 +382,9 @@ if menu == "Shear Rate and RRF":
             
 
         
-        f = rrf2[rrf2['Shear Rate'] > 450]
-        f = f[f['Shear Rate'] < 550]
-        standard = len(f['Viscosity']) / 100
+        f = rrf2[rrf2['Shear Rate'] > 400]
+        f = f[f['Shear Rate'] < 600]
+        standard = len(f['Viscosity']) / 200
         rrf2['Relative Viscosity'] = rrf2['Viscosity'] / standard
         with c8:
             create_kpi(rrf2, txt="400-s Relative Viscosity", min_range=350, max_range=450, standard = standard)
