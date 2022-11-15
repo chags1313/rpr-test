@@ -305,6 +305,7 @@ if menu == "Test Analytics":
         uu1, uu2 = st.columns(2)
         fig =  px.scatter(wad, y='Amplitude - Normalized Pressure Data',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
         avg_curve1['analyzed'] = avg_curve1['Shear Rate'] < 500
+        avg_curve1['Seconds'] = avg_curve1.index
         avg_plt = px.line(avg_curve1, y = "Amplitude - Normalized Pressure Data",x = 'Seconds', color = 'analyzed')#color_discrete_sequence=['black'])
 
         with uu2:
