@@ -332,7 +332,7 @@ if menu == "Test Analytics":
             st.warning("Upload data", icon ='📁')
 
 if menu == "Shear Rate and RRF":
-    try:
+    #try:
         colored_header("Relative Resistance to Flow by Shear Rate")
         rrf = rrf[rrf['Shear Rate'] > 0.01]
         rrf['Pressure - mmHg'] = rrf['Amplitude - Normalized Pressure Data']
@@ -488,8 +488,8 @@ if menu == "Shear Rate and RRF":
         st.plotly_chart(preshear, config= dict(
             displayModeBar = False),use_container_width=True)
         
-    except:
-            st.warning("Upload data", icon='📁')
+    #except:
+            #st.warning("Upload data", icon='📁')
 if menu == "Data":
     colored_header("Data")
     try:
