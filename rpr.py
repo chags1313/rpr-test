@@ -303,19 +303,21 @@ if menu == "Test Analytics":
     try:
         colored_header("Raw Test Data and Sliced Curves")
         uu1, uu2 = st.columns(2)
-        fig =  px.scatter(wad, y='Amplitude - Normalized Pressure Data',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
+        wad['Pressure (mmHg)'] = wad['Amplitude - Normalized Pressure Data']
+        fig =  px.scatter(wad, y='Pressure (mmHg)',x= "Seconds", color = 'curves',color_discrete_sequence=["gray", "red"])
         avg_curve1['analyzed'] = avg_curve1['Shear Rate'] < 500
         avg_curve1['Seconds'] = avg_curve1.index / 1000
-        avg_plt = px.line(avg_curve1, y = "Amplitude - Normalized Pressure Data",x = 'Seconds', color = 'analyzed', color_discrete_sequence=['red', 'purple'])#color_discrete_sequence=['black'])
+        avg_curve1['Pressure (mmHg)'] = avg_curve1["Amplitude - Normalized Pressure Data"]
+        avg_plt = px.line(avg_curve1, y = 'Pressure (mmHg)',x = 'Seconds', color = 'analyzed', color_discrete_sequence=['red', 'purple'])#color_discrete_sequence=['black'])
 
         with uu2:
             #with st.expander("Averaged Curve Sliced Data"):
             rsq = get_r2_numpy_corrcoef(x=cur['First Curve'], y=cur['Second Curve'])
             rsq = round(rsq, 3)
             st.info('R Squared: ' + str(rsq), icon ='📊')
-            avg_plt.update_layout(width=480, showlegend=False, hovermode='x unified')
+            avg_plt.update_layout(showlegend=False, hovermode='x unified')
             st.plotly_chart(avg_plt, config= dict(
-        displayModeBar = False))
+        displayModeBar = False), use_container_width=True)
 
         with uu1:
             #with st.expander("Original Data"):
@@ -323,9 +325,9 @@ if menu == "Test Analytics":
                 st.success("Valid Test", icon='✅')
             else:
                 st.error("Invalid Test - Try Running Test Again", icon ='❌')
-            fig.update_layout(width=480,showlegend=False)
+            fig.update_layout(showlegend=False)
             st.plotly_chart(fig, config= dict(
-            displayModeBar = False, staticPlot= True))
+            displayModeBar = False, staticPlot= True), use_container_width=True)
             st.write("Autocorrelation: " + str(round(cur['Second Curve'].autocorr(lag=1000), 4)))
         
     except:
@@ -406,7 +408,7 @@ if menu == "Shear Rate and RRF":
         rrf2['Time of Flow'] = rrf2.index / 1000
         stime = px.area(rrf2, x ='Shear Rate', y = 'Time in Seconds', color_discrete_sequence=['purple'])
         stime.update_layout(hovermode='x unified')
-        stime.update_yaxes(range=(0,50))
+        stime.update_yaxes(range=(0,75))
         stime.update_xaxes(range=(0,500))
         st.plotly_chart(stime, config= dict(
             displayModeBar = False), use_container_width=True)
@@ -436,9 +438,7 @@ if menu == "Shear Rate and RRF":
         with c_1:
             visc_kpi(rrf2, txt="5-s Viscosity", min_range=4.9, max_range=5.1, standard = 0.0075)
         #db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
-        shears = px.scatter(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'],  trendline="rolling", 
-                 trendline_options=dict(window= st.session_state.avg_filt))
-        shears.data = [t for t in shears.data if t.mode == "lines"]
+        shears = px.scatter(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'], size = 'Viscosity')
         #shear.data = [t for t in shears.data if t.mode == "lines"] , trendline="lowess", trendline_options=dict(frac=0.5)
         #shears.update_traces(visible=False, selector=dict(mode="markers"))
         #shears.update_yaxes(range=(0,0.5))
@@ -455,7 +455,7 @@ if menu == "Shear Rate and RRF":
             flowc = px.scatter(rrf, y ='Rate of Shear Rate Change', x = 'Shear Rate', color_discrete_sequence=['green'])
             flowc.update_layout(hovermode='x unified')
             #flowc.update_yaxes(range=(0,10000))
-            #flowc.update_xaxes(range=(0,500))
+            flowc.update_xaxes(range=(0,500))
             st.plotly_chart(flowc, config= dict(
             displayModeBar = False), use_container_width=True)
         colored_header("Pressure by Shear Rate")
