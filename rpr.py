@@ -436,7 +436,9 @@ if menu == "Shear Rate and RRF":
         with c_1:
             visc_kpi(rrf2, txt="5-s Viscosity", min_range=4.9, max_range=5.1, standard = 0.0075)
         #db_upload(f=uploaded_file.name, z1=z1, y1=y1, x1=x1, o1=o1, p1=p1)
-        shears = px.line(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'])
+        shears = px.scatter(rrf, x='Shear Rate', y = 'Viscosity', color_discrete_sequence=['orange'], , trendline="rolling", 
+                 trendline_options=dict(window= st.session_state.avg_filt))
+        shears.data = [t for t in shears.data if t.mode == "lines"]
         #shear.data = [t for t in shears.data if t.mode == "lines"] , trendline="lowess", trendline_options=dict(frac=0.5)
         #shears.update_traces(visible=False, selector=dict(mode="markers"))
         #shears.update_yaxes(range=(0,0.5))
