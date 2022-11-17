@@ -242,7 +242,7 @@ with st.sidebar:
 
         needlesize = st.number_input('Needle Size', value=17.5, step=0.5)
         filt_type = st.selectbox('Filter Type', options = ['Rolling', 'Exponentially Weighted'])
-        avg_filt = st.number_input('Averaging Filter',value = avg_filt, step=1)
+        avg_filt = st.number_input('Averaging Filter',value = 18, step=1)
 
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
 
