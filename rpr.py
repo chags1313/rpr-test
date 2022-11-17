@@ -115,7 +115,10 @@ def processing(uploaded_file, needlesize):
         avg_curve = (fir_curve.reset_index(drop=True) + sec_curve[:len(fir_curve)].reset_index(drop=True)) / 2
         avg_curve1 = pd.DataFrame()
         avg_curve1['Amplitude - Normalized Pressure Data'] = sec_curve
-        avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = st.session_state.avg_filt).mean()
+        if filt_type == 'Rolling':
+            avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].rolling(window = avg_filt).mean()
+        if filt_type == 'Exponentially Weighted':
+            avg_curve1['Amplitude - Normalized Pressure Data'] = avg_curve1['Amplitude - Normalized Pressure Data'].ewm(span = avg_filt).mean()
         last_point = avg_curve1['Amplitude - Normalized Pressure Data'].iloc[-1]
         R = ((0.0165 * 2.54) / 100)
         pi = 3.14256
@@ -236,13 +239,10 @@ if menu == 'Home':
 with st.sidebar:
     # additional sidebar
     with st.expander("Admin Settings"):
-        if 'avg_filt' not in st.session_state:
-            st.session_state.avg_filt = 10
-        else:
-            st.session_state.avg_filt = st.session_state.avg_filt
 
         needlesize = st.number_input('Needle Size', value=17.5, step=0.5)
-        st.session_state.avg_filt = st.number_input('Averaging Filter',value = st.session_state.avg_filt, step=1)
+        filt_type = st.selectbox('Filter Type', options = ['Rolling', 'Exponentially Weighted'])
+        avg_filt = st.number_input('Averaging Filter',value = avg_filt, step=1)
 
     uploaded_file = st.sidebar.file_uploader("Upload Your RPR Test File", type="csv")
 
