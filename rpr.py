@@ -316,7 +316,7 @@ if menu == "Test Analytics":
             rsq = round(rsq, 3)
             st.info('R Squared: ' + str(rsq), icon ='📊')
             avg_plt.update_layout(showlegend=False, hovermode='x unified')
-            avg_plt.add_hline(y=0.0)
+            avg_plt.add_hline(y=0.0, line_width=3, line_dash="dash")
             st.plotly_chart(avg_plt, config= dict(
         displayModeBar = False), use_container_width=True)
 
